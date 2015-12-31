@@ -1,0 +1,816 @@
+﻿@{
+    ViewBag.Title = "Add New Plan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add New Plan</h2>
+
+@model Repositories.Models.NewHome.Plan
+
+<section class="content">
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+
+        <div class="box-header with-border">
+            <h3 class="box-title">Manage Your Home Here</h3>
+            <div class="form-group pull-right col-lg-1" style="margin-right: 10px;">
+                <input type="button" class="btn btn-primary btn-block " value="Back" onclick="BackListing(this)" data-loading-text="Please wait..." />
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Plan Created Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div style="text-align: center; font-size: 14px; line-height: 20px;">
+                    <label for="myalue" style="vertical-align: middle; color: red;"></label>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Communities</label>
+                            @Html.DropDownListFor(m => m.CommunityName,
+                            Model.CommunityList.Select(x => new SelectListItem { Text = x.CommunityName, Value = x.CommunityName }),
+                            "Select",
+                            new { @class = "adv_search_chosearea form-control" })
+
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Builder</label>
+                            @Html.DropDownListFor(m => m.BuilderName, Model.BuilderList.Select(s => new SelectListItem { Text = s.Value, Value = s.Key }), new { @class = "adv_search_chosearea form-control" })
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>High price (in community)</label>
+                        @Html.TextBoxFor(m => m.Communityprice_high, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Low price (in community)</label>
+                        @Html.TextBoxFor(m => m.Communityprice_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Highest sqft (in community)</label>
+                        @Html.TextBoxFor(m => m.Communitysqft_high, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Lowest sqft (in community)</label>
+                        @Html.TextBoxFor(m => m.Communitysqft_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Number</label>
+                        @Html.TextBoxFor(m => m.Number, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            @*<div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Land Price</label>
+                        @Html.TextBoxFor(m => m.Land_price, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Base Price</label>
+                        @Html.TextBoxFor(m => m.Base_price, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>*@
+            <div class="row">
+                @*<div class="col-md-6">
+                    <div class="form-group">
+                        <label>Base Sqft</label>
+                        @Html.TextBoxFor(m => m.Sqft_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div>*@<!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Dining Area</label>
+                        @Html.TextBoxFor(m => m.Dining_areas, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Baths Low</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Baths_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="baths_low_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="baths_low_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Baths High</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Baths, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="baths_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="baths_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Half Baths low</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Half_baths_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="hbaths_low_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="hbaths_low_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Half Baths high</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Half_baths, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="hbaths_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="hbaths_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Master BedLocation</label>
+                        @Html.TextBoxFor(m => m.Master_bedroom_location, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Bedrooms low</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Bedrooms_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="beds_low_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="beds_low_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Bedrooms high</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Bedrooms, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="beds_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="beds_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Entry</label>
+                        @Html.TextBoxFor(m => m.Garage_entry, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Garage low</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Garage_low, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="garage_low_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="garage_low_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Garage high</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.Garage, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="garage_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="garage_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Garage Detach</label>
+                        @Html.TextBoxFor(m => m.Garage_detach, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Style</label>
+                        @Html.TextBoxFor(m => m.Style, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Basement</label>
+                        @Html.TextBoxFor(m => m.Basement, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Marketing Headline</label>
+                        @Html.TextBoxFor(m => m.Marketing_headline, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Description</label>
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Stories</label>
+                        @Html.TextBoxFor(m => m.Stories, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Brochure </label>
+                        @Html.TextBoxFor(m => m.Brochure, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Plan Amenities</label>
+                        @Html.TextBoxFor(m => m.Plan_amenities, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>VirtualTour</label>
+                        @Html.TextBoxFor(m => m.Virtual_tour, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Plan Viewer</label>
+                        @Html.TextBoxFor(m => m.Plan_viewer, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group pull-right">
+                        <input type="button" id="btnSave" class="btn btn-primary btn-block " value="Save" />
+                    </div><!-- /.form-group -->
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group pull-right">
+                        <a class="btn btn-primary btn-block " id="newHomeLink" href="/Property/newhome/new-home?planid=@ViewBag.PlanId&homeId=0" style="@(ViewBag.PlanId != null? string.Empty : "display:none;")"> New Home </a>
+                        <a class="btn btn-primary btn-block " id="newHomeAddImages" href="/property/newhome/Images/@ViewBag.PlanId" style="@(ViewBag.PlanId != null? string.Empty : "display:none;")"> Manage Images</a>
+                    </div><!-- /.form-group -->
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+
+                <div class="box-body">
+                    <table id="homelisting" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+
+                                <th>Home#</th>
+                                <th>Price ($)</th>
+                                <th>Property Type</th>
+                                <th>Living Area (Sq. ft)</th>
+                                <th>Bath (Full)</th>
+                                <th>Bed</th>
+                                <th>Address</th>
+                                <th>Edit Home</th>
+                                <th>Delete Home</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section>
+
+@section css{
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="~/plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="~/plugins/timepicker/bootstrap-timepicker.min.css">
+    @*
+    *@
+    <link href="~/bootstrap/css/Custom.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+    <link href="~/Content/GridViewStyle.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+    @*<style>
+            button, input, optgroup, select, textarea {
+                border: 1px solid #ddd;
+                color: inherit;
+                font: inherit;
+                height: 35px;
+                margin: 0;
+                width: 100%;
+                padding: 0 20px;
+            }
+        </style>*@
+
+}
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            $('#baths_low_up').on('click', function () {
+                $('#Baths_low').val(parseInt($('#Baths_low').val(), 10) + 1);
+            });
+            $('#baths_low_dw').on('click', function () {
+                if ((parseInt($('#Baths_low').val(), 10) - 1) >= 0) {
+                    $('#Baths_low').val(parseInt($('#Baths_low').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#baths_up').on('click', function () {
+                $('#Baths').val(parseInt($('#Baths').val(), 10) + 1);
+            });
+            $('#baths_dw').on('click', function () {
+                if ((parseInt($('#Baths').val(), 10) - 1) >= 0) {
+                    $('#Baths').val(parseInt($('#Baths').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#hbaths_low_up').on('click', function () {
+                $('#Half_baths_low').val(parseInt($('#Half_baths_low').val(), 10) + 1);
+            });
+            $('#hbaths_low_dw').on('click', function () {
+                if ((parseInt($('#Half_baths_low').val(), 10) - 1) >= 0) {
+                    $('#Half_baths_low').val(parseInt($('#Half_baths_low').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#hbaths_up').on('click', function () {
+                $('#Half_baths').val(parseInt($('#Half_baths').val(), 10) + 1);
+            });
+            $('#hbaths_dw').on('click', function () {
+                if ((parseInt($('#Half_baths').val(), 10) - 1) >= 0) {
+                    $('#Half_baths').val(parseInt($('#Half_baths').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#beds_low_up').on('click', function () {
+                $('#Bedrooms_low').val(parseInt($('#Bedrooms_low').val(), 10) + 1);
+            });
+            $('#beds_low_dw').on('click', function () {
+                if ((parseInt($('#Bedrooms_low').val(), 10) - 1) >= 0) {
+                    $('#Bedrooms_low').val(parseInt($('#Bedrooms_low').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#beds_up').on('click', function () {
+                $('#Bedrooms').val(parseInt($('#Bedrooms').val(), 10) + 1);
+            });
+            $('#beds_dw').on('click', function () {
+                if ((parseInt($('#Bedrooms').val(), 10) - 1) >= 0) {
+                    $('#Bedrooms').val(parseInt($('#Bedrooms').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#garage_low_up').on('click', function () {
+                $('#Garage_low').val(parseInt($('#Garage_low').val(), 10) + 1);
+            });
+            $('#garage_low_dw').on('click', function () {
+                if ((parseInt($('#Garage_low').val(), 10) - 1) >= 0) {
+                    $('#Garage_low').val(parseInt($('#Garage_low').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#garage_up').on('click', function () {
+                $('#Garage').val(parseInt($('#Garage').val(), 10) + 1);
+            });
+            $('#garage_dw').on('click', function () {
+                if ((parseInt($('#Garage').val(), 10) - 1) >= 0) {
+                    $('#Garage').val(parseInt($('#Garage').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+    </script>
+
+
+
+    <script>
+
+        (function ($) {
+            $('#btnSave').on('click', function () {
+                debugger;
+                var CommunityName = $("#CommunityName option:selected").val();
+                var BuilderNumber = $("#BuilderName option:selected").val();
+                var Communityprice_high = $("#Communityprice_high").val();
+                var Communityprice_low = $("#Communityprice_low").val();
+                var Communitysqft_high = $("#Communitysqft_high").val();
+                var Communitysqft_low = $("#Communitysqft_low").val();
+                var Name = $("#Name").val();
+                var Number = $("#Number").val();
+                var Land_price = 0;                     //$("#Land_price").val();
+                var Base_price = 0;                    //$("#Base_price").val();
+                var Sqft_low = 0;                      //$("#Sqft_low").val();
+                var Dining_areas = $("#Dining_areas").val();
+                var Baths = $("#Baths").val();
+                var Baths_low = $("#Baths_low").val();   //baths low
+                var Half_baths = $("#Half_baths").val();
+                var Half_baths_low = $("#Half_baths_low").val();  //half baths low
+                var Master_bedroom_location = $("#Master_bedroom_location").val();
+                var Bedrooms = $("#Bedrooms").val();
+                var Bedrooms_low = $("#Bedrooms_low").val();  //bedrooms low
+                var Garage_entry = $("#Garage_entry").val();
+
+                var Garage = $("#Garage").val();
+                var Garage_low = $("#Garage_low").val();    //garage low
+                var Garage_detach = $("#Garage_detach").val();
+                var Style = $("#Style").val();
+                var Basement = $("#Basement").val();
+                var Marketing_headline = $("#Marketing_headline").val();
+                var Description = $("#Description").val();
+                var Stories = $("#Stories").val();
+                var Brochure = $("#Brochure").val();
+                var Plan_amenities = $("#Plan_amenities").val();
+                var Virtual_tour = $("#Virtual_tour").val();
+                var Plan_viewer = $("#Plan_viewer").val();
+                var numbers = /^[0-9]+$/;
+
+                var type = 'newhome';
+
+                var formData = {
+                    CommunityName: CommunityName,
+                    Communityprice_high: Communityprice_high,
+                    Communityprice_low: Communityprice_low,
+                    Communitysqft_high: Communitysqft_high,
+                    Communitysqft_low: Communitysqft_low,
+                    BuilderNumber: BuilderNumber,
+                    Name: Name,
+                    Number: Number,
+                    Land_price: Land_price,
+                    Base_price: Base_price,
+                    Sqft_low: Sqft_low,
+                    Dining_areas: Dining_areas,
+                    Baths: Baths,
+                    Baths_low: Baths_low,
+                    Half_baths: Half_baths,
+                    Half_baths_low: Half_baths_low,
+                    Master_bedroom_location: Master_bedroom_location,
+                    Bedrooms: Bedrooms,
+                    Bedrooms_low: Bedrooms_low,
+                    Garage_entry: Garage_entry,
+                    Garage: Garage,
+                    Garage_low: Garage_low,
+                    Garage_detach: Garage_detach,
+                    Style: Style,
+                    Basement: Basement,
+                    Marketing_headline: Marketing_headline,
+                    Description: Description,
+                    Stories: Stories,
+                    Brochure: Brochure,
+                    Plan_amenities: Plan_amenities,
+                    Virtual_tour: Virtual_tour,
+                    Plan_viewer: Plan_viewer
+                };
+
+                var planid = GetParameterValues('planid');
+
+                if (planid == undefined) planid = '0';
+                var _url = "/property/newhome/newhomeplan?planid=" + planid;
+                var validResult = false;
+                if (CommunityName != "") {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please select Community.");
+                    $('#CommunityName').focus();
+                    return;
+                }
+                if (numbers.test(Land_price)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Land_price').focus();
+                    return;
+                }
+
+                if (numbers.test(Base_price)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Base_price').focus();
+                    return;
+                }
+
+                if (numbers.test(Communityprice_high)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Communityprice_high').focus();
+                    return;
+                }
+
+                if (numbers.test(Communityprice_low)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Communityprice_low').focus();
+                    return;
+                }
+
+                if (numbers.test(Communitysqft_high)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Communitysqft_high').focus();
+                    return;
+                }
+
+                if (numbers.test(Communitysqft_low)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Communitysqft_low').focus();
+                    return;
+                }
+
+                if (numbers.test(Sqft_low)) {
+                    validResult = true;
+                    jQuery("label[for='myalue']").html("");
+                } else {
+                    validResult = false;
+                    jQuery("label[for='myalue']").html("Please enter numeric value only.");
+                    $('#Sqft_low').focus();
+                    return;
+                }
+
+                if (validResult == true) {
+                    $.ajax({
+                        url: _url,
+                        type: "POST",
+                        data: formData,
+                        success: function (data, textStatus, jqXHR) {
+                            if (data) {
+                                if (data.success == true) {
+                                    debugger;
+                                    $("#sucessalert").show();
+                                    $('#sucessalert').delay(5000).fadeOut(400);
+                                    $('#newHomeLink').show();
+                                    $('#newHomeLink').attr('href', '/property/newhome/new-home?planid=' + data.PlanId + '&homeId=0');
+                                    $('#newHomeAddImages').show();
+                                    $('#newHomeAddImages').attr('href', '/property/newhome/Images/' + data.PlanId);
+
+                                    if (window.location.href.indexOf("?") > 0)
+                                    {
+                                        var _path = window.location.href.substring(0, window.location.href.indexOf("?"));
+                                        window.history.pushState({ path: _path }, '', _path + "?planid=" + data.PlanId);
+                                    }
+                                    else
+                                    {
+                                        window.history.pushState({ path: window.location.href }, '', window.location.href + "?planid=" + data.PlanId);
+                                    }
+                                    
+                                }
+
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        }
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+
+    <script>
+        function GetParameterValues(param) {
+            var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < url.length; i++) {
+                var urlparam = url[i].split('=');
+                if (urlparam[0] == param) {
+                    return urlparam[1];
+                }
+            }
+        }
+        (function ($) {
+            debugger;
+
+
+            var planid = GetParameterValues('planid');
+            if (planid != undefined) {
+
+                /* Initialize table and make first column non-sortable*/
+                oTable = $("#homelisting").dataTable({
+                    "bServerSide": true,
+                    "bProcessing": true,
+                    "order": [[2, "asc"]],
+                    "sAjaxSource": '/property/home-listing-ajax-handler?planid=' + planid,
+                    "aoColumns": [
+
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false
+                                },
+                                 {
+                                     "bSortable": false,
+                                     "bSearchable": false,
+                                     "mRender": function (data, type, full) {
+                                         return "<a class=\"btn btn-block btn-primary\" href=\"javascript:MangeHomes('" + planid + "','" + full[0] + "');\">Manage Home</a>";
+                                     }
+                                 },
+                                 {
+                                     "bSortable": false,
+                                     "bSearchable": false,
+                                     "mRender": function (data, type, full) {
+                                         return "<a class=\"btn btn-block btn-danger\" href=\"javascript:DeleteHome('" + planid + "','" + full[0] + "');\">Delete Home</a>";
+                                     }
+                                 },
+                                {
+                                    "bSortable": false,
+                                    "bSearchable": false,
+                                    "mRender": function (data, type, full) {
+                                        return "<a class=\"btn btn-block btn-primary\" href=\"javascript:MangeHomeImages('" + planid + "','" + full[0] + "');\">Manage Images</a>";
+                                    }
+                                }
+
+                    ]
+                });
+            }
+
+        })(jQuery);
+
+        function MangeHomeImages(planid, homeid) {
+            window.location.href = "/property/newhome/Homes/Images/" + planid + "/" + homeid;
+        }
+
+        function MangeHomes(planid, homeid) {
+            window.location.href = "/property/newhome/new-home?planId=" + planid + "&homeid=" + homeid;
+        }
+
+        function DeleteHome(planid, homeid) {
+            window.location.href = "/property/newhome/delete-home?planid=" + planid + "&homeid=" + homeid;
+        }
+
+        function BackListing(btn) {
+            window.location.href = "/property/newhome-property-listing?liId=newHomeList";
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#BuilderName option").each(function () {
+                if ($(this).text() == '@Model.BuilderName') {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+        });
+    </script>
+}

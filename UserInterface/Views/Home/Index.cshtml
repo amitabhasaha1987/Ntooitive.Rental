@@ -1,0 +1,325 @@
+﻿@model IEnumerable<Repositories.Models.RealEstate>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="@Url.Content("~/css/immersive-slider.css")" rel="stylesheet" type="text/css" />
+<link href="~/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<style>
+    .ui-autocomplete {
+        max-height: 150px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding-right: 20px;
+    }
+    /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+</style>
+<script src="~/js/jquery-1.10.2.js"></script>
+<script src="~/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#txtSearch").autocomplete({
+            source: '@Url.Action("GetAutoCompleteData")'
+        });
+    });
+</script>
+@using (Html.BeginForm("PropertiesListing", "Home", FormMethod.Post))
+{
+    <div id='ninja-slider'>
+
+        <ul>
+            <li><a href="#"><img src="@Url.Content("~/image/banner1.jpg")" alt="" /></a></li>
+            <li><a href="#"><img src="@Url.Content("~/image/banner1.jpg")" alt="" /></a></li>
+            <li><a href="#"><img src="@Url.Content("~/image/banner1.jpg")" alt="" /></a></li>
+            <li><a href="#"><img src="@Url.Content("~/image/banner1.jpg")" alt="" /></a></li>
+            <li><a href="#"><img src="@Url.Content("~/image/banner1.jpg")" alt="" /></a></li>
+            <li><a href="#"><img src="@Url.Content("~/image/banner1.jpg")" alt="" /></a></li>
+        </ul>
+
+
+    </div>
+
+
+    <div class="banner">
+        <h1>NOW IT'S EASY TO FIND YOUR FUTURE HOME</h1>
+        <h2>WITH REALVARTICAL - LOREL IPSUM DOLLER</h2>
+        <input name="" type="button" class="learn_more" value="Learn More" />
+        <div class="serch-area">
+            @Html.TextBox("searchTerm", null, new { id = "txtSearch" })
+        </div>
+        <div class="serch-button">
+            <input name="" type="submit" class="search_btt" value="Search" />
+            <input name="" type="button" class="filter_btt" value="Filter Search" />
+        </div>
+        <div class="clear"></div>
+
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="page_container">
+        <div class="services">
+            <h1>Our Services</h1>
+            <ul>
+                <li>
+                    <img src="~/image/find.jpg" />
+                    <h2>Find Places anywhere in the world</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </li>
+                <li>
+                    <img src="~/image/agent.jpg" />
+                    <h2>We have agents with Experience</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </li>
+                <li>
+                    <img src="~/image/property.jpg" />
+                    <h2>Buy or rent beaytiful properties</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </li>
+                <li>
+                    <img src="~/image/four.jpg" />
+                    <h2>With agent account you can list properties</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="main_thum">
+        <h1>Feature product</h1>
+        @*@foreach (var item in Model)
+            {
+                <div class="view view-first">
+                    <img src=@item.Photos.Photo[0].MediaURL />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$ @item.ListPrice.Text</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>@item.Address.FullStreetAddress</h4>
+                    </div>
+                </div>
+            }*@
+    </div>
+    <div class="clear"></div>
+    <div class="main">
+        <div id="immersive_slider">
+            <div class="slide">
+                <div class="content">
+                    <h2><a href="#" target="_blank">About <span style="color:#696868; font-weight:lighter;">Agent</span></a></h2>
+                    <h3>
+                        MARKUS DOE<br />
+                        Real Estate Group
+                    </h3>
+                    <p>Markus is a Certified Residential Specialist with over 10 years experience of helping local residents sell homes. He achieved success due to his commitment to the enhancement of the real estate profession, client service, and the community.</p>
+
+                    <ul>
+                        <li><img src="~/image/icon_mail.png" /> Markus.esp@yoursite.com</li>
+                        <li><img src="~/image/icon_http.png" /> http://easysale.com</li>
+                        <li><img src="~/image/icon_call.png" /> (1234) 457 - 78 - 98</li>
+                        <li><img src="~/image/icon_fax.png" /> (1234) 457 - 78 - 98</li>
+                    </ul>
+
+
+                </div>
+                <div class="image">
+                    <a href="http://www.bucketlistly.com" target="_blank">
+                        <img src="~/image/thumb.jpg" />
+                    </a>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="content">
+                    <h2><a href="#" target="_blank">About <span style="color:#696868; font-weight:lighter;">Agent</span></a></h2>
+                    <h3>
+                        MARKUS DOE<br />
+                        Real Estate Group
+                    </h3>
+                    <p>Markus is a Certified Residential Specialist with over 10 years experience of helping local residents sell homes. He achieved success due to his commitment to the enhancement of the real estate profession, client service, and the community.</p>
+
+                    <ul>
+                        <li><img src="~/image/icon_mail.png" /> Markus.esp@yoursite.com</li>
+                        <li><img src="~/image/icon_http.png" /> http://easysale.com</li>
+                        <li><img src="~/image/icon_call.png" /> (1234) 457 - 78 - 98</li>
+                        <li><img src="~/image/icon_fax.png" /> (1234) 457 - 78 - 98</li>
+                    </ul>
+
+
+                </div>
+                <div class="image">
+                    <a href="http://www.bucketlistly.com/apps" target="_blank">  <img src="~/image/thumb.jpg" /></a>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="content">
+                    <h2><a href="#" target="_blank">About <span style="color:#696868; font-weight:lighter;">Agent</span></a></h2>
+                    <h3>
+                        MARKUS DOE<br />
+                        Real Estate Group
+                    </h3>
+                    <p>Markus is a Certified Residential Specialist with over 10 years experience of helping local residents sell homes. He achieved success due to his commitment to the enhancement of the real estate profession, client service, and the community.</p>
+
+                    <ul>
+                        <li><img src="~/image/icon_mail.png" /> Markus.esp@yoursite.com</li>
+                        <li><img src="~/image/icon_http.png" /> http://easysale.com</li>
+                        <li><img src="~/image/icon_call.png" /> (1234) 457 - 78 - 98</li>
+                        <li><img src="~/image/icon_fax.png" /> (1234) 457 - 78 - 98</li>
+                    </ul>
+
+
+                </div>
+                <div class="image">
+                    <a href="http://www.thepetedesign.com" target="_blank"> <img src="~/image/thumb.jpg" /></a>
+                </div>
+            </div>
+
+            <a href="#" class="is-prev">&laquo;</a>
+            <a href="#" class="is-next">&raquo;</a>
+        </div>
+
+    </div>
+
+    <div class="clear"></div>
+    <div class="skdslider">
+        <ul id="demo1" class="slides">
+            <li>
+                <img src="~/image/testi_bg.jpg" />
+                <!--Slider Description example-->
+                <div class="slide-desc">
+                    <h2>TESTIMONIAL</h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. <a class="more" href="#">more</a></p>
+                    <div class="testi_cmmnt"><img src="~/image/testi_thumb.png" width="74px" height="74px;" /> <span class="testi_cmmnt_dtls"> <a href="#">MARCUS SMIT</a> <br />Designer New York</span></div>
+                </div>
+            </li>
+            <li>
+                <img src="~/image/testi_bg.jpg" />
+                <!--Slider Description example-->
+                <div class="slide-desc">
+                    <h2>TESTIMONIAL</h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. <a class="more" href="#">more</a></p>
+                    <div class="testi_cmmnt"><img src="~/image/testi_thumb.png" width="74px" height="74px;" /> <span class="testi_cmmnt_dtls"> <a href="#">MARCUS SMIT</a> <br />Designer New York</span></div>
+                </div>
+            </li>
+            <li>
+                <img src="~/image/testi_bg.jpg" />
+                <!--Slider Description example-->
+                <div class="slide-desc">
+                    <h2>TESTIMONIAL</h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. <a class="more" href="#">more</a></p>
+                    <div class="testi_cmmnt"><img src="~/image/testi_thumb.png" width="74px" height="74px;" /> <span class="testi_cmmnt_dtls"> <a href="#">MARCUS SMIT</a> <br />Designer New York</span></div>
+                </div>
+            </li>
+            <li>
+                <img src="~/image/testi_bg.jpg" />
+                <!--Slider Description example-->
+                <div class="slide-desc">
+                    <h2>TESTIMONIAL</h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. <a class="more" href="#">more</a></p>
+                    <div class="testi_cmmnt"><img src="~/image/testi_thumb.png" width="74px" height="74px;" /> <span class="testi_cmmnt_dtls"> <a href="#">MARCUS SMIT</a> <br />Designer New York</span></div>
+                </div>
+            </li>
+            <li>
+                <img src="~/image/testi_bg.jpg" />
+                <!--Slider Description example-->
+                <div class="slide-desc">
+                    <h2>TESTIMONIAL</h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. <a class="more" href="#">more</a></p>
+                    <div class="testi_cmmnt"><img src="~/image/testi_thumb.png" width="74px" height="74px;" /> <span class="testi_cmmnt_dtls"> <a href="#">MARCUS SMIT</a> <br />Designer New York</span></div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="clear"></div>
+
+
+
+
+
+
+    <div class="page_container">
+        <h1>Featured Properties</h1>
+        <div class="feature_pro">
+
+            <div class="thunb1">
+                <div class="price_tag"><img src="~/image/price_tag.jpg" /></div>
+                <div class="price">$500,00</div>
+                <div class="clear"></div>
+                <div class="status">FOR RENT</div>
+            </div>
+
+            <ul>
+                <li><img src="~/image/icon-expand.jpg" /> 20,000  Acars</li>
+                <li><img src="~/image/bedroom.jpg" /> 4 bedrooms</li>
+                <li><img src="~/image/bathroom.jpg" /> 3 bathrooms</li>
+            </ul>
+
+            <h3>Santa Cecilia Subdivision</h3>
+            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi …</h4>
+
+
+
+
+        </div>
+        <div class="feature_pro">
+
+            <div class="thunb1">
+                <div class="price_tag"><img src="~/image/price_tag.jpg" /></div>
+                <div class="price">$500,00</div>
+                <div class="clear"></div>
+                <div class="status">FOR RENT</div>
+            </div>
+
+            <ul>
+                <li><img src="~/image/icon-expand.jpg" /> 20,000  Acars</li>
+                <li><img src="~/image/bedroom.jpg" /> 4 bedrooms</li>
+                <li><img src="~/image/bathroom.jpg" /> 3 bathrooms</li>
+            </ul>
+
+            <h3>Santa Cecilia Subdivision</h3>
+            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi …</h4>
+
+
+
+
+        </div>
+        <div class="feature_pro">
+
+            <div class="thunb1">
+                <div class="price_tag"><img src="~/image/price_tag.jpg" /></div>
+                <div class="price">$500,00</div>
+                <div class="clear"></div>
+                <div class="status">FOR RENT</div>
+            </div>
+
+            <ul>
+                <li><img src="~/image/icon-expand.jpg" /> 20,000  Acars</li>
+                <li><img src="~/image/bedroom.jpg" /> 4 bedrooms</li>
+                <li><img src="~/image/bathroom.jpg" /> 3 bathrooms</li>
+            </ul>
+
+            <h3>Santa Cecilia Subdivision</h3>
+            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi …</h4>
+
+
+
+
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+    <div class="clear"></div>
+
+
+}

@@ -1,0 +1,27 @@
+﻿@{
+   
+}
+@model Repositories.Models.Admin.User.User
+<link href="~/Content/css/custom.css" rel="stylesheet" />
+
+
+<div class="container">
+    <h2 class="bio_title">Agent Bio</h2>
+    <div class="bio_image"><img src=@Model.LogoImage /></div>
+    <div class="clear"></div>
+    <div class="bio_content">
+        <ul>
+            <li><h5>@Model.FirstName &nbsp; @Model.LastName</h5></li>
+            <li><img src="~/Content/image/icon_phone.jpg" alt="icon_phone" /> Phone&nbsp;:&nbsp; <span>@Model.OfficePhone</span></li>
+            <li><img src="~/Content/image/icon_phone.jpg" alt="icon_phone" /> Mobile&nbsp;:&nbsp; <span>@Model.PrimaryContactPhone</span></li>
+            <li><img src="~/Content/image/icon_mail_b.jpg" alt="icon_mail_b" />Email&nbsp;:&nbsp; <span id="AgentEmail" data-brokermail="@Model.Email">@Model.Email</span></li>
+            @*<li><a href="@Model.WebsiteUrl" target="_blank">@Model.WebsiteUrl</a></li>
+                <li><a href="@ViewBag.ListPageUrl">Other MLS Listing</a></li>
+                <li><a href="/Index/AgentBio?email=@Model.AgentEmail" target="_blank">Agent Bio</a></li>*@
+        </ul>
+    </div>
+    <div class="clear"></div>
+    <div>
+        @Model.AgentDescription
+    </div>
+</div>

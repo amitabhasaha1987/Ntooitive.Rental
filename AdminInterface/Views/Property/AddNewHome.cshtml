@@ -1,0 +1,374 @@
+﻿@model Repositories.Models.NewHome.Home
+@{
+    ViewBag.Title = "AddNewHome";
+}
+<h2 style="padding-left:1%"> Add New Home</h2>
+
+@section css{
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="~/plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="~/plugins/timepicker/bootstrap-timepicker.min.css">
+    <link href="~/bootstrap/css/Custom.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+}
+
+
+
+
+<section class="content">
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+        @using (Html.BeginForm("AddNewHome", "Property", FormMethod.Post))
+        {
+        <div class="box-header with-border">
+            <h3 class="box-title">Add Your Property Here</h3>
+
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Hidden("planId", ViewBag.planId as object) 
+                    @Html.HiddenFor(x => x.Id)
+                    @Html.ValidationSummary(true)
+                    @if (ViewBag.AddSuccess == true)
+                        {
+                        <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: block">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Property Created Successfully.</h4>
+                            <span></span>
+                        </div>
+                        }
+                        else if (ViewBag.AddSuccess == false)
+                        {
+                        <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: block">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                            <span></span>
+                        </div>
+                        }
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Title</label>
+                        @Html.TextBoxFor(m => m.Listing_title, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Listing_title", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Home Type</label>
+                        @Html.TextBoxFor(m => m.Home_type, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Home_type", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Property Type</label>
+                        @{
+                        List<SelectListItem> listP = new List<SelectListItem>();
+
+                        foreach (var item in ViewBag.PropertyType as IEnumerable<string>)
+                        {
+                            var newItem = new SelectListItem { Text = item, Value = item };
+                            listP.Add(newItem);
+                        }
+                        }
+                        @Html.DropDownListFor(m => m.Property_type, listP, new { @class = "form-control select2", @style = "width: 100%;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Sales status</label>
+                        @Html.TextBoxFor(m => m.Sales_status, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Sales_status", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Lot</label>
+                        @Html.TextBoxFor(m => m.Lot, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Lot", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Lot size</label>
+                        @Html.TextBoxFor(m => m.Lot_size, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Lot_size", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Address", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>State</label>
+                        @Html.TextBoxFor(m => m.State, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("State", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.box-body -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>City</label>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("City", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Zip Code</label>
+                        @Html.TextBoxFor(m => m.Zip, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Zip", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>County</label>
+                        @Html.TextBoxFor(m => m.County, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("County", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Country</label>
+                        @Html.TextBoxFor(m => m.Country, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Country", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Latitude</label>
+                        @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Latitude", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Longitude</label>
+                        @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Longitude", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Term</label>
+                        @Html.TextBoxFor(m => m.Term, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Term", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Price</label>
+                        @Html.TextBoxFor(m => m.Price, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Price", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Sqft</label>
+                        @Html.TextBoxFor(m => m.Sqft, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Sqft", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Stories</label>
+                        @Html.TextBoxFor(m => m.Stories, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Stories", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Unit level</label>
+                        @Html.TextBoxFor(m => m.Unit_level, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Unit_level", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Number of units</label>
+                        @Html.TextBoxFor(m => m.Number_of_units, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Number_of_units", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Year built</label>
+                        @Html.TextBoxFor(m => m.Year_built, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Year_built", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Directions</label>
+                        @Html.TextBoxFor(m => m.Directions, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        @Html.ValidationMessage("Directions", new { @style = "color:red;font-weight:bold;" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Master bedroom location</label>
+                        @Html.TextBoxFor(m => m.Master_bedroom_location, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Bed Room</label>
+                        @Html.DropDownListFor(model => model.Bedrooms, new SelectList(
+                  new List<Object>{
+                       new { value = 0 , text = "No Bedroom" },
+                       new { value = 1 , text = "1 Bedroom"  },
+                       new { value = 2 , text = "2 Bedroom" },
+                       new { value = 3 , text = "3 Bedroom" },
+                       new { value = 4 , text = "4 Bedroom" },
+                       new { value = 5 , text = "5 Bedroom" },
+                       new { value = 6 , text = "6 Bedroom" }
+                    },
+                  "value", "text"), new { @class = "form-control select2", @style = "width: 100%;" })
+
+                    </div>
+                </div>
+
+                <!-- /.col -->
+            </div>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Full BathRoom</label>
+                        </div>
+                        @if (String.IsNullOrEmpty(Model.Baths))
+                        {
+                            Model.Baths = "0";
+                        }
+                        <div class="input-group spinner">
+                            @Html.TextBoxFor(m => m.Baths, new { @class = "form-control", Value = Model.Baths, @style = "height: 34px;" })
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button" id="fb_up"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button" id="fb_dw"><i class="fa fa-caret-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Half BathRoom</label>
+                        </div>
+                        @if (String.IsNullOrEmpty(Model.Half_baths))
+                        {
+                            Model.Half_baths = "0";
+                        }
+                        <div class="input-group spinner">
+                            @Html.TextBoxFor(m => m.Half_baths, new { @class = "form-control", Value = Model.Half_baths, @style = "height: 34px;" })
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button" id="hb_up"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button" id="hb_dw"><i class="fa fa-caret-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group pull-right">
+                        <input type="submit" class="btn btn-primary btn-block " value="Save">
+                    </div><!-- /.form-group -->
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group pull-right">
+                        <a id="newHomeLink" href="/property/newhome/new-plan?planid=@ViewBag.planId">Back to plan</a>
+                    </div><!-- /.form-group -->
+                </div>
+            </div>
+        </div><!-- /.box -->
+        }
+    </div>
+    @{
+        if (ViewBag.MlsNumber != null)
+        {
+
+        }
+    }
+
+</section><!-- /.content -->
+@section scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $('#fb_up').on('click', function () {
+                $('#Baths').val(parseInt($('#Baths').val(), 10) + 1);
+            });
+            $('#fb_dw').on('click', function () {
+                if ((parseInt($('#Baths').val(), 10) - 1) >= 0) {
+                    $('#Baths').val(parseInt($('#Baths').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#hb_up').on('click', function () {
+                $('#Half_baths').val(parseInt($('#Half_baths').val(), 10) + 1);
+            });
+            $('#hb_dw').on('click', function () {
+                if ((parseInt($('#Half_baths').val(), 10) - 1) >= 0) {
+                    $('#Half_baths').val(parseInt($('#Half_baths').val(), 10) - 1);
+                }
+            });
+        })(jQuery);
+    </script>
+}

@@ -1,0 +1,1111 @@
+﻿@model Repositories.Models.NewHome.Plan
+@{
+    ViewBag.Title = "NewHomeDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/galleria.classic.css" rel="stylesheet" />
+<link href="~/Content/css/custom.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link href="~/Content/css/GridViewStyle.css" rel="stylesheet" />
+<script type="text/javascript">
+    function GetParameterValues(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == param) {
+                return urlparam[1];
+            }
+        }
+    }
+    $(function () {
+        $('#btnSendMessage').click(function (e) {
+            var name = $('#txtName').val();
+            var email = $('#txtEmail').val();
+            var phone = $('#txtPhone').val();
+            var subject = $('#agent_contact_subject').val();
+            var message = $('#txtMessage').val();
+            var mlsNumber = GetParameterValues("mlsNumber");
+            var brokerMail = $('#brokerEmail').data("brokermail");
+            var command = GetParameterValues("Command");
+            var subCommand = GetParameterValues("SubCommand");
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+            var validResult = false;
+
+            if (name) {
+                validResult = true;
+                jQuery("label[for='myalue']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myalue']").html("Please enter name.");
+                $('#txtName').focus();
+                return;
+            }
+
+            if (mailformat.test(email)) {
+                validResult = true;
+                jQuery("label[for='myalue']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myalue']").html("Please enter valid email.");
+                $('#txtEmail').focus();
+                return;
+            }
+
+            if (numbers.test(phone)) {
+                validResult = true;
+                jQuery("label[for='myalue']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myalue']").html("Please enter valid phone no.");
+                $('#txtPhone').focus();
+                return;
+            }
+
+            if (subject) {
+                validResult = true;
+                jQuery("label[for='myalue']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myalue']").html("Please enter subject.");
+                $('#agent_contact_subject').focus();
+                return;
+            }
+
+            if (message) {
+                validResult = true;
+                jQuery("label[for='myalue']").html("");
+            } else {
+                validResult = false;
+                jQuery("label[for='myalue']").html("Please enter message.");
+                $('#txtMessage').focus();
+                return;
+            }
+            if (validResult == true) {
+                var url = '@Url.Action("SendMessage", "Index")' + '?Name=' + name + '&Email=' + email + '&Phone=' + phone + '&MlsNumber=' + mlsNumber + '&Message=' + message + '&Subject=' + subject + '&BrokerMail=' + brokerMail + '&Command=' + command;
+                $.ajax({
+                    url: url, success: function (result) {
+                        if (result) {
+                            jQuery("label[for='myalue']").html("Your request is confirmed.");
+                        } else {
+                            jQuery("label[for='myalue']").html("Please try again!");
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function CalculateMortgages() {
+        $("#lblMortgageRate").text("Rate  = $20000");
+        alert("hih");
+    }
+
+    function getMortgagesFixedRate() {
+
+
+    }
+</script>
+<style type="text/css">
+    .ct_tags {
+        float: left;
+        font-weight: 400;
+        width: 90px;
+    }
+
+    .pro_lists {
+        font-family: 'PT Sans', sans-serif;
+    }
+
+        .pro_lists ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .pro_lists ul li {
+                font-size: 14px;
+                color: #828080;
+                padding: 15px 10px;
+                border-bottom: 1px solid #dddddd;
+                line-height: normal;
+            }
+
+                .pro_lists ul li img {
+                    margin-top: -3px;
+                }
+
+    .mortgage_details {
+        margin-bottom: 20px;
+    }
+
+        .mortgage_details h3 {
+            padding: 0;
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            color: #000;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+    .mortgage_box {
+        background-color: #dddddd;
+        border: 1px solid #969696;
+        padding: 7px 0;
+        border-radius: 10px;
+    }
+
+        .mortgage_box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .mortgage_box ul li {
+                font-size: 13px;
+                color: #000;
+                text-align: center;
+                float: left;
+                padding: 0 10px;
+                border-right: 1px solid #fff;
+            }
+
+                .mortgage_box ul li:last-child {
+                    border-right: 0px solid #fff;
+                }
+</style>
+<div class="container">
+    @*<div class="home_title"></div>*@
+    <div class="col-lg-8">
+        <div class="pro_dtls-list">
+            <ul>
+                <li>
+                    @Model.FullAddress<span>@Model.Communitycity,@Model.Communitystate,@Model.Communityzip</span>
+                </li>
+                <li>
+                    @{
+                        double Base_Price = 0;
+                        Base_Price = Convert.ToDouble(String.IsNullOrEmpty(Model.Base_price) ? "0" : Model.Base_price);
+
+                        string basePrc = "";// Base_Price.ToString("#,##,##0");
+
+                        var lowprice = Model.Communityprice_low;
+                        var highprice = Model.Communityprice_high;
+                        if (lowprice == 0.0 && highprice == 0.0)
+                        {
+                            basePrc = "$0";
+                        }
+                        else if (lowprice == 0.0 && highprice > 0)
+                        {
+                            basePrc = "From the $" + highprice.ToString("#,##,##0");
+                        }
+                        else if (lowprice > 0 && highprice == 0.0)
+                        {
+                            basePrc = "From the $" + lowprice.ToString("#,##,##0");
+                        }
+                        else if (lowprice > 0 && highprice > 0)
+                        {
+                            basePrc = "$" + lowprice.ToString("#,##,##0") + "-" + "$" + highprice.ToString("#,##,##0");
+                        }
+                    }
+                    @basePrc<span>Price</span>
+                </li>
+                <li>
+                    @{
+                        var lowbed = Model.Bedrooms_low;
+                        var highbed = Model.Bedrooms;
+                        string bedCount = "";
+                        if (lowbed == 0 && highbed == 0)
+                        {
+                            bedCount = "0";
+                        }
+                        else if (lowbed == 0 && highbed > 0)
+                        {
+                            bedCount = highbed.ToString();
+                        }
+                        else if (lowbed > 0 && highbed == 0)
+                        {
+                            bedCount = lowbed.ToString();
+                        }
+                        else if (lowbed > 0 && highbed > 0)
+                        {
+                            bedCount = lowbed.ToString() + "-" + highbed.ToString();
+                        }
+                    }
+                    @bedCount <span>Bed</span>
+                </li>
+                <li>
+                    @{
+                        var lowbath = Model.Baths_low;
+                        var highbath = Model.Baths;
+                        string bathCount = "";
+                        if (lowbath == 0 && highbath == 0)
+                        {
+                            bathCount = "0";
+                        }
+                        else if (lowbath == 0 && highbath > 0)
+                        {
+                            bathCount = highbath.ToString();
+                        }
+                        else if (lowbath > 0 && highbath == 0)
+                        {
+                            bathCount = lowbath.ToString();
+                        }
+                        else if (lowbath > 0 && highbath > 0)
+                        {
+                            bathCount = lowbath.ToString() + "-" + highbath.ToString();
+                        }
+                    }
+                    @bathCount <span> Baths</span>
+                </li>
+                <li>
+                    @{
+                        var sqrt_low = Model.Communitysqft_low;
+                        var sqrt_high = Model.Communitysqft_high;
+                        string sqrt_Count = "";
+                        if (sqrt_low == 0 && sqrt_high == 0)
+                        {
+                            sqrt_Count = "0";
+                        }
+                        else if (sqrt_low == 0 && sqrt_high > 0)
+                        {
+                            sqrt_Count = sqrt_high.ToString();
+                        }
+                        else if (sqrt_low > 0 && sqrt_high == 0)
+                        {
+                            sqrt_Count = sqrt_low.ToString();
+                        }
+                        else if (sqrt_low > 0 && sqrt_high > 0)
+                        {
+                            sqrt_Count = sqrt_low.ToString("#,##,##0") + "-" + sqrt_high.ToString("#,##,##0");
+                        }
+                    }
+                    @sqrt_Count <span>Sq Ft</span>
+
+                    @*  @Model.Communitysqft_low.ToString("#,##,##0") Sq Ft
+                        @if (Model.Communitysqft_low > 0 && Model.Communitysqft_low > 0)
+                        {
+                        <span>@{var a = Base_Price / Model.Communitysqft_low;} $@a.ToString("#,##,##0")/Sq.Ft</span>
+                        }*@
+
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+        <div style="border: 1px solid #dddddd;">
+            <div id="galleria">
+                @if (Model.Images != null)
+                {
+                    foreach (var item in Model.Images.Image)
+                    {
+                        var rawimage = HttpUtility.UrlPathEncode(item.Reference);
+                        <a href=@(item == null ? "~/Content/image/listing_thumb.jpg" : rawimage)>
+                            <img src=@(item == null ? "~/Content/image/listing_thumb.jpg" : rawimage)
+                                 data-big=@(item == null ? "~/Content/image/listing_thumb.jpg" : rawimage)
+                                 data-description="@Model.Style" />
+                        </a>
+                    }
+                }
+                else
+                {
+                    <a href="~/Content/image/listing_thumb.jpg">
+                        <img src="~/Content/image/listing_thumb.jpg"
+                             data-big="~/Content/image/listing_thumb.jpg"
+                             data-title="Biandintz eta zaldiak"
+                             data-description="@Model.Style" />
+                    </a>
+                }
+            </div>
+            <div class="clear"></div>
+            <div class="show_map-street">
+                <ul>
+                    <li><a href="#" onclick="GalleriaSetUp('galleria'); return false;">Photos</a></li>
+                    @if (Model.GeoPoint != null)
+                    {
+                        <li><a href="#" onclick="ShowMapView('galleria', '@Model.GeoPoint.Coordinates[1]', '@Model.GeoPoint.Coordinates[0]','road'); return false;">Map</a></li>
+                        <li><a href="#" onclick="ShowMapView('galleria', '@Model.GeoPoint.Coordinates[1]', '@Model.GeoPoint.Coordinates[0]','birdeye'); return false;">Street</a></li>
+                    }
+                </ul>
+
+            </div>
+            <div class="clear"></div>
+            <div class="social_conn">
+                <span class="follow_social">Share this property :-</span>
+                <span class='st_facebook' displaytext='Facebook'></span>
+                <span class='st_twitter' displaytext='Tweet'></span>
+                <span class='st_pinterest' displaytext='Pinterest'></span>
+                <span class='st_googleplus' displaytext='Google +'></span>
+                <span class='st_instagram' displaytext='Instagram'></span>
+                <span class='st_email' displaytext='Email'></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="prv_nxt">
+            <ul>
+                <li>
+                    @{
+                        var detailsUrl = "/Index/PropertieDetails?mlsNumber=" + @ViewBag.MlsNumber + "&Command=" + @ViewBag.Command + "&NavigationType=P&RecordIndex=" + @ViewBag.PageIndex + "&TotalCount=" + @ViewBag.TotalCount + "&ListPageUrl=" + @ViewBag.ListPageUrl;
+
+                    }
+                    @if (Convert.ToInt32(@ViewBag.PageIndex) != 0)
+                    {
+                        <a href=@detailsUrl><i class="fa fa-chevron-left" style="padding-right:8px;"></i>Prev</a>
+                    }
+                    else
+                    {
+                        <span class="bttn_dsble">
+                            <i class="fa fa-chevron-left" style="padding-right:8px;"></i>Prev
+                        </span>
+                    }
+                </li>
+                <li>
+                    @{
+                        detailsUrl = "/Index/PropertieDetails?mlsNumber=" + @ViewBag.MlsNumber + "&Command=" + @ViewBag.Command + "&NavigationType=N&RecordIndex=" + @ViewBag.PageIndex + "&TotalCount=" + @ViewBag.TotalCount + "&ListPageUrl=" + @ViewBag.ListPageUrl;
+                    }
+                    @if (Convert.ToInt32(@ViewBag.TotalCount) > Convert.ToInt32(@ViewBag.PageIndex))
+                    {
+                        <a href=@detailsUrl>Next<i class="fa fa-chevron-right" style="padding-right:8px;"></i></a>
+                    }
+                    else
+                    {
+                        <span class="bttn_dsble">
+                            Next<i class="fa fa-chevron-right" style="padding-right:8px;"></i>
+                        </span>
+                    }
+
+                </li>
+                <li> <span class="back-listing_btt"> <a href="@Html.AttributeEncode(Url.Action("Index", "Index"))"> <i class="fa fa-chevron-left" style="padding-right:4px;"></i> Back To Search</a></span></li>
+
+
+            </ul>
+
+        </div>
+
+        <div class="clear"></div>
+
+        @*<div class="agent_pro_contant">
+                <a href="http://www.mlcalc.com/#mortgage-@Model.ListPrice-10-30-6.5-3000-1500-0.52-1-2015-year" rel="mlcalc">Calculate @Model.ListPrice mortgage monthly payment</a>
+            </div>*@
+        <a href="http://www.interest.com/mortgage/rates/?MSA" target="_blank">
+            <div class="mortgage_details">
+                <div class="mortgage_box">
+                    <h3>Est. Mortgage</h3>
+                    <ul>
+                        @{
+                            Base_Price = 0;
+                            Base_Price = Convert.ToDouble(String.IsNullOrEmpty(Model.Base_price) ? "0" : Model.Base_price);
+                            basePrc = Base_Price.ToString("#,##,##0");
+                        }
+                        <li><span>Price </span> $@basePrc</li>
+                        <li><span>Down Payment </span> 10 %</li>
+                        <li> <span>Mort. Term </span> 30 Yrs</li>
+                        <li> <span>Int. Rate </span> 3.9%</li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <a href="http://www.mlcalc.com/#mortgage-@basePrc-10-30-6.5-3000-1500-0.52-1-2015-year" rel="mlcalc" style="float:right; padding:5px 0 0 0;">See Current Rates</a>
+                <div class="clear"></div>
+            </div>
+        </a>
+        <div class="clear"></div>
+        <div class="agent_name_dtls">
+
+            <h2>Tell Me More About This Property</h2>
+            <div style="text-align: center; font-size: 14px; line-height: 20px;">
+                <label for="myalue" style="vertical-align: middle; color: red;"></label>
+            </div>
+            <div class="clear"></div>
+            <div class="agent_contact_form ">
+                <ul>
+                    <li>
+                        <label class="ct_tags">
+                            Name <span style="color: #FF0000;">*</span>
+                        </label>
+                        <input name="txtName" id="txtName" type="text" />
+                    </li>
+                    <li>
+                        <label class="ct_tags">
+                            Email <span style="color: #FF0000;">*</span>
+                        </label>
+                        <input name="txtEmail" id="txtEmail" type="text" />
+                    </li>
+                    <li>
+                        <label class="ct_tags">
+                            Phone <span style="color: #FF0000;">*</span>
+                        </label>
+                        <input name="txtPhone" id="txtPhone" type="text" />
+                    </li>
+                    <li>
+                        <label class="ct_tags">
+                            Subject <span style="color: #FF0000;">*</span>
+                        </label>
+                        <input name="txtSubject" type="text" id="agent_contact_subject" />
+                    </li>
+                    <li>
+                        <label class="ct_tags">
+                            Message <span style="color: #FF0000;">*</span>
+                        </label>
+                        <textarea name="txtMessage" id="txtMessage" cols="" rows="" class="message_txt"></textarea>
+                    </li>
+                    <li> <input name="btnSendMessage" id="btnSendMessage" type="button" class="bttn" value="Send Message" /></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="new-listing_prov">
+        @if (ViewBag.IsFeatured)
+        {
+
+            <div class="col-lg-6">
+                <div>
+                    <div class="listing_contact_right">
+                        <h2>
+                            <i class="fa fa-list" style="color:#000; font-size:16px; color:#555;"></i>Listing Provider
+
+                        </h2>
+                        @if (!string.IsNullOrEmpty(@Model.BuilderLogo))
+                        {
+                            <div class="new_listing_logo"><img style="height: 50px; width: 120px;" src=@Model.BuilderLogo /></div>
+                        }
+                        else
+                        {
+                            <div class="new_listing_logo">
+                                <img src="~/Content/image/agent_img.jpg" alt="agent_img" />
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <div class="new-agent_contact1">
+                    <ul>
+                        <li><h5>@Model.BuilderName</h5></li>
+                        <li><img src="~/Content/image/icon_phone.jpg" alt="icon_phone" /> Phone&nbsp;:&nbsp; <span>@ViewBag.OfficePhone</span></li>
+                        <li><img src="~/Content/image/icon_phone.jpg" alt="icon_phone" /> Mobile&nbsp;:&nbsp; <span>@ViewBag.PrimaryContactPhone</span></li>
+                        <li><img src="~/Content/image/icon_mail_b.jpg" alt="icon_mail_b" />Email&nbsp;:&nbsp; <span id="AgentEmail" data-brokermail="@Model.BuilderEmail">@Model.BuilderEmail</span></li>
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="new-agent_contact">
+                    <ul>
+                        @if (!string.IsNullOrEmpty(Model.BuilderWebsite))
+                        {
+                            <li><a href="@Model.BuilderWebsite" target="_blank">@Model.BuilderWebsite</a></li>
+                        }
+                        <li><a href="@ViewBag.ListPageUrl">OtherListing from this builder</a></li>
+                        <li><a href="/Index/AgentBio?email=@Model.BuilderEmail" target="_blank">Bilder Bio</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="clear"></div>
+
+        }
+    </div>
+    <div class="bs-example">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#sectionA">Overview</a></li>
+            <li><a data-toggle="tab" href="#sectionB">Property Details</a></li>
+            <li><a data-toggle="tab" href="#sectionC">Schools & Neighborhood</a></li>
+            @*@if (Request.QueryString["Command"] == "SearchHome")
+                {
+                    <li><a data-toggle="tab" href="#sectionD">House Plans</a></li>
+                }*@
+            @if (string.IsNullOrEmpty(Model.Communityaddress) && string.IsNullOrEmpty(Model.Communityzip))
+            {
+
+            }
+            else
+            {
+                <li><a data-toggle="tab" href="#sectionE">Map & Amenities</a></li>
+            }
+            <li><a data-toggle="tab" href="#sectionF">Financial Option</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="sectionA" class="tab-pane fade in active">
+                <p style="color:#555; padding-top:15px;">  @Model.Description</p>
+                <div class="agent_pro_contant">
+                    <h3>@Model.Style</h3>
+                    <h4>
+                        @*@{
+                                double BasePrice = 0;
+                                BasePrice = Convert.ToDouble(String.IsNullOrEmpty(Model.Base_price) ? "0" : Model.Base_price);
+                                 basePrc = BasePrice.ToString("#,##,##0");
+                            }
+                              $ @basePrc*@
+                    </h4>
+                    <div class="new_home_left">
+
+                        <h4>Address Details</h4>
+                        <p>
+                            Street&nbsp;:&nbsp;@Model.FullAddress
+                        </p>
+                        <p>
+                            City&nbsp;:&nbsp;@Model.Communitycity
+                        </p>
+                        <p>
+                            State&nbsp;:&nbsp;@Model.Communitystate
+                        </p>
+                        <p>
+                            Postal Code&nbsp;:&nbsp;@Model.Communityzip
+                        </p>
+                    </div>
+
+
+                    <div class="new_home_right">
+                        <span class="new-home_logo">
+
+                            @{if (String.IsNullOrEmpty(Model.communityImageUrl))
+                            {
+                                <img src="~/Content/image/agent.jpg" style="width:200px;height:100px;" />
+                            }
+                            else
+                            {
+                                <img src="@Model.communityImageUrl" style="width:200px;height:100px;" />
+                            }
+                            }
+                        </span>
+                        <h4>
+                            Community Details
+                        </h4>
+
+                        <p>
+                            Name&nbsp;:&nbsp;@Model.CommunityName
+                        </p>
+                        <p>
+                            Phone&nbsp;:&nbsp;@Model.CommunityPhone
+                        </p>
+                        <p>
+                            Builder Name&nbsp;:&nbsp;@Model.BuilderName
+                        </p>
+                        <p>
+                            Builder Email&nbsp;:&nbsp;@Model.BuilderEmail
+                        </p>
+                    </div>
+
+                    @*<div class="agent_contact">
+                            <ul>
+                                <li><img src="~/Content/image/icon_phone.jpg" alt="icon_phone" /> Phone&nbsp;:&nbsp;  <span>@Model.b</span></li>
+                                <li><img src="~/Content/image/icon_phone.jpg" alt="icon_phone" /> Mobile&nbsp;:&nbsp; <span>@Model.BrokeragePhone</span></li>
+                                <li><img src="~/Content/image/icon_mail_b.jpg" alt="icon_mail_b" />Email&nbsp;:&nbsp;  <span id="brokerEmail" data-brokermail="@Model.BrokerageEmail">@Model.BrokerageEmail</span></li>
+                            </ul>
+                        </div>*@
+
+                    <div class="clear"></div>
+
+
+                </div>
+            </div>
+            <div id="sectionB" class="tab-pane fade">
+                <div class="agent_pro_contant">
+                    <h4>General Information</h4>
+                    <div class="col-lg-6 pro_lists">
+                        <ul>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Full Bedrooms</strong>&nbsp;:&nbsp;@Model.Bedrooms</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Half Bedrooms</strong>&nbsp;:&nbsp;@Model.HalfBedrooms</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Full Bathroom</strong>&nbsp;:&nbsp;@Model.Baths</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Half Bathroom</strong>&nbsp;:&nbsp;@Model.Half_baths</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Garage</strong>&nbsp;:&nbsp;@Model.Garage</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Garage Entry</strong>&nbsp;:&nbsp;@Model.Garage_entry</li>
+                            @*@{
+                                    double price = 0;
+                                    price = Convert.ToDouble(String.IsNullOrEmpty(Model.Base_price) ? "0" : Model.Base_price);
+                                <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Price</strong>&nbsp;:$&nbsp;@price.ToString("#,##,##0")</li>
+                                    price = Convert.ToDouble(String.IsNullOrEmpty(Model.Land_price) ? "0" : Model.Land_price);
+
+                                <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Land price</strong>&nbsp;:$&nbsp;@price.ToString("#,##,##0")</li>
+                                }*@
+                            <li>
+                                <img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Community Low Price</strong> &nbsp;$:&nbsp;@Model.Communityprice_low.ToString("#,##,##0")
+                            </li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Community High Price</strong>&nbsp;$:&nbsp;@Model.Communityprice_high.ToString("#,##,##0")</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-6 pro_lists">
+                        <ul>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Community High Sqft</strong>&nbsp;:&nbsp;@Model.Communitysqft_high.ToString("#,##,##0") Sq Ft</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Community Low Sqft</strong>&nbsp;:&nbsp;@Model.Communitysqft_low.ToString("#,##,##0") Sq Ft</li>
+
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Basement</strong>&nbsp;:&nbsp;@Model.Basement</li>
+                            <li><img src="~/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Dining Areas</strong>&nbsp;:&nbsp;@(!string.IsNullOrEmpty(Model.Dining_areas) ? @Model.Dining_areas : "NA")</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @{
+                <div id="sectionC" class="tab-pane fade">
+                    <div class="agent_pro_contant">
+
+                        @*<ul>
+                                @{
+                                    if (Model. != null)
+                                    {
+                                        foreach (var item in Model.Schools)
+                                        {
+                                            if (!string.IsNullOrEmpty(@item.Name))
+                                            {
+                                                <li>
+                                                    <p> @item.SchoolCategory &nbsp;School&nbsp;:&nbsp;@item.Name</p>
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                }
+                            </ul>*@
+                    </div>
+                    <div class="agent_pro_contant">
+                        <h3>Near by Schools </h3>
+                    </div>
+                    <div style="margin:0px; padding:0px;">
+
+                        <ul id="schools_tab" class="nav1 nav-pills" style="margin:0px; padding:0px;">
+                            <li class="active"><a href="#public_school" data-toggle="pill">Public Elementary Schools</a></li>
+                            <li><a href="#menu1" data-toggle="pill">Public Middle Schools</a></li>
+                            <li><a href="#menu2" data-toggle="pill">Public High Schools</a></li>
+                            <li><a href="#menu3" data-toggle="pill">Private schools</a></li>
+
+
+                        </ul>
+                        <div class="subtab-content">
+                            <div id="public_school" class="tab-pane fade in active">
+
+
+                                <div class="col-lg-9 schl_tab-contaner" style="margin:0px; padding:0px;">
+                                    <table class="table table-striped" id="public_elementary_school_grid">
+                                        <thead>
+                                            <tr>
+                                                <th class="school_name">School Name</th>
+                                                <th class="distance">Distance</th>
+                                                <th class="grades">Grades</th>
+                                                <th class="stu_tea">Parents Rating*</th>
+                                                <th class="rating">GreatSchools Rating*</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <div class="col-lg-9 schl_tab-contaner" style="margin:0px; padding:0px;">
+                                    <table class="table table-striped" id="public_middle_school_grid">
+                                        <thead>
+                                            <tr>
+                                                <th class="school_name">School Name</th>
+                                                <th class="distance">Distance</th>
+                                                <th class="grades">Grades</th>
+                                                <th class="stu_tea">Parents Rating*</th>
+                                                <th class="rating">GreatSchools Rating*</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <div class="col-lg-9 schl_tab-contaner" style="margin:0px; padding:0px;">
+                                    <table class="table table-striped" id="public_high_school_grid">
+                                        <thead>
+                                            <tr>
+                                                <th class="school_name">School Name</th>
+                                                <th class="distance">Distance</th>
+                                                <th class="grades">Grades</th>
+                                                <th class="stu_tea">Parents Rating*</th>
+                                                <th class="rating">GreatSchools Rating*</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="menu3" class="tab-pane fade active">
+
+                                <div class="col-lg-9 schl_tab-contaner" style="margin:0px; padding:0px;">
+                                    <table class="table table-striped" id="private_gradeschool_school">
+                                        <thead>
+                                            <tr>
+                                                <th class="school_name">School Name</th>
+                                                <th class="distance">Distance</th>
+                                                <th class="grades">Grades</th>
+                                                <th class="stu_tea">Parents Rating*</th>
+                                                <th class="rating">GreatSchools Rating*</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                if (Request.QueryString["Command"] == "SearchHome")
+                {
+                    <div id="sectionD" class="tab-pane fade">
+                        <div class="agent_pro_contant">
+                            <h3>House Plans</h3>
+                            <ul>
+                                @{
+                    if (!string.IsNullOrEmpty(@Model.Plan_viewer))
+                    {
+                        <li>
+                            <p>
+                                <a href="#" onclick="OpenPlanViewerDialog()" style="color:blue;">Plan Viewer :</a>
+                                <div id="dialogP" style="display:none;" title="@Model.PlanId">
+                                    <iframe frameborder="0" scrolling="no" width="700" height="700" src="@Model.Plan_viewer"></iframe>
+                                </div>
+                            </p>
+                        </li>
+                    }
+                    if (!string.IsNullOrEmpty(@Model.Virtual_tour))
+                    {
+                        <li>
+                            <p>
+                                <a href="#" onclick="OpenVirtualTourDialog()" style="color:blue;">Virtual Tour :</a>
+                                <div id="dialogV" style="display:none;" title="@Model.PlanId">
+                                    <iframe frameborder="0" scrolling="no" width="700" height="700" src="@Model.Virtual_tour"></iframe>
+                                </div>
+                            </p>
+                        </li>
+                    }
+
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+            <div id="sectionE" class="tab-pane fade">
+                <div class="agent_pro_contant">
+                    <h4>Near by Aminites</h4>
+                    <div id="bing_amenites"></div>
+
+
+                </div>
+            </div>
+            <div id="sectionF" class="tab-pane fade">
+                <div class="agent_pro_contant">
+                    <h3>Compare Mortgages</h3>
+                    <div class="mortgage_dtls">
+                        <div class="mortgage_option-select">
+                            <ul>
+                                <li>Loan Purpose</li>
+                                <li> <input name="LoanType" type="radio" checked="checked" value="Mortgage" /> <a href="#">Mortgage</a></li>
+                                <li><input name="LoanType" type="radio" value="Refinance" /><a href="#">Refinance</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="right_logo"><img src="~/Content/image/aramco_logo.png" /></div>
+                        <div class="clear"></div>
+                        <div class="city_zip">City or Zip Code <input name="" type="text" value="@Model.Communitycity , @Model.Communitystate" class="input_cityzip" disabled /></div>
+                        <div class="loan_payment">
+                            <ul>
+                                <li><span>Loan Amount</span> <span class="price_icon">$</span><input name="" type="text" value="@Model.Base_price" class="input_loan" disabled /></li>
+                                <li>
+                                    <span>Down Payment</span><select id="dllDownPayment" name="DownPayment" class="input_loan">
+                                        <option>20%</option>
+                                        @*<option>5%</option>
+                                            <option>10%</option>
+                                            <option>15%</option>
+                                            <option>25%</option>
+                                            <option>30%</option>
+                                            <option>40%</option>*@
+                                    </select>
+                                </li>
+                                <li>
+                                    <span> points</span><select name="" class="input_loan">
+                                        <option>20%</option>
+                                    </select>
+                                </li>
+                                @*<li>
+                                        <span> FICO Score</span><select name="" class="input_loan">
+                                                  <option>0</option>
+                                                  </select>
+                                    </li>*@
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="fico_list">
+                            <ul>
+                                <li>FICO Score</li>
+                                <li> <input name="FICOScore" type="radio" value="2" /> <a href="#">Great Score</a></li>
+                                <li><input name="FICOScore" type="radio" value="2.5" /><a href="#">Good Score  </a></li>
+                                <li><input name="FICOScore" type="radio" value="4" /><a href="#">Avarge Score</a></li>
+                            </ul>
+
+                        </div>
+                        <div class="clear"></div>
+                        <div id="Mortgage" class="compare_typeLoan">
+                            <h2>Select loan types to compare</h2>
+
+                            <ul id="mytabs" class="nav_fixed nav-pills22">
+                                <li class="active"><a href="#p1" data-toggle="pill">Fixed</a></li>
+                                <li><a href="#p2" data-toggle="pill">ARM</a></li>
+                                <li><a href="#p3" data-toggle="pill">Interest Only</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="p1" class="tab-pane fade in active">
+                                    <div class="price_cnt">
+                                        <ul>
+                                            <li><input id="chk30yrFixed" name="30yrFixed" type="checkbox" value="3.26" />30 year fixed</li>
+                                            <li><input id="chk15yrFixed" name="15yrFixed" type="checkbox" value="2.75" />15 year fixed</li>
+                                            <li><input id="chk30yrFHA" name="30yrFHA" type="checkbox" value="3.50" />30 year FHA Mortgage</li>
+                                            <li><input id="chk20yrFixed" name="20yrFixed" type="checkbox" value="2.50" />20 year fixed</li>
+                                            <li><input id="chk10yrFixed" name="10yrFixed" type="checkbox" value="2.14" />10 year fixed</li>
+                                            <li><input id="chk30yrVA" name="30yrVA" type="checkbox" value="3.25" />30 year VA Mortgage</li>
+                                            <li><input id="chk40yrFixed" name="40yrFixed" type="checkbox" value="3.0" />40 year fixed-0 points</li>
+                                        </ul>
+
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div id="p2" class="tab-pane fade">
+                                    <div class="price_cnt">
+                                        <ul>
+                                            <li><input id="chk1yrARM" name="1yrARM" type="checkbox" value="" />1 year ARM</li>
+                                            <li><input id="chk51yrARM" name="51yrARM" type="checkbox" value="" />5/1 ARM</li>
+                                            <li><input id="chk31yrARM" name="31yrARM" type="checkbox" value="" />3/1 year ARM</li>
+                                            <li><input id="chk71yrARM" name="71yrARM" type="checkbox" value="" />7/1 year ARM</li>
+                                            <li><input id="chk10yrARM" name="10yrARM" type="checkbox" value="" />10/1 year ARM</li>
+                                        </ul>
+
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div id="p3" class="tab-pane fade">
+                                    <div class="price_cnt">
+                                        <ul>
+                                            <li><input id="chk31yrARMInt" name="31yrARMInt" type="checkbox" value="" />3/1 ARM (Interest only)</li>
+                                            <li><input id="chk51yrARMInt" name="51yrARMInt" type="checkbox" value="" />5/1 ARM (Interest only)</li>
+                                            <li><input id="chk30yrARMInt" name="30yrARMInt" type="checkbox" value="" />30 year fixed (Interest only)-0 point</li>
+                                            <li><input id="chk71yrARMInt" name="71yrARMInt" type="checkbox" value="" />7/1 ARM (Interest only)</li>
+                                        </ul>
+
+
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+
+                                <div class="clear"></div>
+
+                            </div>
+                            <span class="clearfix"><input name="" type="button" value="Find Rates" onclick="CalculateMortgages();" class="find-rates_btt" /></span>
+                        </div>
+
+
+                        <div class="clear"></div>
+
+                        <div id="Refinance" class="compare_typeLoan">
+                            <h2>Select loan types to compare</h2>
+
+                            <ul id="mytabs" class="nav_fixed nav-pills22">
+                                <li class="active"><a href="#p1Refinance" data-toggle="pill">Fixed</a></li>
+                                <li><a href="#p2Refinance" data-toggle="pill">ARM</a></li>
+                                <li><a href="#p3Refinance" data-toggle="pill">Interest Only</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="p1Refinance" class="tab-pane fade in active">
+                                    <div class="price_cnt">
+                                        <ul>
+                                            <li><input id="chk15yrRefi" name="15yrRefi" type="checkbox" value="" />15 year fixed refi</li>
+                                            <li><input id="chk30yrRefi" name="30yrRefi" type="checkbox" value="" />30 year fixed refi</li>
+                                            <li><input id="chk30yrFHARefi" name="30yrFHARefi" type="checkbox" value="" />30 year FHA refi</li>
+                                            <li><input id="chk20yrRefi" name="20yrRefi" type="checkbox" value="" />20 year fixed refi</li>
+                                            <li><input id="chk10yrRefi" name="10yrRefi" type="checkbox" value="" />10 year fixed refi</li>
+                                            <li><input id="chk30yrVARefi" name="30yrVARefi" type="checkbox" value="" />30 year VA refi</li>
+                                            @*<li><input name="" type="checkbox" value="" />40 year fixed - 0 POINTS</li>*@
+                                        </ul>
+
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div id="p2Refinance" class="tab-pane fade">
+                                    <div class="price_cnt">
+                                        <ul>
+                                            <li><input id="chk1yrARMRefi" name="1yrARMRefi" type="checkbox" value="" />1 year ARM refi</li>
+                                            <li><input id="chk51yrARMRefi" name="51yrARMRefi" type="checkbox" value="" />5/1 ARM refi</li>
+                                            <li><input id="chk31yrARMRefi" name="31yrARMRefi" type="checkbox" value="" />3/1 ARM refi</li>
+                                            <li><input id="chk71yrARMRefi" name="71yrARMRefi" type="checkbox" value="" />7/1 ARM refi</li>
+                                            <li><input id="chk10yrARMRefi" name="10yrARMRefi" type="checkbox" value="" />10/1 ARM refi</li>
+                                        </ul>
+
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div id="p3Refinance" class="tab-pane fade">
+                                    <div class="price_cnt">
+                                        <ul>
+                                            <li><input id="chk31yrARMIntRefi" name="31yrARMIntRefi" type="checkbox" value="" />3/1 ARM refi (Interest only)</li>
+                                            <li><input id="chk51yrARMIntRefi" name="51yrARMIntRefi" type="checkbox" value="" />7/1 ARM refi (Interest only)</li>
+                                            <li><input id="chk30yrARMIntRefi" name="30yrARMIntRefi" type="checkbox" value="" />5/1 ARM refi (Interest only)</li>
+                                        </ul>
+
+
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+
+                                <div class="clear"></div>
+
+                            </div>
+                            <span class="clearfix"><input name="" type="button" value="Find Rates" onclick="CalculateMortgages();" class="find-rates_btt" /></span>
+                        </div>
+                        <div class="rslt_label"><label id="lblMortgageRate" />Lorem Ipsum is simply dummy text of the printing and typesetting industry</div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div id="DivGrid" @*style="margin:15px 30px 0;"*@ class="related_plans">
+
+            <strong>Related Plans :</strong>
+
+            @{
+
+
+                var grid = new WebGrid(source: Model.Plans, selectionFieldName: "SelectedRow", canPage: true, rowsPerPage: 10, defaultSort: "Base_price");
+
+                @grid.GetHtml(tableStyle: "PGrid", alternatingRowStyle: "altRow", headerStyle: "Header", footerStyle: "pgr", htmlAttributes: new { id = "DataTable" },
+                    columns: grid.Columns(
+                        grid.Column("Bedrooms", "Bed Rooms"),
+                        grid.Column("Baths", "Bath Rooms"),
+                        grid.Column("Half_baths", "Half Bath Rooms"),
+                        grid.Column("Price($)", format: @<text>@item.Base_price</text>),
+                        grid.Column("Size(SqFt)", format: @<text>@item.Sqft_low</text>),
+                        grid.Column("Style", "Property Type"),
+                        grid.Column("", header: "Action", format: @<text>@Html.ActionLink("View", "NewHomeDetails", "Index", new { mlsNumber = @item.PlanId, communityName = Model.CommunityName, Command = "SearchHome" }, new { target = "" })</text>)
+                                                                           )
+                                                                       )
+                ;
+            }
+        </div>
+
+
+        <div id="DivGrid" style="margin:15px 30px 0;">
+            @{
+
+                if (Model.Homes != null && Model.Homes.Home != null && Model.Homes.Home.Count > 0)
+                {
+
+                    <strong>Related Home :</strong>
+
+
+                    var MlsNumber = Model.PlanId;
+                    var Homegrid = new WebGrid(source: Model.Homes.Home, selectionFieldName: "SelectedRow", canPage: true, rowsPerPage: 10, defaultSort: "Price");
+
+                    @Homegrid.GetHtml(tableStyle: "PGrid", alternatingRowStyle: "altRow", headerStyle: "Header", footerStyle: "pgr", htmlAttributes: new { id = "DataTable1" },
+                    columns: Homegrid.Columns(
+                        Homegrid.Column("Bedrooms", "Bed Rooms"),
+                        Homegrid.Column("Baths", "Bath Rooms"),
+                        Homegrid.Column("Half_baths", "Half Bath Rooms"),
+                        Homegrid.Column("Price($)", format: @<text>@item.Price</text>),
+                        Homegrid.Column("Size(SqFt)", format: @<text>@item.Sqft</text>),
+                        Homegrid.Column("Property_type", "Property Type"),
+                        Homegrid.Column("", header: "Action", format: @<text>@Html.ActionLink("View", "PropertieDetails", "Index", new { mlsNumber = item.Id, Command = "SearchHome", SubCommand = "New", SelectedRow = item.Id, NavigationType = "", RecordIndex = item.RowIndex, TotalCount = Model.Homes.Home.Count() }, new { target = "" })</text>)
+                                                      )
+                                                  )
+                    ;
+                }
+            }
+
+
+
+        </div>
+
+    </div>
+</div>
+<script src="~/Content/js/galleria-1.4.2.min.js"></script>
+
+
+
+<script type="text/javascript">
+    Galleria.loadTheme('/Content/js/galleria.classic.min.js');
+    Galleria.configure({
+        lightbox: true
+    });    // Initialize Galleria
+    Galleria.run('#galleria'); http://localhost:4865/Index/NewHomeDetails?mlsNumber=190061&communityName=Desert%20Ridge&Command=SearchHome&style=float%3Aleft%3B#sectionA
+        Galleria.ready(function () {
+            this.bind('image', function (e) {
+                e.imageTarget.alt = e.galleriaData.description;
+            });
+        });
+
+</script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+<script src="~/js/utility.js"></script>
+<script src="~/js/galleria-property-details.js"></script>
+<script src="~/js/aminites-map.js"></script>
+<script type="text/javascript" src="http://cdn.mlcalc.com/widget-api.js"></script>
+<script type="text/javascript">var switchTo5x = true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({ publisher: "625d776f-12b4-450c-a148-6c15c382c61e", doNotHash: false, doNotCopy: false, hashAddressBar: false });</script>
+<script src="~/js/great-school-api.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        GalleriaSetUp("galleria");
+        GetSchools('public_elementary_school_grid', '@ViewBag.MlsNumber', '@Model.Communitystate', '@Model.Communityzip', '@Model.FullAddress', '@Model.Communitycity', "public", "elementary-schools");
+        GetSchools('public_middle_school_grid', '@ViewBag.MlsNumber', '@Model.Communitystate', '@Model.Communityzip', '@Model.FullAddress', '@Model.Communitycity', "public", "middle-schools");
+        GetSchools('public_elementary_school_grid', '@ViewBag.MlsNumber', '@Model.Communitystate', '@Model.Communityzip', '@Model.FullAddress', '@Model.Communitycity', "public", "elementary-schools");
+        GetSchools('public_high_school_grid', '@ViewBag.MlsNumber', '@Model.Communitystate', '@Model.Communityzip', '@Model.FullAddress', '@Model.Communitycity', "public", "high-schools");
+        GetSchools('private_gradeschool_school', '@ViewBag.MlsNumber', '@Model.Communitystate', '@Model.Communityzip', '@Model.FullAddress', '@Model.Communitycity', "private", "private");
+        debugger;
+        var geoPt = '@Html.Raw(Json.Encode(Model.GeoPoint))';
+
+        if (geoPt != null) {
+            var lat = '@Model.GeoPoint.Coordinates[1]';
+            var lon = '@Model.GeoPoint.Coordinates[0]';
+            var FullStreetAddress = '@Model.FullAddress';
+            var zip = '@Model.Communityzip';
+            if (FullStreetAddress != '' && zip != '') {
+                plotAmenitiesMap('@ViewBag.MlsNumber', "", "bing_amenites", FullStreetAddress, 2, lat, lon);
+            } else if (FullStreetAddress == '') {
+                plotAmenitiesMap('@ViewBag.MlsNumber', "", "bing_amenites", zip, 2, lat, lon);
+            } else if (zip == '') {
+                plotAmenitiesMap('@ViewBag.MlsNumber', "", "bing_amenites", FullStreetAddress, 2, lat, lon);
+            }
+
+        }
+
+        $("#OpenDialog").click(function () {
+            $("#dialog").dialog({
+                modal: true, resizable: true, draggable: false,
+                position: 'center', height: 700, width: 800
+            });
+        });
+    });
+
+</script>
+

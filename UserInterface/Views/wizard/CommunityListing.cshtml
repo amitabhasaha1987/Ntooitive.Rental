@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+@model Repositories.Models.Common.PropertyDetails
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+    var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+    $(function () {
+        //aa
+        debugger;
+        $('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+    });
+</script>
+
+
+<div class="ntooitive-main_area">
+    <h2>SEARCH FOR COMMUNITY</h2>
+    <div class="ntooitive-main_content" id="ntooitive-slider-featured-agent">
+        @{
+            var noimage_url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Content/image/listing_thumb.jpg";
+            string communityimage;
+            if (Model != null)
+            {
+                if (Model.Photos == null)
+                {
+                    if (Model.Photos.Count != 0)
+                    {
+                        communityimage = Model.Photos.FirstOrDefault();
+                    }
+                    else
+                    {
+                        communityimage = noimage_url;
+                    }
+                }
+                else
+                {
+                    communityimage = noimage_url;
+                }
+            }
+            else
+            {
+                communityimage = noimage_url;
+            }
+
+            var querystring = Request.QueryString["type"];
+            string command = string.Empty;
+            if (querystring.ToLower() == "purchase")
+            {
+                command = "SearchPurchase";
+            }
+            else
+            {
+                command = "SearchRent";
+            }
+            
+            var communityName = Request.QueryString["communityName"];
+        }
+        @if (Model != null)
+        {
+            <div class="ntooitive-slide">
+                <ul>
+
+                    <li>
+                        <div class="ntooitive-property_img">
+                            <img src="@communityimage" alt="" onerror="this.onerror=null;this.src='@noimage_url';" />
+                        </div>
+                        @{
+            var property = Model;
+            var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Index/PropertiesListing?searchTerm=" + communityName + "&Command=" + command + "&IsMls=false&SubTab=Newest&ViewStyle=PropertiesListing&loadCount=1";
+
+       
+
+                        }
+
+                        <div class="ntooitive-property_details">
+                            <h3>@property.FullStreetAddress</h3>
+                            <p>@property.PropertyType</p>
+                            @*<ul>
+                                    <li><img src="@(String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority))/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Beds</strong>&nbsp;:&nbsp;@property.Bedrooms</li>
+                                    <li><img src="@(String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority))/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Full Bathroom</strong>&nbsp;:&nbsp;@property.FullBathrooms</li>
+                                    <li><img src="@(String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority))/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Three Quarter Bathroom</strong>&nbsp;:&nbsp;@property.ThreeQuarterBathrooms</li>
+                                    <li><img src="@(String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority))/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Partial Bathroom</strong>&nbsp;:&nbsp;@property.PartialBathrooms</li>
+                                    <li><img src="@(String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority))/Content/image/bullet.png" alt="bath" style="margin-right:10px;" /> <strong>Price</strong>&nbsp;:$&nbsp;@property.ListPrice.ToString("#,##,##0")</li>
+                                </ul>*@
+                            <a href="@url" class="ntooitive-view_button" target="_blank">View Details</a>
+                        </div>
+                        <div class="clear"></div>
+
+
+                    </li>
+
+
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="not_found"> No data found</div>
+        }
+    </div>
+    <a href="#" id="ntooitive-prev"><img id="ntooitive-prev-classified-listing" alt="" /></a>
+    <a href="#" id="ntooitive-next"><img id="ntooitive-next-classified-listing" alt="" /></a>
+</div>
+

@@ -1,0 +1,199 @@
+﻿/* Responsive Tabs - menucool.com/jquery-tabs */
+
+li{
+	list-style:none;
+	padding:0px;
+	margin:0px;
+	}
+	
+ul{
+	padding:0px;
+	margin:0px;
+	}
+
+ul.rtabs
+{
+    text-align:left; /*set to left, center, or right to align the tabs as desired*/    
+    font-size:0;
+    margin:0;
+    padding:0;
+    list-style-type:none;
+	border-bottom:1px solid #f2f2f2;
+}
+        
+ul.rtabs li
+{
+    margin:0;
+    margin-right:4px; /*gap between tabs. Set it to -1px for no gap.*/
+    padding:0;
+    display:inline;
+}
+        
+ul.rtabs li a
+{
+    padding:0 25px; /* It determines tab width */
+    display:inline-block;   
+    font-weight:normal;
+    font-size:12px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height:34px;/* height of tabs */
+    text-decoration: none;
+    color:#222;
+    background-color:#fff;
+    outline:none;
+    border-bottom:none;
+    position:relative;
+}
+        
+ul.rtabs li a:link, ul.rtabs li a:visited
+{
+    color:#222;
+}
+        
+ul.rtabs li a:hover
+{
+    background-color:#f2f2f2;
+}
+  
+/*selected tab style */
+ul.rtabs li.selected a
+{
+    color:#000;
+    font-weight:normal;
+    background:white; /*color #2*/
+    z-index:3;
+	 background-color:#f2f2f2;
+}   
+        
+/*selected tab style on hover */
+ul.rtabs li.selected a:hover
+{
+    text-decoration:none;
+}
+
+/* container of content panels */
+div.panel-container
+{
+     background-color:white; /*color #2*/
+    position:relative;    
+    padding:0px; margin:0px;
+    outline:none;
+ }
+
+/* content panel */       
+div.panel-container > div
+{
+    padding:20px 5px;
+    
+    /* The two settings below should not be changed. */
+    display: block;
+    margin:0px;
+}  
+
+.listing_nav{
+	padding:5px 5px;
+	}
+	
+.listing_nav ul li{
+padding-bottom:20px;
+
+	}
+	
+.listing_nav img{
+	float:none;
+	padding: 0 5px 0 0px;
+	}
+	
+div.panel-container div.inactive
+{
+    display: none;
+}
+
+/* loading image before ajax content is retrieved. Only applicable when Ajax is used.*/
+div.ajaxLoading {background:transparent url(loading.gif) no-repeat center center; height:150px; width:20px; font-size:0;padding:0; margin:0 auto; }
+
+
+.dtls_list_agent{
+	margin:30px auto;
+	width:90%
+	}
+	
+div.panel-container_agent > div
+{
+    padding:0px;
+    
+    /* The two settings below should not be changed. */
+    display: block;
+    margin:0px;
+}
+
+}
+
+/* For mobiles */
+@media only screen and (max-width:560px){
+    ul.rtabs{
+        box-sizing:border-box;
+        min-width:260px;
+    }
+
+    ul.rtabs li{
+        display:inline-block;
+        box-sizing:border-box;
+		border-bottom:1px solid #f2f2f2;
+        margin-right:0;
+        width:50%; /* set it to 100% for one column, 33.33% for three-column */
+    }
+
+    ul.rtabs li:last-child:nth-child(odd){
+        width:100%;
+    }
+
+    ul.rtabs li a {
+        border:none;
+        display:block;
+        padding:0;
+        text-align:center;
+        border-radius:0;
+    }
+
+    ul.rtabs li.selected a {
+        background-color:#fff;
+    }
+
+    div.panel-container {
+        border-radius:0;
+        min-width:260px;
+        box-sizing:border-box;
+    }
+	
+.listing_nav img{
+	float:none;
+	padding:0px;
+	text-align:center;
+	width:auto;
+	}
+	
+.listing_nav p{
+	float:none;
+	padding:0px;
+	width:100%;
+	margin: 20px 0 0 0px;
+	font-family: 'PT Sans', sans-serif;
+	font-size:14px;
+	color:676767;
+	}
+.listing_nav ul li{
+padding-bottom:40px;
+
+	}
+	
+div.panel-container_agent > div
+{
+    padding:0px;
+    
+    /* The two settings below should not be changed. */
+    display: block;
+    margin:0 20px;
+}
+
+}

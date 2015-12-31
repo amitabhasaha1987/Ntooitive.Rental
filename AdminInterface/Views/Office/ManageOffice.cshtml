@@ -1,0 +1,246 @@
+﻿@model Repositories.Models.ListHub.Office
+
+<section class="content">
+    <!-- SELECT2 EXAMPLE -->
+    
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload office Image</h3>
+            <div class="form-group col-lg-1" style="margin-right: 10px;">
+                <input type="button" class="btn btn-success btn-block " value="Edit" onclick="EditUser()" data-loading-text="Please wait..." />
+            </div>
+            <div class="form-group pull-right col-lg-1" style="margin-right: 10px;">
+                <input type="button" class="btn btn-primary btn-block " value="Back" onclick="window.history.back();" data-loading-text="Please wait..." />
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Image Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label class="pull-left">Upload office image here </label>
+                </div>
+                <div class="col-md-4">
+                    @if (!string.IsNullOrEmpty(Model.OfficeImageUrl))
+                    {
+                        <div class="col-md-4">
+                            <img id="office-logo-image" style="height: 30px;" src="@Model.OfficeImageUrl" alt="office image" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-4">
+                            <img id="office-logo-image" style="height: 30px;" src="~/Content/images/No-image-found.jpg" alt="office image" />
+                        </div>
+                    }
+                    <form id="fileupload" action="/Upload/OfficeImageUpload.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-plus-circle">Add file</i>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.OfficeId' data-type='newhome'>
+                                    @if (!string.IsNullOrEmpty(Model.OfficeImageUrl))
+                                    {
+                                        <i class="fa fa-cloud-upload"> Update Image</i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-cloud-upload">Upload Image</i>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped" id="tblImage"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+
+
+
+
+
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnactive_" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail();">Upload</a>*@
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+
+
+        </div>
+
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Manage property here</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <label class="pull-left">Manage all purchase listing as featured. </label>
+
+                    </div>
+                    <div class="col-md-4">
+                        @if (Model.IsAllPurchasePropertyFeatured)
+                        {
+                            <input id="btnallpurchasefeatured" data-fieldbyupdate="Offices_Office_OfficeId" data-uniqueid="@Model.OfficeId" data-propertytype="purchase" data-propertyvalue="false" type="button" class="btn btn-block btn-primary pull-right" value="Remove">
+
+                        }
+                        else
+                        {
+                            <input id="btnallpurchasefeatured" data-fieldbyupdate="Offices_Office_OfficeId" data-uniqueid="@Model.OfficeId" data-propertytype="purchase" data-propertyvalue="true" type="button" class="btn btn-block btn-primary pull-right" value="Update">
+
+                        }
+                    </div>
+
+
+                </div><!-- /.col -->
+                <div class="clear" />
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <label class="pull-left">Manage all rent listing as featured. </label>
+
+                    </div>
+                    <div class="col-md-4">
+                        @if (Model.IsAllRentPropertyFeatured)
+                        {
+                            <input id="btnallrentfeatured" data-fieldbyupdate="Offices_Office_OfficeId" data-uniqueid="@Model.OfficeId" data-propertytype="rent" data-propertyvalue="false" type="button" class="btn btn-block btn-primary pull-right" value="Remove">
+
+                        }
+                        else
+                        {
+                            <input id="btnallrentfeatured" data-fieldbyupdate="Offices_Office_OfficeId" data-uniqueid="@Model.OfficeId" data-propertytype="rent" data-propertyvalue="true" type="button" class="btn btn-block btn-primary pull-right" value="Update">
+
+                        }
+                    </div>
+
+
+                </div><!-- /.col -->
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <!-- /.box -->
+</section>
+
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+
+
+
+@section scripts
+{
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+
+    <script>
+        $(function () {
+            'use strict';
+
+            $('#fileupload').fileupload();
+            var url = "http://" + $(location).attr('host') + "/SDRE/@Model.OfficeId";
+            $('#fileupload').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { OfficeId: '@Model.OfficeId' }
+
+            })
+                .bind('fileuploaddone', function (e, data) {
+                    $("#sucessUploadImagealert").show();
+                    $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+                    // console.log(url);
+                    $('#office-profile-image').attr('src', url + "/" + data.files[0].name).load(function () {
+                        this.height;   // Note: $(this).width() will not work for in memory images
+
+                    });
+                });
+        });
+
+        function EditUser()
+        {
+            window.location.href = "/office/new-office?officeId=" + '@Model.OfficeId';
+        }
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    <script src="~/Scripts/custom/office-listing.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                $("#sucessUploadImagealert").show();
+                $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+        //function BackListing(btn) {
+        //    window.location.href = "/office/office-listing?liId=officeList";
+        //}
+    </script>
+}

@@ -1,0 +1,11 @@
+﻿/* this css is for the demo pages, not for the Responsive Tabs. Don't need to include it into your production pages. */
+
+body.bd1 {background:#F6F9FC; font:normal 0.85em arial;}
+body.bd1 a {color:#09F;}
+img {border:0;}
+#demopage 
+{
+    padding:10px; max-width:426px;    
+    margin:0 auto; /* This makes the page center aligned */
+    background-color:White;
+}

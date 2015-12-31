@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{2C1B2032-5C78-4E90-B076-3BEF93DEEAC6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E015519-F0E7-46BA-BEFF-270194DA3849} = {0E015519-F0E7-46BA-BEFF-270194DA3849}
+		{7C890A5F-9D25-42D9-B1AB-824C30B40450} = {7C890A5F-9D25-42D9-B1AB-824C30B40450}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "DI\Configuration.csproj", "{749D0439-ACCA-4CEC-AD1A-977F19ADB919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataImportConsole", "DataImportConsole\DataImportConsole.csproj", "{7C890A5F-9D25-42D9-B1AB-824C30B40450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "MongoDbRepository\Core.csproj", "{0E015519-F0E7-46BA-BEFF-270194DA3849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repository\Repositories.csproj", "{7F959792-4858-466E-B28F-3B98A846F667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{AC23395B-A41C-4CC0-8D62-13A4EFCA04D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentations", "Documentations", "{17A7069C-6709-4D5E-9548-B8AC62D44EDD}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\bjl2.xml = Documentation\bjl2.xml
+		Documentation\LISTHUB APPLICATION 2015.pdf = Documentation\LISTHUB APPLICATION 2015.pdf
+		Documentation\ListHub PM Info Packet 6-2015.pdf = Documentation\ListHub PM Info Packet 6-2015.pdf
+		Documentation\NewHome.xml = Documentation\NewHome.xml
+		Documentation\Sample ListHub Platform Services Agreement 5-2015.pdf = Documentation\Sample ListHub Platform Services Agreement 5-2015.pdf
+		Documentation\San Diego and Los Angeles ListHub Report 7-7-15.xlsx = Documentation\San Diego and Los Angeles ListHub Report 7-7-15.xlsx
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminInterface", "AdminInterface\AdminInterface.csproj", "{4C46AC62-B77C-4849-B334-A52318F26153}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "Security\Security.csproj", "{AF17EE54-CD87-44D6-AE3D-E841E33E7C3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C1B2032-5C78-4E90-B076-3BEF93DEEAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1B2032-5C78-4E90-B076-3BEF93DEEAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1B2032-5C78-4E90-B076-3BEF93DEEAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1B2032-5C78-4E90-B076-3BEF93DEEAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749D0439-ACCA-4CEC-AD1A-977F19ADB919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749D0439-ACCA-4CEC-AD1A-977F19ADB919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749D0439-ACCA-4CEC-AD1A-977F19ADB919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749D0439-ACCA-4CEC-AD1A-977F19ADB919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C890A5F-9D25-42D9-B1AB-824C30B40450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C890A5F-9D25-42D9-B1AB-824C30B40450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C890A5F-9D25-42D9-B1AB-824C30B40450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C890A5F-9D25-42D9-B1AB-824C30B40450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E015519-F0E7-46BA-BEFF-270194DA3849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E015519-F0E7-46BA-BEFF-270194DA3849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E015519-F0E7-46BA-BEFF-270194DA3849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E015519-F0E7-46BA-BEFF-270194DA3849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F959792-4858-466E-B28F-3B98A846F667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F959792-4858-466E-B28F-3B98A846F667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F959792-4858-466E-B28F-3B98A846F667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F959792-4858-466E-B28F-3B98A846F667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC23395B-A41C-4CC0-8D62-13A4EFCA04D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC23395B-A41C-4CC0-8D62-13A4EFCA04D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC23395B-A41C-4CC0-8D62-13A4EFCA04D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC23395B-A41C-4CC0-8D62-13A4EFCA04D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C46AC62-B77C-4849-B334-A52318F26153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C46AC62-B77C-4849-B334-A52318F26153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C46AC62-B77C-4849-B334-A52318F26153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C46AC62-B77C-4849-B334-A52318F26153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF17EE54-CD87-44D6-AE3D-E841E33E7C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF17EE54-CD87-44D6-AE3D-E841E33E7C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF17EE54-CD87-44D6-AE3D-E841E33E7C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF17EE54-CD87-44D6-AE3D-E841E33E7C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

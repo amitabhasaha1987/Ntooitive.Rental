@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2C1B2032-5C78-4E90-B076-3BEF93DEEAC6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UserInterface</RootNamespace>
+    <AssemblyName>UserInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.MVC3.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\bootstrap-responsive-tabs.css" />
+    <Content Include="Content\css\bootstrap-theme.css" />
+    <Content Include="Content\css\bootstrap-theme.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\carousel.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\galleria.classic.css" />
+    <Content Include="Content\css\GridViewStyle.css" />
+    <Content Include="Content\css\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Content\css\slider.css" />
+    <Content Include="Content\css\style_agent.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\image\add.jpg" />
+    <Content Include="Content\image\ajax-loader.gif" />
+    <Content Include="Content\image\aramco_logo.png" />
+    <Content Include="Content\image\arrow_right.png" />
+    <Content Include="Content\image\agent.jpg" />
+    <Content Include="Content\image\agent_img.jpg" />
+    <Content Include="Content\image\banner.jpg" />
+    <Content Include="Content\image\banner1.jpg" />
+    <Content Include="Content\image\bath.png" />
+    <Content Include="Content\image\bathroom.jpg" />
+    <Content Include="Content\image\bedroom.jpg" />
+    <Content Include="Content\image\bnnr.jpg" />
+    <Content Include="Content\image\classic-map1.png" />
+    <Content Include="Content\image\demo_logo.png" />
+    <Content Include="Content\image\dtlsthumb.jpg" />
+    <Content Include="Content\image\dtls_thumb.jpg" />
+    <Content Include="Content\image\dtls_thumb1.jpg" />
+    <Content Include="Content\image\dtls_thumb2.jpg" />
+    <Content Include="Content\image\email.png" />
+    <Content Include="Content\image\etwetwe.png" />
+    <Content Include="Content\image\fb.jpg" />
+    <Content Include="Content\image\fb.png" />
+    <Content Include="Content\image\fb1.png" />
+    <Content Include="Content\image\feature_thumb.jpg" />
+    <Content Include="Content\image\find.jpg" />
+    <Content Include="Content\image\four.jpg" />
+    <Content Include="Content\image\g.jpg" />
+    <Content Include="Content\image\google.png" />
+    <Content Include="Content\image\google1.png" />
+    <Content Include="Content\image\google_pin.png" />
+    <Content Include="Content\image\heating.png" />
+    <Content Include="Content\image\home_logo.png" />
+    <Content Include="Content\image\icon-expand.jpg" />
+    <Content Include="Content\image\icon_call.png" />
+    <Content Include="Content\image\icon_fax.png" />
+    <Content Include="Content\image\icon_http.png" />
+    <Content Include="Content\image\icon_mail.png" />
+    <Content Include="Content\image\icon_mail_b.jpg" />
+    <Content Include="Content\image\icon_phone.jpg" />
+    <Content Include="Content\image\icon_skype.jpg" />
+    <Content Include="Content\image\insta1.png" />
+    <Content Include="Content\image\learn-more_bttn.png" />
+    <Content Include="Content\image\left.png" />
+    <Content Include="Content\image\listing_thumb_old.jpg" />
+    <Content Include="Content\image\logo.png" />
+    <Content Include="Content\image\mail1.png" />
+    <Content Include="Content\image\map.jpg" />
+    <Content Include="Content\image\nav.png" />
+    <Content Include="Content\image\navs.png" />
+    <Content Include="Content\image\next.png" />
+    <Content Include="Content\image\listing_thumb.jpg" />
+    <Content Include="Content\image\p.png" />
+    <Content Include="Content\image\p1.png" />
+    <Content Include="Content\image\phone.png" />
+    <Content Include="Content\image\price_tag.jpg" />
+    <Content Include="Content\image\property.jpg" />
+    <Content Include="Content\image\right.png" />
+    <Content Include="Content\image\search_bg.png" />
+    <Content Include="Content\image\search_icon.png" />
+    <Content Include="Content\image\slide-bg-active.png" />
+    <Content Include="Content\image\slide-bg.png" />
+    <Content Include="Content\image\slide_desc.png" />
+    <Content Include="Content\image\testi_bg.jpg" />
+    <Content Include="Content\image\testi_bg2.jpg" />
+    <Content Include="Content\image\testi_thumb.png" />
+    <Content Include="Content\image\thumb.jpg" />
+    <Content Include="Content\image\tweeter.jpg" />
+    <Content Include="Content\image\tweeter.png" />
+    <Content Include="Content\image\tweeter1.png" />
+    <Content Include="Content\image\vdo_img.png" />
+    <Content Include="Content\js\bootstrap-slider.js" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\galleria-1.4.2.min.js" />
+    <Content Include="Content\js\galleria.classic.js" />
+    <Content Include="Content\js\galleria.classic.min.js" />
+    <Content Include="Content\js\jquery-1.10.2.js" />
+    <Content Include="Content\js\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Content\css\PagedList.css" />
+    <Content Include="Content\js\jquery.bootstrap-responsive-tabs.min.js" />
+    <Content Include="Content\js\jquery.flexslider-min_a.js" />
+    <Content Include="Content\js\main-agent.js" />
+    <Content Include="Content\js\npm.js" />
+    <Content Include="Content\js\responsiveslides.min.js" />
+    <Content Include="Content\Widget\extras\loadcarofred.js" />
+    <Content Include="Content\Widget\images\button_bg.jpg" />
+    <Content Include="Content\Widget\images\button_bg2.jpg" />
+    <Content Include="Content\Widget\images\next.png" />
+    <Content Include="Content\Widget\images\prev.png" />
+    <Content Include="Content\Widget\images\property.jpg" />
+    <Content Include="Content\Widget\images\property2.jpg" />
+    <Content Include="Content\Widget\images\property3.jpg" />
+    <Content Include="Content\Widget\jquery-1.10.2.js" />
+    <Content Include="Content\Widget\jquery.carouFredSel-6.2.1-packed.js" />
+    <Content Include="Content\Widget\jquery.mousewheel.min.js" />
+    <Content Include="Content\Widget\style.css" />
+    <Content Include="css\demo.css" />
+    <Content Include="css\demo1.css" />
+    <Content Include="css\flexslider.css" />
+    <Content Include="css\foundation.css" />
+    <Content Include="css\generic-notForTabs.css" />
+    <Content Include="css\immersive-slider.css" />
+    <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\nav.css" />
+    <Content Include="css\ninja-slider.css" />
+    <Content Include="css\noJS.css" />
+    <Content Include="css\responsive-tabs.css" />
+    <Content Include="css\roboto.css" />
+    <Content Include="css\section.css" />
+    <Content Include="css\skdslider.css" />
+    <Content Include="css\style.css" />
+    <Content Include="css\style1.css" />
+    <Content Include="css\style_common.css" />
+    <Content Include="Global.asax" />
+    <Content Include="google-map-pin.html" />
+    <Content Include="image\agent.jpg" />
+    <Content Include="image\agent_img.jpg" />
+    <Content Include="image\banner.jpg" />
+    <Content Include="image\banner1.jpg" />
+    <Content Include="image\bathroom.jpg" />
+    <Content Include="image\bedroom.jpg" />
+    <Content Include="image\dtls_thumb.jpg" />
+    <Content Include="image\dtls_thumb1.jpg" />
+    <Content Include="image\dtls_thumb2.jpg" />
+    <Content Include="image\etwetwe.png" />
+    <Content Include="image\fb.jpg" />
+    <Content Include="image\feature_thumb.jpg" />
+    <Content Include="image\find.jpg" />
+    <Content Include="image\four.jpg" />
+    <Content Include="image\g+.jpg" />
+    <Content Include="image\green.png" />
+    <Content Include="image\green\1.png" />
+    <Content Include="image\green\10.png" />
+    <Content Include="image\green\2.png" />
+    <Content Include="image\green\3.png" />
+    <Content Include="image\green\4.png" />
+    <Content Include="image\green\5.png" />
+    <Content Include="image\green\6.png" />
+    <Content Include="image\green\7.png" />
+    <Content Include="image\green\8.png" />
+    <Content Include="image\green\9.png" />
+    <Content Include="image\icon-expand.jpg" />
+    <Content Include="image\icons\3578.png" />
+    <Content Include="image\icons\4013.png" />
+    <Content Include="image\icons\4170.png" />
+    <Content Include="image\icons\4581.png" />
+    <Content Include="image\icons\5400.png" />
+    <Content Include="image\icons\5540.png" />
+    <Content Include="image\icons\5800.png" />
+    <Content Include="image\icons\6000.png" />
+    <Content Include="image\icons\7011.png" />
+    <Content Include="image\icons\8060.png" />
+    <Content Include="image\icons\8211.png" />
+    <Content Include="image\icons\9221.png" />
+    <Content Include="image\icons\9530.png" />
+    <Content Include="image\icons\9545.png" />
+    <Content Include="image\icons\9996.png" />
+    <Content Include="image\icons\apartment.png" />
+    <Content Include="image\icon_call.png" />
+    <Content Include="image\icon_fax.png" />
+    <Content Include="image\icon_http.png" />
+    <Content Include="image\icon_mail.png" />
+    <Content Include="image\icon_mail_b.jpg" />
+    <Content Include="image\icon_phone.jpg" />
+    <Content Include="image\learn-more_bttn.png" />
+    <Content Include="image\left.png" />
+    <Content Include="image\listing_thumb.jpg" />
+    <Content Include="image\logo.png" />
+    <Content Include="image\map.jpg" />
+    <Content Include="image\nav.png" />
+    <Content Include="image\navs.png" />
+    <Content Include="image\next.png" />
+    <Content Include="image\no-image-found.jpg" />
+    <Content Include="image\NR.png" />
+    <Content Include="image\price_tag.jpg" />
+    <Content Include="image\property.jpg" />
+    <Content Include="image\red.png" />
+    <Content Include="image\red\1.png" />
+    <Content Include="image\red\10.png" />
+    <Content Include="image\red\2.png" />
+    <Content Include="image\red\3.png" />
+    <Content Include="image\red\4.png" />
+    <Content Include="image\red\5.png" />
+    <Content Include="image\red\6.png" />
+    <Content Include="image\red\7.png" />
+    <Content Include="image\red\8.png" />
+    <Content Include="image\red\9.png" />
+    <Content Include="image\right.png" />
+    <Content Include="image\search_bg.png" />
+    <Content Include="image\slide-bg-active.png" />
+    <Content Include="image\slide-bg.png" />
+    <Content Include="image\slide_desc.png" />
+    <Content Include="image\testi_bg.jpg" />
+    <Content Include="image\testi_thumb.png" />
+    <Content Include="image\thumb.jpg" />
+    <Content Include="Content\css\bootstrap-theme.css.map" />
+    <Content Include="Content\css\bootstrap.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="WizardTest.html" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
+    <Content Include="image\yellow.png" />
+    <Content Include="image\yellow\1.png" />
+    <Content Include="image\yellow\10.png" />
+    <Content Include="image\yellow\2.png" />
+    <Content Include="image\yellow\3.png" />
+    <Content Include="image\yellow\4.png" />
+    <Content Include="image\yellow\5.png" />
+    <Content Include="image\yellow\6.png" />
+    <Content Include="image\yellow\7.png" />
+    <Content Include="image\yellow\8.png" />
+    <Content Include="image\yellow\9.png" />
+    <Content Include="js\aminites-map.js" />
+    <Content Include="js\galleria-property-details.js" />
+    <Content Include="js\gamma.js" />
+    <Content Include="js\great-school-api.js" />
+    <Content Include="js\jquery-1.10.2.js" />
+    <Content Include="js\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="js\jquery.flexslider-min.js" />
+    <Content Include="js\jquery.flexslider.js" />
+    <Content Include="js\jquery.history.js" />
+    <Content Include="js\jquery.immersive-slider.js" />
+    <Content Include="js\jquery.masonry.min.js" />
+    <Content Include="js\jquerypp.custom.js" />
+    <Content Include="js\js-url.min.js" />
+    <Content Include="js\ninja-slider.js" />
+    <Content Include="js\responsive-tabs.js" />
+    <Content Include="js\skdslider.js" />
+    <Content Include="js\skdslider.min.js" />
+    <Content Include="js\utility.js" />
+    <Content Include="js\WizardLoad.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\wizardController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NearbySchools.cs" />
+    <Compile Include="Models\PropertyListingViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Index\Index.cshtml" />
+    <Content Include="Views\Index\PropertiesListing.cshtml" />
+    <Content Include="Views\Index\PropertieDetails.cshtml" />
+    <Content Include="Views\Index\_AdvanceSearch.cshtml" />
+    <Content Include="Views\Index\NewHomeDetails.cshtml" />
+    <Content Include="Views\Index\NewPropertyListing.cshtml" />
+    <Content Include="Views\wizard\search.cshtml" />
+    <Content Include="Views\wizard\CretifiedAgents.cshtml" />
+    <Content Include="Views\wizard\FeaturedAgents.cshtml" />
+    <Content Include="Views\wizard\ClassifiedListing.cshtml" />
+    <Content Include="Views\wizard\CommunityListing.cshtml" />
+    <Content Include="Views\Index\AgentBio.cshtml" />
+    <Content Include="Views\Index\PropertieDetailsWizard.cshtml" />
+    <Content Include="Views\Index\CompareMortgages.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Api\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DI\Configuration.csproj">
+      <Project>{749d0439-acca-4cec-ad1a-977f19adb919}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repositories.csproj">
+      <Project>{7f959792-4858-466e-b28f-3b98a846f667}</Project>
+      <Name>Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{ac23395b-a41c-4cc0-8d62-13a4efca04d0}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4865</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4865/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

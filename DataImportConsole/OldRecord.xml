@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <Address>
+    <AddressArray>
+      <element>deep</element>
+      <element>harbour</element>
+      <element>farm</element>
+      <element>lot#</element>
+      <element>10</element>
+      <element>road</element>
+      <element>sherwood</element>
+      <element>md</element>
+      <element>21665</element>
+    </AddressArray>
+    <Addresspreferenceorder>1</Addresspreferenceorder>
+    <City>SHERWOOD</City>
+    <Country>US</Country>
+    <FullAddress>Sherwood, MD, 21665</FullAddress>
+    <FullStreetAddress>DEEP HARBOUR FARM LOT# 10 ROAD</FullStreetAddress>
+    <PostalCode>21665</PostalCode>
+    <Preferenceorder>1</Preferenceorder>
+    <StateOrProvince>MD</StateOrProvince>
+  </Address>
+  <Bathrooms>0</Bathrooms>
+  <Bedrooms>0</Bedrooms>
+  <Brokerage>
+    <Address>
+      <AddressArray>
+        <element>14501</element>
+        <element>george</element>
+        <element>carter</element>
+        <element>way</element>
+        <element>chantilly</element>
+        <element>va</element>
+        <element>20151</element>
+      </AddressArray>
+      <Addresspreferenceorder>1</Addresspreferenceorder>
+      <City>Chantilly</City>
+      <Country>US</Country>
+      <FullAddress>Chantilly, VA, 20151</FullAddress>
+      <FullStreetAddress>14501 George Carter Way</FullStreetAddress>
+      <PostalCode>20151</PostalCode>
+      <Preferenceorder>1</Preferenceorder>
+      <StateOrProvince>VA</StateOrProvince>
+    </Address>
+    <Email>longandfoster@broker1suite.com</Email>
+    <LogoURL>http://brokerlogos.listhub.net/MRIS/c5ababc31ef5c9fd011ef5db72ae0048/20100713113338607.png</LogoURL>
+    <Name>Long &amp; Foster Real Estate</Name>
+    <Phone>(866) 677-6937</Phone>
+    <WebsiteURL>http://www.longandfoster.com</WebsiteURL>
+  </Brokerage>
+  <DetailedCharacteristics>
+    <ArchitectureStyle>
+      <OtherDescription />
+      <Text>Other</Text>
+    </ArchitectureStyle>
+    <IsNewConstruction>false</IsNewConstruction>
+    <RoofTypes>
+      <RoofType>Unknown</RoofType>
+    </RoofTypes>
+  </DetailedCharacteristics>
+  <Disclaimer>
+    <IsgSecurityClass>Public</IsgSecurityClass>
+    <Text>Copyright © 2013 Long &amp; Foster Real Estate. All rights reserved. All information provided by the listing agent/broker is deemed reliable but is not guaranteed and should be independently verified.</Text>
+  </Disclaimer>
+  <DiscloseAddress>true</DiscloseAddress>
+  <Expenses>
+    <Expense>
+      <ExpenseCategory>Home Owner Assessments Fee</ExpenseCategory>
+      <ExpenseValue>
+        <Text>75</Text>
+      </ExpenseValue>
+    </Expense>
+  </Expenses>
+  <FullBathrooms>0</FullBathrooms>
+  <HalfBathrooms>0</HalfBathrooms>
+  <LeadRoutingEmail>rcovell@goeaston.net</LeadRoutingEmail>
+  <ListPrice>
+    <IsgSecurityClass>Public</IsgSecurityClass>
+    <Text>189900</Text>
+  </ListPrice>
+  <ListingCategory>Purchase</ListingCategory>
+  <ListingDate>2010-03-22</ListingDate>
+  <ListingDescription>WATER ACCESS....WATERVIEW of Duns Cove...Perc approved for standard inground residential septic system..UP TO 4 BEDROOMS..No nontidal wetlands...Some trees.....  COMMUNITY PIER.. just a few  lots away...but not too close...(Tilghman  1.1 miles).... (St. Michaels 11 miles).....Owner is licensed Md.real estate agent</ListingDescription>
+  <ListingKey>3yd-MRIS-TA7287104</ListingKey>
+  <ListingParticipants>
+    <Participant>
+      <Email>rcovell@goeaston.net</Email>
+      <FirstName>Richard</FirstName>
+      <LastName>Covell</LastName>
+      <OfficePhone>4108207707</OfficePhone>
+      <ParticipantId>51078</ParticipantId>
+      <ParticipantKey>3yd-MRIS-51078</ParticipantKey>
+      <PrimaryContactPhone>4108292165</PrimaryContactPhone>
+      <Role>Listing</Role>
+      <WebsiteURL>http://rickcovell.net</WebsiteURL>
+      <_id>000000000000000000000000</_id>
+    </Participant>
+  </ListingParticipants>
+  <ListingStatus>Active</ListingStatus>
+  <ListingTitle>Residential - SHERWOOD, MD</ListingTitle>
+  <ListingURL>http://listings.listhub.net/pages/MRIS/TA7287104/?channel=bjl</ListingURL>
+  <LivingArea>0</LivingArea>
+  <Location>
+    <Community>
+      <Schools>
+        <School>
+          <element>
+            <District />
+            <SchoolCategory>Elementary</SchoolCategory>
+          </element>
+          <element>
+            <District />
+            <SchoolCategory>High</SchoolCategory>
+          </element>
+          <element>
+            <District />
+            <SchoolCategory>JuniorHigh</SchoolCategory>
+          </element>
+          <element>
+            <District />
+            <SchoolCategory>Middle</SchoolCategory>
+          </element>
+        </School>
+      </Schools>
+      <Subdivision>
+        <Text>DEEP HARBOR FARMS</Text>
+      </Subdivision>
+    </Community>
+    <County>TALBOT</County>
+    <Directions>From St. Michaels  RT 33 toward Tilghman    Go past Sherwood to Left on DEEP HARBOR FARM RD.   Lot on left...Sign</Directions>
+    <GeoPoint>
+      <coordinates>
+        <element>-76.32509</element>
+        <element>38.75089</element>
+      </coordinates>
+      <type>Point</type>
+    </GeoPoint>
+    <Latitude>38.75089</Latitude>
+    <Longitude>-76.32509</Longitude>
+    <ParcelId>36</ParcelId>
+  </Location>
+  <LotSize>
+    <AreaUnits>acre</AreaUnits>
+    <Text>2</Text>
+  </LotSize>
+  <MarketingInformation>
+    <PermitAddressOnInternet>
+      <Text>true</Text>
+    </PermitAddressOnInternet>
+    <VOWAddressDisplay>
+      <Text>true</Text>
+    </VOWAddressDisplay>
+    <VOWAutomatedValuationDisplay>
+      <Text>true</Text>
+    </VOWAutomatedValuationDisplay>
+    <VOWConsumerComment>
+      <Text>true</Text>
+    </VOWConsumerComment>
+  </MarketingInformation>
+  <MlsId>MRIS</MlsId>
+  <MlsName>Metropolitan Regional Information Systems, Inc.</MlsName>
+  <MlsNumber>TA7287104</MlsNumber>
+  <ModificationTimestamp>
+    <IsgSecurityClass>Public</IsgSecurityClass>
+    <Text>2013-10-10T20:50:39+00:00</Text>
+  </ModificationTimestamp>
+  <Offices>
+    <Office>
+      <Address>
+        <AddressArray>
+          <element>17</element>
+          <element>n.</element>
+          <element>harrison</element>
+          <element>st</element>
+          <element>easton</element>
+          <element>md</element>
+          <element>21601</element>
+        </AddressArray>
+        <Addresspreferenceorder>1</Addresspreferenceorder>
+        <City>EASTON</City>
+        <Country>US</Country>
+        <FullAddress>Easton, MD, 21601</FullAddress>
+        <FullStreetAddress>17 N. HARRISON ST</FullStreetAddress>
+        <PostalCode>21601</PostalCode>
+        <Preferenceorder>1</Preferenceorder>
+        <StateOrProvince>MD</StateOrProvince>
+      </Address>
+      <BrokerId>LCMD1</BrokerId>
+      <CorporateName>Lacaze Meredith Real Estate</CorporateName>
+      <MainOfficeId>LCMD1</MainOfficeId>
+      <Name>Lacaze Meredith Real Estate</Name>
+      <OfficeCode>
+        <OfficeCodeId>LCMD1</OfficeCodeId>
+      </OfficeCode>
+      <OfficeEmail>lacaze@toad.net</OfficeEmail>
+      <OfficeId>LCMD1</OfficeId>
+      <OfficeKey>3yd-MRIS-LCMD1</OfficeKey>
+      <PhoneNumber>4108207707</PhoneNumber>
+      <Website>http://www.longandfoster.com</Website>
+    </Office>
+  </Offices>
+  <OneQuarterBathrooms>0</OneQuarterBathrooms>
+  <PartialBathrooms>0</PartialBathrooms>
+  <Photos>
+    <Photo>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/0?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/2?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/3?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/4?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/5?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/6?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/7?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/8?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/9?lm=20130619T204037</MediaURL>
+      </element>
+      <element>
+        <MediaModificationTimestamp>
+          <IsgSecurityClass>Public</IsgSecurityClass>
+          <Text>2013-06-19T20:40:37+00:00</Text>
+        </MediaModificationTimestamp>
+        <MediaURL>http://photos.listhub.net/MRIS/TA7287104/10?lm=20130619T204037</MediaURL>
+      </element>
+    </Photo>
+  </Photos>
+  <PropertySubType>
+    <OtherDescription>Residential</OtherDescription>
+    <Text>Other</Text>
+  </PropertySubType>
+  <PropertyType>
+    <OtherDescription>Lot-Land</OtherDescription>
+    <Text>Lots And Land</Text>
+  </PropertyType>
+  <ProviderCategory>Broker</ProviderCategory>
+  <ProviderName>Long &amp; Foster Real Estate</ProviderName>
+  <ProviderURL>http://www.longandfoster.com</ProviderURL>
+  <ThreeQuarterBathrooms>0</ThreeQuarterBathrooms>
+  <VirtualTours>
+    <VirtualTour>
+      <MediaModificationTimestamp>
+        <IsgSecurityClass>Public</IsgSecurityClass>
+      </MediaModificationTimestamp>
+      <MediaURL>http://slideshow.mris.com/slideshow/slideshow.htm?ListingKey=90164640244</MediaURL>
+    </VirtualTour>
+  </VirtualTours>
+  <YearBuilt>0</YearBuilt>
+  <_id>560b831960d77f1eccc9663b</_id>
+</root>
+
+

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@section css{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+       Rent Property listing
+        <small>Manage your property here</small>
+    </h1>
+    @*<ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Tables</a></li>
+            <li class="active">Data tables</li>
+        </ol>*@
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="pull-right">
+                        <a href="/property/rent/new-property" class="btn btn-info">Add New Rental</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="rentpropertylisting" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>MlsNumber</th>
+                                <th>Price ($)</th>
+                                <th>Property Type</th>
+                                <th>Living Area (Sq. ft)</th>
+                                <th>Bath (Full/Half)</th>
+                                <th>Bed</th>
+                                <th>New Construction</th>
+                                <th>Featured</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@section scripts
+{
+    <!-- DataTables -->
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/rent-listing.js"></script>
+   
+}

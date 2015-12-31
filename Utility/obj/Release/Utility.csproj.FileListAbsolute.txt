@@ -1,0 +1,12 @@
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\Utility.dll
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\Utility.pdb
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\MongoDB.Bson.dll
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\MongoDB.Driver.Core.dll
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\MongoDB.Driver.dll
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\System.Web.Mvc.dll
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\MongoDB.Bson.xml
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\MongoDB.Driver.xml
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\bin\Release\System.Web.Mvc.xml
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\obj\Release\Utility.dll
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\obj\Release\Utility.pdb
+C:\Users\Amitabha\Source\Repos\RealEstateVerticals\Ntooitive.Rental\Utility\obj\Release\Utility.csprojResolveAssemblyReference.cache

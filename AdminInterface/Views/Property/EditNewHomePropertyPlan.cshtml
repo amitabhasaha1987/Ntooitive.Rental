@@ -1,0 +1,649 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model AdminInterface.Models.NewHome.NewHomeViewModel
+@using AdminInterface.Models.NewHome
+
+@section css{
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+    <link href="~/Content/jjsonviewer.css" rel="stylesheet" />
+}
+
+<section class="content">
+    <!-- Custom Tabs -->
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Property Details</a></li>
+            <li class="active"><a href="#tab_2" data-toggle="tab" aria-expanded="true">Property Manage</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" id="tab_1">
+                <div id="jjson" class="jjson"></div>
+
+            </div><!-- /.tab-pane -->
+            <div class="tab-pane active" id="tab_2">
+                @if (ViewBag.ListedBy == "AdminPanel")
+                {
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Manage Your Property Here</h3>
+
+                            <p style="float:right;margin-right:30px;"> Builder Number: @Model.BuilderNumber</p>
+                            <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="deletealert" class="alert alert-success alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-check"></i> Property Deleted Successfully.</h4>
+                                        <span></span>
+                                    </div>
+                                    <div id="activealert" class="alert alert-success alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-check"></i> Property Activated Successfully.</h4>
+                                        <span></span>
+                                    </div>
+                                    <div id="deletefailurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div><!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Delete Property : </label>
+                                    </div><!-- /.form-group -->
+                                </div><!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group pull-left">
+                                        @if (Model.ExtProperties.IsDeleted)
+                                        {
+                                            <input id="btnDelete" data-uniqueid='@Model.BuilderNumber' data-type='newhome' type="button" class="btn btn-danger" value="Active" />
+                                        }
+                                        else
+                                        {
+                                            <input id="btnDelete" data-uniqueid='@Model.BuilderNumber' data-type='newhome' type="button" class="btn btn-danger" value="Delete" />
+                                        }
+
+                                    </div><!-- /.form-group -->
+                                </div><!-- /.col -->
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div>
+                }
+                <!-- SELECT2 EXAMPLE -->
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Manage Your Property Here</h3>
+                        @{
+                            if (Model.BuilderNumber != null)
+                            {
+                                <p style="float:right;margin-right:30px;"> Builder Number: @Model.BuilderNumber</p>
+                            }
+                            @*else
+                                {
+                                    <p style="float:right;margin-right:30px;"> Mls Number: @Model.ExtProperties.UniqueId</p>
+                                }*@
+                        }
+
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-check"></i> Property Updated Successfully.</h4>
+                                    <span></span>
+                                </div>
+                                <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Do you want to make this property as featured</label>
+                                    @Html.DropDownListFor(model => model.ExtProperties.IsFeatured, new SelectList(
+                  new List<Object>{
+                       new { value = true , text = "Yes"  },
+                       new { value = false , text = "No" }
+                    },
+                  "value", "text"), new { @class = "form-control select2", @style = "width: 100%;" })
+                                </div><!-- /.form-group -->
+                            </div><!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Do you want to this propety as Spotlight? </label>
+                                    @Html.DropDownListFor(model => model.ExtProperties.IsSpotlight, new SelectList(
+                  new List<Object>{
+                       new { value = true , text = "Yes"  },
+                       new { value = false , text = "No" }
+                    },
+                  "value", "text"), new { @class = "form-control select2", @style = "width: 100%;" })
+                                </div><!-- /.form-group -->
+                            </div>
+                        </div><!-- /.row -->
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Upgrade to Print</label>
+                                    @Html.DropDownListFor(model => model.ExtProperties.IsPrinted, new SelectList(
+                  new List<Object>{
+                       new { value = true , text = "Yes"  },
+                       new { value = false , text = "No" }
+                    },
+                  "value", "text"), new { @class = "form-control select2", @style = "width: 100%;" })
+                                </div><!-- /.form-group -->
+                            </div><!-- /.col -->
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Agent Description</label>
+
+                                    @Html.TextAreaFor(m => m.ExtProperties.AgentDescription, new { @class = "form-control", @rows = "3", @placeholder = "Enter ..." })
+
+                                </div>
+
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group pull-right">
+                                    <input data-bind="click: save" id="btnUpdate" data-uniqueid='@Model.BuilderNumber' data-type='newhome' type="button" class="btn btn-primary btn-block " value="Update" />
+                                </div><!-- /.form-group -->
+                            </div><!-- /.col -->
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <form id="fileupload" action="/Upload/UploadHandler.ashx" method="POST" enctype="multipart/form-data">
+                    <!-- SELECT3 IMAGE UPLOAD -->
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Upload Images :</h3><div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-check"></i> Image Added Successfully.</h4>
+                                        <span></span>
+                                    </div>
+                                    <div id="failureUploadImagealert" class="alert alert-danger alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                                    <div class="fileupload-buttonbar">
+                                        <div class="span7">
+                                            <!-- The fileinput-button span is used to style the file input field as button -->
+                                            <span class="btn btn-success fileinput-button">
+                                                <i class="icon-plus icon-white"></i>
+                                                <span>Add files...</span>
+                                                <input type="file" name="files[]" multiple>
+                                            </span>
+                                            <button type="submit" class="btn btn-primary start">
+                                                <i class="icon-upload icon-white"></i>
+                                                <span>Start upload</span>
+                                            </button>
+                                            <button type="reset" class="btn btn-warning cancel">
+                                                <i class="icon-ban-circle icon-white"></i>
+                                                <span>Cancel upload</span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger delete" id="deleteAll">
+                                                <i class="icon-trash icon-white"></i>
+                                                <span>Delete</span>
+                                            </button>
+                                            <input type="checkbox" class="toggle">
+                                        </div>
+                                        <div class="span5">
+                                            <!-- The global progress bar -->
+                                            <div class="progress progress-success progress-striped active fade">
+                                                <div class="bar" style="width:0%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- The loading indicator is shown during image processing -->
+                                    <div class="fileupload-loading"></div>
+                                    <br>
+                                    <!-- The table listing the files available for upload/download -->
+                                    <table class="table table-striped" id="tblImage"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group pull-right">
+                                        <input id="btnImageUpload" type="button" data-uniqueid='@Model.BuilderNumber' data-type='newhome' class="btn btn-primary btn-block " value="Update" />
+                                    </div><!-- /.form-group -->
+                                </div><!-- /.col -->
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </form>
+                <!-- modal-gallery is the modal dialog used for the image gallery -->
+                <!-- The template to display files available for upload -->
+                @using (Html.BeginForm("EditNewHomePropertyPlan", "Property", FormMethod.Post, Model.BuilderNumber))
+                {
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add More Plan :</h3><div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="sucessSaveNewalert" class="alert alert-success alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-check"></i> Plan Added Successfully.</h4>
+                                        <span></span>
+                                    </div>
+                                    <div id="failureSaveNewalert" class="alert alert-danger alert-dismissible" style="display: none">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group" id="addPlans">
+                                        @Html.HiddenFor(m => m.BuilderNumber)
+                                        @Html.EditorFor(m => m.PlanModelViewList)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.AddLink("Add More Plan", "#addPlans", ".addPlan", "PlanModelViewList", typeof(AdminInterface.Models.NewHome.HomePlan))
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group pull-right">
+                                        <input type="submit" class="btn btn-primary btn-block " value="Save" />
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.tab-content -->
+                }
+            </div><!-- /.tab-pane -->
+
+        </div>
+    </div><!-- nav-tabs-custom -->
+
+
+</section><!-- /.content -->
+@section scripts
+{
+    <!-- DataTables -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+    <script src="~/Content/CustomJs.js"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            'use strict';
+            $('#fileupload').fileupload();
+
+            $('#fileupload').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { example: '@Model.BuilderNumber' }
+
+            });
+        });
+    </script>
+
+    <script src="~/Scripts/custom/moment.min.js"></script>
+    <script src="~/Scripts/custom/property-edit.js"></script>
+    <script src="~/Scripts/custom/knockout-3.1.0.js"></script>
+
+    <script src="~/Scripts/custom/jjsonviewer.js"></script>
+
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+            <td class="cancel">
+                {% if (!i) { %}
+                <button class="btn btn-warning">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>{%=locale.fileupload.cancel%}</span>
+                </button>
+                {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+            {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else { %}
+            <td class="preview">
+                {% if (file.thumbnail_url) { %}
+                @*<span>{%=file.name%}</span>*@
+                <img src="{%=file.thumbnail_url%}">
+                {% } %}
+            </td>
+            <td class="name">
+                <span>{%=file.name%}</span>
+            </td>
+
+            <td colspan="2"></td>
+            {% } %}
+            <td class="delete">
+                <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" type="button">
+                    <i class="icon-trash icon-white"></i>
+                    <span>{%=locale.fileupload.destroy%}</span>
+                </button>
+                <input type="checkbox" name="delete" value="1">
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    @{
+        bool notNull = Model.ExtProperties.DateTimeRanges != null;
+    }
+
+
+    <script>
+        $(function () {
+            var UID = $('#btnUpdate').data("uniqueid");
+            var type = $('#btnUpdate').data("type");
+            $.ajax({
+                url: "/property/getdetails/" + type + "/" + UID,
+                type: "GET",
+                success: function (data, textStatus, jqXHR) {
+                    $("#jjson").jJsonViewer(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#failurealert").show();
+                    $('#failurealert').delay(5000).fadeOut(400);
+                }
+
+                //success: function (data, textStatus, jqXHR) {
+                //if (data) {
+                //    $("#sucessalert").show();
+                //    $('#sucessalert').delay(5000).fadeOut(400);
+                //} else {
+                //    $("#failurealert").show();
+                //    $('#failurealert').delay(5000).fadeOut(400);
+                //}
+            }
+            });
+        });
+
+
+    </script>
+    <script>
+        debugger;
+        ko.bindingHandlers.daterangepicker = {
+            init: function (element, valueAccessor, allBindingsAccessor) {
+                $(element).daterangepicker({
+                    timePicker: true,
+                    timePickerIncrement: 10,
+                    startDate: '@DateTime.Now.ToString("MM/dd/yyyy h:mm tt")',
+                    endDate: '@DateTime.Now.ToString("MM/dd/yyyy h:mm tt")',
+                    format: 'MM/DD/YYYY h:mm'
+                });
+
+                //handle the field changing
+                ko.utils.registerEventHandler(element, "change", function () {
+                    var observable = valueAccessor();
+                });
+
+                //handle disposal (if KO removes by the template binding)
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $(element).data('daterangepicker').remove();
+                });
+
+            }
+        };
+        debugger;
+        var CartLine = function (range) {
+            if (range === undefined) {
+                range = '@DateTime.Now.ToString("MM/dd/yyyy h:mm tt")' + " - " + '@DateTime.Now.ToString("MM/dd/yyyy h:mm tt")';
+            }
+            var self = this;
+            self.range = ko.observable(range);
+        };
+        var data = [];
+        var Cart = function () {
+
+            // Stores an array of lines, and from these, can work out the grandTotal
+            var self = this;
+
+            if ('@notNull' === "False") {
+                var range1 = '@DateTime.Now.ToString("MM/dd/yyyy h:mm tt")' + " - " + '@DateTime.Now.ToString("MM/dd/yyyy h:mm tt")';
+
+                self.lines = ko.observableArray([new CartLine(range1)]); // Put one line in by default
+            } else {
+                var json = JSON.parse('@Html.Raw(Json.Encode(Model.ExtProperties.DateTimeRanges))');
+                self.lines = ko.observableArray();
+
+                for (var i = 0; i < json.length; i++) {
+                    var range = moment(new Date(parseInt(json[i].OpenHouseStartDateTime.replace(/\/Date\((-?\d+)\)\//, '$1')))).format('MM/DD/YYYY h:mm') + " - " + moment(new Date(parseInt(json[i].OpenHouseEndDateTime.replace(/\/Date\((-?\d+)\)\//, '$1')))).format('MM/DD/YYYY h:mm');
+                    self.lines.push(new CartLine(range));
+                }
+                console.log(data);
+            }
+
+
+            // Operations
+            self.addLine = function () { self.lines.push(new CartLine()) };
+            self.removeLine = function (line) { self.lines.remove(line) };
+            self.save = function () {
+                var dataToSave = $.map(self.lines(), function (line) {
+                    console.log(line);
+                    return line ? {
+                        datetimeRange: line.range()
+                    } : undefined;
+                });
+
+
+                var isFeatured = $("#ExtProperties_IsFeatured option:selected").val();
+                var isPrinted = $("#ExtProperties_IsPrinted option:selected").val();
+                var agentDescription = $("#ExtProperties_AgentDescription").val();
+                var isSpotlight = $("#ExtProperties_IsSpotlight option:selected").val();
+                var dateTimeRanges = [];
+                var uniqueId = $('#btnUpdate').data("uniqueid");
+                var type = $('#btnUpdate').data("type");
+
+                for (var i = 0; i < dataToSave.length; i++) {
+                    var dateRange = dataToSave[i].datetimeRange.split('-');
+                    var obj = {};
+                    obj.OpenHouseStartDateTimestr = dateRange[0].trim();
+                    obj.OpenHouseEndDateTimestr = dateRange[1].trim();
+                    dateTimeRanges.push(obj);
+                }
+
+
+                var formData = {
+                    UniqueId: uniqueId,
+                    IsFeatured: isFeatured,
+                    IsSpotlight: isSpotlight,
+                    IsPrinted: isPrinted,
+                    AgentDescription: agentDescription,
+                    DateTimeRanges: dateTimeRanges
+
+                };
+                $.ajax({
+                    url: "/property/" + type + "/update",
+                    type: "POST",
+                    data: formData,
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            $("#sucessalert").show();
+                            $('#sucessalert').delay(5000).fadeOut(400);
+                        } else {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failurealert").show();
+                        $('#failurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            };
+        };
+
+        ko.applyBindings(new Cart());
+    </script>
+    <script type="text/javascript">
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                var imageLst = new Array();
+                $('#tblImage .name ').each(function () {
+                    var a = $(this).find("span").html();
+                    var photo = {};
+                    photo.MediaURL = a;
+                    imageLst.push(photo);
+                });
+                console.log(imageLst);
+                debugger;
+                var uniqueId = $('#btnImageUpload').data("uniqueid");
+                var type = $('#btnImageUpload').data("type");
+                var formData = {
+                    MlsNumber: uniqueId,
+                    "Photos.Photo": imageLst
+                };
+                $.ajax({
+                    url: "/property/" + type + "/updateimage",
+                    type: "POST",
+                    data: formData,
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            $("#sucessUploadImagealert").show();
+                            $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+                        } else {
+                            $("#failureUploadImagealert").show();
+                            $('#failureUploadImagealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failureUploadImagealert").show();
+                        $('#failureUploadImagealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+    </script>
+
+    <script type="text/javascript">
+        (function ($) {
+            if ('@ViewBag.PlanNumber' == 'True') {
+                $("#sucessSaveNewalert").show();
+                $('#sucessSaveNewalert').delay(5000).fadeOut(400);
+            } else if ('@ViewBag.PlanNumber' == 'False') {
+                $("#failureSaveNewalert").show();
+                $('#failureSaveNewalert').delay(5000).fadeOut(400);
+            }
+        })(jQuery);
+
+        (function ($) {
+            $('#btnDelete').on('click', function () {
+                var uniqueId = $('#btnDelete').data("uniqueid");
+                var type = $('#btnDelete').data("type");
+                var text=$('#btnDelete').attr("value");
+                var IsDeleted=false;
+                if(text=="Delete"){
+                    IsDeleted=true;
+                }
+                $.ajax({
+                    url: "/property/" + type + "/deleteproperty",
+                    type: "POST",
+                    data: { MlsNumber: uniqueId, isDeleted:IsDeleted },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if(IsDeleted){
+                                $("#deletealert").show();
+                                $('#deletealert').delay(5000).fadeOut(400);
+                            }else{
+                                $("#activealert").show();
+                                $('#activealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if(IsDeleted){
+                            $('#btnDelete').attr("value","Active");
+                        }else{
+                            $('#btnDelete').attr("value","Delete");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+    </script>
+}

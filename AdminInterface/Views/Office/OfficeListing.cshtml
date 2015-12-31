@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@section css{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Office listing
+        <small>Manage your office here</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div id="sucessalertdelete" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Offcie Deleted Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="pull-right">
+                        <a href="/office/new-office" class="btn btn-info">Add New Office</a>
+                    </div>
+                </div>
+                <div class="box-body">
+
+
+                    <table id="userlisting" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Office Id</th>
+                            <th>Name</th>
+                            <th>Corporate Name</th>
+                            <th>Broker Id</th>
+                            <th>Phone Number</th>
+                            <th>Office Email</th>
+                            <th>Website</th>
+                            <th>Action</th>
+                            <th>Offcie</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@section scripts
+{
+    <!-- DataTables -->
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/office-listing.js"></script>
+}

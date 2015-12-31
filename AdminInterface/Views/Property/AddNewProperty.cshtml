@@ -1,0 +1,478 @@
+﻿@{
+    ViewBag.Title = "Add New Property";
+}
+@model Repositories.Models.ListHub.ListHubListing
+<h2 style="padding-left:1%"> Add New Property</h2>
+
+@section css{
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker-bs3.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/plugins/iCheck/all.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="~/plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="~/plugins/timepicker/bootstrap-timepicker.min.css">
+    <link href="~/bootstrap/css/Custom.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+}
+
+
+<section class="content">
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+        @using (Html.BeginForm("AddNewProperty", "Property", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.MlsNumber)
+            @Html.HiddenFor(x => x.MlsName)
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Your Property Here</h3>
+                <div class="form-group pull-right col-lg-1" style="margin-right: 10px;">
+                    <input type="button" class="btn btn-primary btn-block " value="Back" onclick="window.history.back();" data-loading-text="Please wait..." />
+                </div>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.ValidationSummary(true)
+                        <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Property Created Successfully.</h4>
+                            <span></span>
+                        </div>
+                        <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                            <span></span>
+                        </div>
+                    </div>
+
+
+                </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Community Name</label>
+                            @Html.DropDownListFor(m => m.CommunityName,
+                            (ViewBag.Communities as IEnumerable<Repositories.Models.Community.Communities>).Select(x => new SelectListItem { Text = x.CommunityName, Value = x.CommunityName }),
+                             "Select"
+                            , new { @class = "form-control select2", @style = "width: 100%;" })
+                            @Html.ValidationMessage("CommunityName", new { @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Provider Name</label>
+
+                            @Html.DropDownListFor(m => m.ProviderName,
+                            (ViewBag.Office as IEnumerable<Repositories.Models.ListHub.Office>).Select(x => new SelectListItem { Text = x.CorporateName, Value = x.OfficeId }),
+                            "Select",
+                            new { @class = "form-control select2", @style = "width: 100%;" })
+                            @Html.ValidationMessage("ProviderName", new {  @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div><!-- /.col -->
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Agents</label>
+                            @Html.DropDownListFor(m => m.ListingParticipants.Participant.ParticipantId,
+                            new List<SelectListItem>()
+                            , "Select",
+                            new { @class = "form-control select2", @style = "width: 100%;" })
+                            @*@Html.TextBoxFor(m => m.ProviderURL, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })*@
+                            @Html.ValidationMessage("ProviderURL", new {  @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Property Type</label>
+                            @Html.DropDownListFor(m => m.PropertyType.Text,
+                            (ViewBag.PropertyType as IEnumerable<Repositories.Models.ListHub.PropertyType>).Select(x => new SelectListItem { Text = x.Text, Value = x.Text }),
+                            "Select",
+                             new { @class = "form-control select2", @style = "width: 100%;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Property Type Description</label>
+                            @Html.DropDownListFor(m => m.PropertyType.OtherDescription,
+                 (ViewBag.PropertyTypeDesc as IEnumerable<Repositories.Models.ListHub.PropertyType>).Select(x => new SelectListItem { Text = x.OtherDescription, Value = x.OtherDescription }),
+                            "Select",
+                             new { @class = "form-control select2", @style = "width: 100%;" })
+                        </div>
+                    </div><!-- /.col -->
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Property Sub Type</label>
+                            @Html.DropDownListFor(m => m.PropertySubType.Text,
+                            (ViewBag.PropertySubType as IEnumerable<Repositories.Models.ListHub.PropertySubType>).Select(item => new SelectListItem { Text = item.Text, Value = item.Text }),
+                            "Select",
+                             new { @class = "form-control select2", @style = "width: 100%;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Property Sub Type Description</label>
+                            @Html.DropDownListFor(m => m.PropertySubType.OtherDescription,
+                 (ViewBag.PropertySubTypeDesc as IEnumerable<Repositories.Models.ListHub.PropertySubType>).Select(item => new SelectListItem { Text = item.OtherDescription, Value = item.OtherDescription }),
+                            "Select",
+                            new { @class = "form-control select2", @style = "width: 100%;" })
+                        </div>
+                    </div><!-- /.col -->
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>City</label>
+                            @Html.TextBoxFor(m => m.Address.City, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                            @Html.ValidationMessage("Address.City", new {  @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>State</label>
+                            @Html.TextBoxFor(m => m.Address.StateOrProvince, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                            @Html.ValidationMessage("Address.StateOrProvince", new {  @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.box-body -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Street Address</label>
+                            @Html.TextBoxFor(m => m.Address.FullStreetAddress, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                            @Html.ValidationMessage("Address.FullStreetAddress", new {  @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Zip Code</label>
+                            @Html.TextBoxFor(m => m.Address.PostalCode, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                            @Html.ValidationMessage("Address.PostalCode", new {  @style = "color:red;font-weight:bold;padding:10px;" })
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Price</label>
+                            @Html.TextBoxFor(m => m.ListPrice.Text, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Bed Room</label>
+                            @Html.DropDownListFor(model => model.Bedrooms, new SelectList(
+                  new List<Object>{
+                       new { value = 0 , text = "No Bedroom" },
+                       new { value = 1 , text = "1 Bedroom"  },
+                       new { value = 2 , text = "2 Bedroom" },
+                       new { value = 3 , text = "3 Bedroom" },
+                       new { value = 4 , text = "4 Bedroom" },
+                       new { value = 5 , text = "5 Bedroom" },
+                       new { value = 6 , text = "6 Bedroom" }
+                    },
+                  "value", "text"), new { @class = "form-control select2", @style = "width: 100%;" })
+
+                        </div>
+                    </div>
+
+                    <!-- /.col -->
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Full BathRoom</label>
+                            </div>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.FullBathrooms, new { @class = "form-control", Value = 0, @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="fb_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="fb_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Half BathRoom</label>
+                            </div>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.HalfBathrooms, new { @class = "form-control", Value = 0, @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="hb_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="hb_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>ThreeQuarter BathRoom</label>
+                            </div>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.ThreeQuarterBathrooms, new { @class = "form-control", Value = 0, @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="tb_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="tb_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.col -->
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>OneQuarter BathRoom</label>
+                            </div>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.OneQuarterBathrooms, new { @class = "form-control", Value = 0, @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="ob_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="ob_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Partial BathRoom</label>
+                            </div>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.PartialBathrooms, new { @class = "form-control", Value = 0, @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="pb_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="pb_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Listing Status</label>
+                            @{
+            List<SelectListItem> listSt = new List<SelectListItem>();
+
+            foreach (var item in ViewBag.ListingStatus as IEnumerable<String>)
+            {
+                var newItem = new SelectListItem { Text = item, Value = item };
+                listSt.Add(newItem);
+            }
+                            }
+                            @Html.DropDownListFor(m => m.ListingStatus, listSt, new { @class = "form-control select2", @style = "width: 100%;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Listing Description</label>
+                            @Html.TextAreaFor(m => m.ListingDescription, new { @class = "form-control", @rows = 3, @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Lot Size - Acres</label>
+                            @Html.TextBoxFor(m => m.LotSize.Text, new { @class = "form-control", Value = 0, @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Living Area</label>
+                            @Html.TextBoxFor(m => m.LivingArea, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Year Built</label>
+                            <div class="input-group spinner">
+                                @Html.TextBoxFor(m => m.YearBuilt, new { @class = "form-control", Value = 2000, @placeholder = "Enter ...", @style = "height: 34px;" })
+                                <div class="input-group-btn-vertical">
+                                    <button class="btn btn-default" type="button" id="yb_up"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-default" type="button" id="yb_dw"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Listing Title</label>
+                            @Html.TextBoxFor(m => m.ListingTitle, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group pull-right">
+                            <input type="submit" class="btn btn-primary btn-block " value="Save" />
+                        </div><!-- /.form-group -->
+
+                    </div>
+                </div>
+            </div><!-- /.box -->
+        }
+    </div>
+</section><!-- /.content -->
+@section scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $('#fb_up').on('click', function () {
+                $('#FullBathrooms').val(parseInt($('#FullBathrooms').val(), 10) + 1);
+            });
+            $('#fb_dw').on('click', function () {
+                $('#FullBathrooms').val(parseInt($('#FullBathrooms').val(), 10) - 1);
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#hb_up').on('click', function () {
+                $('#HalfBathrooms').val(parseInt($('#HalfBathrooms').val(), 10) + 1);
+            });
+            $('#hb_dw').on('click', function () {
+                $('#HalfBathrooms').val(parseInt($('#HalfBathrooms').val(), 10) - 1);
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#tb_up').on('click', function () {
+                $('#ThreeQuarterBathrooms').val(parseInt($('#ThreeQuarterBathrooms').val(), 10) + 1);
+            });
+            $('#tb_dw').on('click', function () {
+                $('#ThreeQuarterBathrooms').val(parseInt($('#ThreeQuarterBathrooms').val(), 10) - 1);
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#ob_up').on('click', function () {
+                $('#OneQuarterBathrooms').val(parseInt($('#OneQuarterBathrooms').val(), 10) + 1);
+            });
+            $('#ob_dw').on('click', function () {
+                $('#OneQuarterBathrooms').val(parseInt($('#OneQuarterBathrooms').val(), 10) - 1);
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#pb_up').on('click', function () {
+                $('#PartialBathrooms').val(parseInt($('#PartialBathrooms').val(), 10) + 1);
+            });
+            $('#pb_dw').on('click', function () {
+                $('#PartialBathrooms').val(parseInt($('#PartialBathrooms').val(), 10) - 1);
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#yb_up').on('click', function () {
+                $('#YearBuilt').val(parseInt($('#YearBuilt').val(), 10) + 1);
+            });
+            $('#yb_dw').on('click', function () {
+                $('#YearBuilt').val(parseInt($('#YearBuilt').val(), 10) - 1);
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#FullBathrooms').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('#HalfBathrooms').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('#ThreeQuarterBathrooms').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('#OneQuarterBathrooms').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('#PartialBathrooms').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+
+            $('#YearBuilt').keypress(function (e) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    return false;
+                }
+            });
+        })(jQuery);
+    </script>
+
+
+    <script type="text/javascript">
+        (function ($) {
+            debugger;
+            if ('@ViewBag.MlsNumber' != '') {
+                $("#sucessalert").show();
+                $('#sucessalert').delay(5000).fadeOut(400);
+            }
+
+            $('#ProviderName').change(function () {
+                if ($.trim($("#ProviderName option:selected").val()).length != 0) {
+
+                    $.ajax({
+                        url: "/Property/GetOfficeAgents?officeid=" + encodeURIComponent($("#ProviderName option:selected").val()),
+                        type: "GET",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        success: function (data) {
+                            debugger;
+                            $('#ListingParticipants_Participant_ParticipantId').empty();
+                            $.each(data, function (key, value) {
+                                $('#ListingParticipants_Participant_ParticipantId').append($('<option></option>').val(value.ParticipantId).html(value.FirstName + ' ' + value.LastName));
+                            });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+
+                        },
+                        compete: function () {
+
+                        }
+                    });
+                }
+            });
+        })(jQuery);
+
+        function BackListing(btn) {
+            window.location.href = "/property/purchase-property-listing?liId=purchaseList";
+        }
+    </script>
+
+}

@@ -1,0 +1,775 @@
+﻿@model IEnumerable<Repositories.Models.ListHub.ListHubListing>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#txtSearchPurchase').keypress(function (e) {
+
+            if (e.which == 13) {
+                $('#purchaseClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+
+        $('#txtAll').keypress(function (e) {
+
+            if (e.which == 13) {
+                $('#allClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+
+        $('#txtSearchRent').keypress(function (e) {
+
+            if (e.which == 13) {
+                $('#rentClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+
+        $('#txtSearchNew').keypress(function (e) {
+
+            if (e.which == 13) {
+                $('#newHomeClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+
+        $('#txtSearchopenHouse').keypress(function (e) {
+
+            if (e.which == 13) {
+                $('#openHouseClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+
+        $('#txtAgent').keypress(function (e) {
+
+            if (e.which == 13) {
+                $('#openAgentClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#allClick').click(function (e) {
+            var name1 = $("#txtAll").val();
+            var name;
+            if (name1.indexOf("#") > -1) {
+                name = name1.substring(1, name1.length);
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=All&IsMls=true&SubCommand=Purchase&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            } else {
+                name = name1;
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=All&IsMls=false&SubCommand=Purchase&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#purchaseClick').click(function (e) {
+            var name1 = $("#txtSearchPurchase").val();
+            debugger;
+            var name;
+            if (name1.indexOf("#") > -1) {
+                name = name1.substring(1, name1.length);
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=SearchPurchase&IsMls=true&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            } else {
+                name = name1;
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=SearchPurchase&IsMls=false&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#rentClick').click(function (e) {
+            var name1 = $("#txtSearchRent").val();
+            var name;
+            if (name1.indexOf("#") > -1) {
+                name = name1.substring(1, name1.length);
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=SearchRent&IsMls=true&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            } else {
+                name = name1;
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=SearchRent&IsMls=false&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#newHomeClick').click(function (e) {
+            var name = $("#txtSearchNew").val();
+            var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + name + '&Command=SearchHome&IsMls=false&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#openHouseClick').click(function (e) {
+            var name1 = $("#txtSearchopenHouse").val();
+            var name;
+            if (name1.indexOf("#") > -1) {
+                name = name1.substring(1, name1.length);
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=SearchOpenHouse&IsMls=true&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+            } else {
+                name = name1;
+                var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + encodeURIComponent(name) + '&Command=SearchOpenHouse&IsMls=false&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;
+                @*var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + name + '&Command=SearchRent&IsMls=false&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+                window.location.href = url;*@
+            }
+
+
+           
+        });
+    });
+
+    $(function () {
+        $('#openAgentClick').click(function (e) {
+            var name = $("#txtAgent").val();
+            var url = '@Url.Action("Index", "Index/PropertiesListing")' + '?searchTerm=' + encodeURIComponent(name) + '&Command=SearchByAgent&SearchType=Agent&IsMls=false&SubTab=Newest' + '&ViewStyle=PropertiesListing&loadCount=1';
+            window.location.href = url;
+        });
+    });
+
+</script>
+
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/style_agent.css" rel="stylesheet" />
+
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="fill" style="background-image: url(/Content/image/bnnr.jpg);"></div>
+        </div>
+
+        <div class="item">
+            <div class="fill" style="background-image: url(/Content/image/bnnr.jpg);"></div>
+        </div>
+        <div class="item">
+            <div class="fill" style="background-image: url(/Content/image/bnnr.jpg);"></div>
+        </div>
+    </div>
+
+    <div class="carousel-caption">
+        <h1><span class="home_logo"> <img src="~/Content/image/home_logo.png" /> </span>
+        Search Homes SD</h1>
+        <h2>Your comprehensive community resource to buying, selling, and renting</h2>
+        @*<input name="" type="button" class="learn_more" value="Learn More" />*@
+        <div class="banner_searcharea">
+            <div class="panel panel-default">
+                <div id="Tabs" role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav" role="tablist">
+                        @*<li class="nav-set4 active">
+                                <a href="#all" aria-controls="all" role="tab" data-toggle="tab">
+                                    All
+                                </a>
+                            </li>*@
+                        <li class="nav-set1">
+                            <a href="#personal" aria-controls="personal" role="tab" data-toggle="tab">
+                                For Sale
+                            </a>
+                        </li>
+                        <li class="nav-set2">
+                            <a href="#employment" aria-controls="employment" role="tab" data-toggle="tab">For Rent</a>
+                        </li>
+                        <li class="nav-set3">
+                            <a href="#new" aria-controls="new" role="tab" data-toggle="tab">New Homes</a>
+                        </li>
+                        <li class="nav-set4">
+                            <a href="#open_house" aria-controls="new" role="tab" data-toggle="tab">Open House</a>
+                        </li>
+                        <li class="nav-set5">
+                            <a href="#agent" aria-controls="new" role="tab" data-toggle="tab">Agent</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        @*<div role="tabpanel" class="tab-pane active" id="all">
+                                <span class="serch-area_all">@Html.TextBox("searchTerm", null, new { id = "txtAll" })</span>
+                                <div class="serch-button">
+                                    <input type="button" class="search_btt-all" value="Search" id="allClick" />
+                                    <input name="" type="button" class="filter_btt" value="Filter Search" />
+                                </div>
+                            </div>*@
+                        <div role="tabpanel" class="tab-pane active" id="personal">
+                            <span class="serch-area">
+                                @Html.TextBox("searchTerm", null, new { id = "txtSearchPurchase", @placeholder = "Search by Address, City, Zip, Neighborhood or MLS." })
+                                <div class="purchase_ex" id="purchase_example" style="display:none;">
+                                    <h3>Examples</h3>
+                                    <ul>
+                                        <li><a href="#"><span>City, State</span> San Diego, CA</a></li>
+                                        <li><a href="#"><span>ZIP Code</span> 92037</a></li>
+                                        <li><a href="#"><span>Address</span> 132 Torrey Pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Street</span> Torrey pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Neighborhood</span> Little Italy, San Diego, CA </a></li>
+                                        <li><a href="#"><span>County</span> San Diego County, CA</a></li>
+                                        <li><a href="#"><span>MLS ID</span> #1500578655</a></li>
+                                    </ul>
+                                    <div class="purchase_ex_footer">To search for an MLS Listing Number, please type a # symbol in front of the number and click search</div>
+                                </div>
+                            </span>
+                            <div class="serch-button">
+                                <input type="button" class="search_btt" value="Search" id="purchaseClick" />
+                                @*<input name="" type="button" class="filter_btt" value="Filter Search" />*@
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="employment">
+                            <span class="serch-area_two">
+                                @Html.TextBox("searchTerm", null, new { id = "txtSearchRent", @placeholder = "Search by Address, City, Zip, Neighborhood or MLS." })
+                                <div class="purchase_ex" id="rent_example" style="display:none;">
+                                    <h3>Examples</h3>
+                                    <ul>
+                                        <li><a href="#"><span>City, State</span> San Diego, CA</a></li>
+                                        <li><a href="#"><span>ZIP Code</span> 92037</a></li>
+                                        <li><a href="#"><span>Address</span> 132 Torrey Pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Street</span> Torrey pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Neighborhood</span> Little Italy, San Diego, CA </a></li>
+                                        <li><a href="#"><span>County</span> San Diego County, CA</a></li>
+                                        <li><a href="#"><span>MLS ID</span> #1500578655</a></li>
+                                    </ul>
+                                    <div class="purchase_ex_footer">To search for an MLS Listing Number, please type a # symbol in front of the number and click search</div>
+                                </div>
+                            </span>
+                            <div class="serch-button">
+                                <input type="button" class="search_btn-two" value="Search" id="rentClick" />
+                                @*<input name="" type="button" class="filter_btt" value="Filter Search" />*@
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="new">
+                            <span class="serch-area_new">
+                                @Html.TextBox("searchTerm", null, new { id = "txtSearchNew", @placeholder = "Search by Address, City, Zip, Neighborhood or MLS." })
+                                <div class="purchase_ex" id="new-home_example" style="display:none;">
+                                    <h3>Examples</h3>
+                                    <ul>
+                                        <li><a href="#"><span>City, State</span> San Diego, CA</a></li>
+                                        <li><a href="#"><span>ZIP Code</span> 92037</a></li>
+                                        <li><a href="#"><span>Address</span> 132 Torrey Pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Street</span> Torrey pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Neighborhood</span> Little Italy, San Diego, CA </a></li>
+                                        <li><a href="#"><span>County</span> San Diego County, CA</a></li>
+                                        <li><a href="#"><span>MLS ID</span> #1500578655</a></li>
+                                    </ul>
+                                    <div class="purchase_ex_footer">To search for an MLS Listing Number, please type a # symbol in front of the number and click search</div>
+                                </div>
+                            </span>
+                            <div class="serch-button">
+                                <input type="button" class="search_btn-new" value="Search" id="newHomeClick" />
+                                @*<input name="" type="button" class="filter_btt" value="Filter Search" />*@
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="open_house">
+                            <span class="serch-area_open">
+                                @Html.TextBox("searchTerm", null, new { id = "txtSearchopenHouse", @placeholder = "Search by Address, City, Zip, Neighborhood or MLS." })
+                                <div class="purchase_ex" id="open-house_example" style="display:none;">
+                                    <h3>Examples</h3>
+                                    <ul>
+                                        <li><a href="#"><span>City, State</span> San Diego, CA</a></li>
+                                        <li><a href="#"><span>ZIP Code</span> 92037</a></li>
+                                        <li><a href="#"><span>Address</span> 132 Torrey Pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Street</span> Torrey pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Neighborhood</span> Little Italy, San Diego, CA </a></li>
+                                        <li><a href="#"><span>County</span> San Diego County, CA</a></li>
+                                        <li><a href="#"><span>MLS ID</span> #1500578655</a></li>
+                                    </ul>
+                                    <div class="purchase_ex_footer">To search for an MLS Listing Number, please type a # symbol in front of the number and click search</div>
+                                </div>
+                            </span>
+                            <div class="serch-button">
+                                <input type="button" class="search_btn-open" value="Search" id="openHouseClick" />
+                                @*<input name="" type="button" class="filter_btt" value="Filter Search" />*@
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="agent">
+                            <span class="serch-area_agent">
+                                @Html.TextBox("searchTerm", null, new { id = "txtAgent", @placeholder = "Search by Agent." })
+                                <div class="purchase_ex" id="agent_example" style="display:none;">
+                                    <h3>Examples</h3>
+                                    <ul>
+                                        <li><a href="#"><span>City, State</span> San Diego, CA</a></li>
+                                        <li><a href="#"><span>ZIP Code</span> 92037</a></li>
+                                        <li><a href="#"><span>Address</span> 132 Torrey Pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Street</span> Torrey pines Rd, La Jolla, CA</a></li>
+                                        <li><a href="#"><span>Neighborhood</span> Little Italy, San Diego, CA </a></li>
+                                        <li><a href="#"><span>County</span> San Diego County, CA</a></li>
+                                        <li><a href="#"><span>MLS ID</span> #1500578655</a></li>
+                                    </ul>
+                                    <div class="purchase_ex_footer">To search for an MLS Listing Number, please type a # symbol in front of the number and click search</div>
+                                </div>
+                            </span>
+                            <div class="serch-button">
+                                <input type="button" class="search_btn-agent" value="Search" id="openAgentClick" />
+                                @*<input name="" type="button" class="filter_btt" value="Filter Search" />*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<div class="clear"></div>
+@*<div class="container">
+        <div class="row">
+            <h4>OUR SERVICES</h4>
+            <div class="col-lg-3">
+                <div class="services">
+                    <img src="~/Content/image/find.jpg" alt="find" />
+                    <h2>Find Places anywhere in the world</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="services">
+                    <img src="~/Content/image/agent.jpg" alt="agent" />
+                    <h2>We have agents with Experience</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="services">
+                    <img src="~/Content/image/property.jpg" alt="property" />
+                    <h2>Find Places anywhere in the world</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="services">
+                    <img src="~/Content/image/find.jpg" alt="find" />
+                    <h2>With agent account you can list properties</h2>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <h4>Recently Listed Properties</h4>
+            <div class="col-lg-4">
+                <div class="view view-first">
+                    <img src="~/Content/image/etwetwe.png" alt="etwetwe" />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$799,000</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>600 - 40 Ave, San Fransisco, United states</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="view view-first">
+                    <img src="~/Content/image/etwetwe.png" alt="etwetwe" />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$799,000</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>600 - 40 Ave, San Fransisco, United states</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="view view-first">
+                    <img src="~/Content/image/etwetwe.png" alt="etwetwe" />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$799,000</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>600 - 40 Ave, San Fransisco, United states</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="view view-first">
+                    <img src="~/Content/image/etwetwe.png" alt="etwetwe" />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$799,000</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>600 - 40 Ave, San Fransisco, United states</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="view view-first">
+                    <img src="~/Content/image/etwetwe.png" alt="etwetwe" />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$799,000</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>600 - 40 Ave, San Fransisco, United states</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="view view-first">
+                    <img src="~/Content/image/etwetwe.png" alt="etwetwe" />
+                    <div class="mask">
+                        <h2>For Sale</h2>
+                        <p>$799,000</p>
+                        <h3>Sophisticated Residence</h3>
+                        <h4>600 - 40 Ave, San Fransisco, United states</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>*@
+<div class="clear"></div>
+
+@*<div class="agent-testimonials-wrapper cd-container">
+        <ul class="cd-testimonials1">
+            <li>
+                <div class="agent_contaner">
+
+                    <div class="content">
+                        <h2><a href="#" target="_blank">About <span style="color:#696868; font-weight:lighter;">Agent</span></a></h2>
+                        <h3>
+                            MARKUS DOE<br />
+                            Real Estate Group
+                        </h3>
+                        <p>Markus is a Certified Residential Specialist with over 10 years experience of helping local residents sell homes. He achieved success due to his commitment to the enhancement of the real estate profession, client service, and the community.</p>
+
+                        <ul>
+                            <li><img src="~/Content/image/icon_mail.png" alt="icon_mail" /> Markus.esp@yoursite.com</li>
+                            <li><img src="~/Content/image/icon_http.png" alt="icon_http" /> http://easysale.com</li>
+                            <li><img src="~/Content/image/icon_call.png" alt="icon_call" /> (1234) 457 - 78 - 98</li>
+                            <li><img src="~/Content/image/icon_fax.png" alt="icon_fax" /> (1234) 457 - 78 - 98</li>
+                        </ul>
+                    </div>
+                    <div class="agent_thumb">
+                        <a href="http://www.bucketlistly.com" target="_blank">
+                            <img src="~/Content/image/thumb.jpg">
+                        </a>
+                    </div>
+
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="cd-author">
+                        <img src="img/avatar-1.jpg" alt="Author image">
+                        <ul class="cd-author-info">
+                            <li>MyName</li>
+                            <li>CEO, AmberCreative</li>
+                        </ul>
+                    </div>-->
+                </div>
+            </li>
+
+            <li>
+                <div class="agent_contaner">
+
+                    <div class="content">
+                        <h2><a href="#" target="_blank">About <span style="color:#696868; font-weight:lighter;">Agent</span></a></h2>
+                        <h3>
+                            MARKUS DOE<br />
+                            Real Estate Group
+                        </h3>
+                        <p>Markus is a Certified Residential Specialist with over 10 years experience of helping local residents sell homes. He achieved success due to his commitment to the enhancement of the real estate profession, client service, and the community.</p>
+
+                        <ul>
+                            <li><img src="~/Content/image/icon_mail.png" alt="icon_mail" /> Markus.esp@yoursite.com</li>
+                            <li><img src="~/Content/image/icon_http.png" alt="icon_http" /> http://easysale.com</li>
+                            <li><img src="~/Content/image/icon_call.png" alt="icon_call" /> (1234) 457 - 78 - 98</li>
+                            <li><img src="~/Content/image/icon_fax.png" alt="icon_fax" /> (1234) 457 - 78 - 98</li>
+                        </ul>
+                    </div>
+                    <div class="agent_thumb">
+                        <a href="http://www.bucketlistly.com" target="_blank">
+                            <img src="~/Content/image/thumb.jpg" alt="thumb">
+                        </a>
+                    </div>
+
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="cd-author">
+                        <img src="img/avatar-1.jpg" alt="Author image">
+                        <ul class="cd-author-info">
+                            <li>MyName</li>
+                            <li>CEO, AmberCreative</li>
+                        </ul>
+                    </div>-->
+                </div>
+            </li>
+
+            <li>
+                <div class="agent_contaner">
+
+                    <div class="content">
+                        <h2><a href="#" target="_blank">About <span style="color:#696868; font-weight:lighter;">Agent</span></a></h2>
+                        <h3>
+                            MARKUS DOE<br />
+                            Real Estate Group
+                        </h3>
+                        <p>Markus is a Certified Residential Specialist with over 10 years experience of helping local residents sell homes. He achieved success due to his commitment to the enhancement of the real estate profession, client service, and the community.</p>
+
+                        <ul>
+                            <li><img src="~/Content/image/icon_mail.png" alt="icon_mail" /> Markus.esp@yoursite.com</li>
+                            <li><img src="~/Content/image/icon_http.png" alt="icon_http" /> http://easysale.com</li>
+                            <li><img src="~/Content/image/icon_call.png" alt="icon_call" /> (1234) 457 - 78 - 98</li>
+                            <li><img src="~/Content/image/icon_fax.png" alt="icon_fax" /> (1234) 457 - 78 - 98</li>
+                        </ul>
+                    </div>
+                    <div class="agent_thumb">
+                        <a href="http://www.bucketlistly.com" target="_blank">
+                            <img src="~/Content/image/thumb.jpg" alt="thumb">
+                        </a>
+                    </div>
+
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="cd-author">
+                        <img src="img/avatar-1.jpg" alt="Author image">
+                        <ul class="cd-author-info">
+                            <li>MyName</li>
+                            <li>CEO, AmberCreative</li>
+                        </ul>
+                    </div>-->
+                </div>
+            </li>
+        </ul> <!-- cd-testimonials -->
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <h4>Featured Properties</h4>
+
+            <div class="col-lg-4">
+                <div class="feature_pro">
+                    <div class="thunb1">
+                        <div class="price_tag"><img src="~/Content/image/price_tag.jpg" alt="price_tag" /></div>
+                        <div class="price">$500,00</div>
+                        <div class="clear"></div>
+                        <div class="status">FOR RENT</div>
+                    </div>
+
+                    <ul>
+                        <li><img src="~/Content/image/icon-expand.jpg" alt="icon-expand" /> 20,000  Acars</li>
+                        <li><img src="~/Content/image/bedroom.jpg" alt="bedroom" /> 4 bedrooms</li>
+                        <li><img src="~/Content/image/bathroom.jpg" alt="bathroom" /> 3 bathrooms</li>
+                    </ul>
+
+                    <h3>Santa Cecilia Subdivision</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi …</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature_pro">
+                    <div class="thunb1">
+                        <div class="price_tag"><img src="~/Content/image/price_tag.jpg" alt="price_tag" /></div>
+                        <div class="price">$500,00</div>
+                        <div class="clear"></div>
+                        <div class="status">FOR RENT</div>
+                    </div>
+
+                    <ul>
+                        <li><img src="~/Content/image/icon-expand.jpg" alt="icon-expand" /> 20,000  Acars</li>
+                        <li><img src="~/Content/image/bedroom.jpg" alt="bedroom" /> 4 bedrooms</li>
+                        <li><img src="~/Content/image/bathroom.jpg" alt="bathroom" /> 3 bathrooms</li>
+                    </ul>
+
+                    <h3>Santa Cecilia Subdivision</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi …</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature_pro">
+                    <div class="thunb1">
+                        <div class="price_tag"><img src="~/Content/image/price_tag.jpg" alt="price_tag" /></div>
+                        <div class="price">$500,00</div>
+                        <div class="clear"></div>
+                        <div class="status">FOR RENT</div>
+                    </div>
+
+                    <ul>
+                        <li><img src="~/Content/image/icon-expand.jpg" alt="icon-expand" /> 20,000  Acars</li>
+                        <li><img src="~/Content/image/bedroom.jpg" alt="bedroom" /> 4 bedrooms</li>
+                        <li><img src="~/Content/image/bathroom.jpg" alt="bathroom" /> 3 bathrooms</li>
+                    </ul>
+
+                    <h3>Santa Cecilia Subdivision</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi …</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>*@
+<div class="clear"></div>
+
+<script src="~/js/jquery-ui-1.10.4.custom.min.js"></script>
+<link href="~/Content/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<style>
+    .ui-autocomplete {
+        max-height: 150px;
+        position: absolute;
+        overflow-y: auto;
+        padding: 10px;
+        z-index: 999;
+        background-color: #fff;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+    }
+
+
+    li a::after {
+        color: red !important;
+    }
+
+
+    html .ui-autocomplete {
+        height: auto;
+    }
+
+    li a:hover {
+        color: black !important;
+        transition: color 0.5s linear; /* vendorless fallback */
+        -o-transition: color 0.5s linear; /* opera */
+        -ms-transition: color 0.5s linear; /* IE 10 */
+        -moz-transition: color 0.5s linear; /* Firefox */
+        -webkit-transition: color 0.5s linear; /*safari and chrome */
+    }
+
+    .home_logo {
+        margin: -40px 0 0 35%;
+        position: absolute;
+        float: right;
+    }
+
+
+</style>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        showExample('txtSearchPurchase', 'purchase_example');
+        showExample('txtSearchRent', 'rent_example');
+        showExample('txtSearchNew', 'new-home_example');
+        showExample('txtSearchopenHouse', 'open-house_example');
+        showExample('txtAgent', 'agent_example');
+    });
+    $(function () {
+        $("#txtSearchPurchase").autocomplete({
+            source: '@Url.Action("GetAutoCompleteDataForPurchase")'
+        });
+    });
+    $(function () {
+        $("#txtSearchRent").autocomplete({
+            source: '@Url.Action("GetAutoCompleteDataForRent")'
+        });
+    });
+    $(function () {
+        $("#txtSearchNew").autocomplete({
+            source: '@Url.Action("GetAutoCompleteDataForHome")'
+        });
+    });
+    $(function () {
+        $("#txtSearchopenHouse").autocomplete({
+            source: '@Url.Action("GetAutoCompleteDataForAll")'
+        });
+    });
+    $(function () {
+        $("#txtAgent").autocomplete({
+            source: '@Url.Action("GetAutoCompleteDataForAgent")'
+        });
+    });
+
+
+    $(function () {
+        $("#txtSearchPurchase").blur(function () {
+            $("#purchase_example").hide();
+        });
+    });
+    $(function () {
+        $("#txtSearchRent").blur(function () {
+            $("#rent_example").hide();
+        });
+    });
+    $(function () {
+        $("#txtSearchNew").blur(function () {
+            $("#new-home_example").hide();
+        });
+    });
+    $(function () {
+        $("#txtSearchopenHouse").blur(function () {
+            $("#open-house_example").hide();
+        });
+    });
+    $(function () {
+        $("#txtAgent").blur(function () {
+            $("#agent_example").hide();
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    function show_visibility(id) {
+        var e = document.getElementById(id);
+
+        e.style.display = 'block';
+
+    }
+    function hide_visibility(id) {
+        var e = document.getElementById(id);
+
+        e.style.display = 'none';
+    }
+
+    function showExample(divid, exampleId) {
+        var id = "#" + divid;
+        $(id).focus(function () {
+            show_visibility(exampleId);
+        });
+
+        $(id).keypress(function () {
+            var currentString = $(id).val(); debugger;
+            //alert(currentString.length);
+            if (currentString.length >= 0) {  /*or whatever your number is*/
+                hide_visibility(exampleId);
+            } else {
+                show_visibility(exampleId);
+            }
+        });
+    }
+</script>
+
+
+
+

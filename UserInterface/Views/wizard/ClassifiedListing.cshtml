@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+@model List<Repositories.Models.Common.PropertyDetails>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link href="/Content/Widget/style.css" rel="stylesheet" />
+<script src="/Content/Widget/jquery.carouFredSel-6.2.1-packed.js"></script>
+
+<script type="text/javascript">
+    var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+    /*
+    function loadScript(url, callback) {
+
+        var script = document.createElement("script")
+        script.type = "text/javascript";
+
+        if (script.readyState) {  //IE
+            script.onreadystatechange = function () {
+                if (script.readyState == "loaded" ||
+                        script.readyState == "complete") {
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {  //Others
+            script.onload = function () {
+                callback();
+            };
+        }
+
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+    */
+    function loadCaraserolclassifiedlisting() {
+        $('#ntooitive-slider-classified-listing').carouFredSel({
+            auto: false,
+            height: 'auto',
+            prev: '#ntooitive-prev-classified-listing',
+            next: '#ntooitive-next-classified-listing',
+            mousewheel: true,
+            responsive: true
+        });
+    }
+    $(function () {
+        //css
+        //$('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+        debugger;
+        //var caraserolscript = url_Start + '/Content/Widget/jquery.carouFredSel-6.2.1-packed.js';
+        //loadScript(caraserolscript, loadCaraserolclassifiedlisting);
+        loadCaraserolclassifiedlisting();
+        //images
+        $('#ntooitive-prev-classified-listing').attr('src', url_Start + '/Content/Widget/images/prev.png');
+        $('#ntooitive-next-classified-listing').attr('src', url_Start + '/Content/Widget/images/next.png');
+    });
+</script>
+
+
+<div class="ntooitive-main_area">
+    <h2>CLASSIFIED LISTING</h2>
+    <div class="ntooitive-main_content" id="ntooitive-slider-classified-listing">
+        @{
+            double agentCount = Model.Count;
+            int agentperpage = 2;
+            var totalPage = Math.Ceiling(agentCount / agentperpage);
+            Console.WriteLine(totalPage);
+            var querystring = Request.QueryString["type"];
+            string command = string.Empty;
+            if(querystring.ToLower() == "purchase")
+            {
+                command = "SearchPurchase";
+            }
+            else
+            {
+                command = "SearchRent";
+            }
+
+            var noimage_url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Content/image/listing_thumb.jpg";
+        }
+        @if (agentCount > 0)
+        {
+            for (int i = 0; i < totalPage; i++)
+            {
+                <div class="ntooitive-slide">
+                    <ul>
+                        @for (int k = 0; k < agentperpage; k++)
+                        {
+                            var currentUser = i * agentperpage + k;
+                            Console.WriteLine(currentUser);
+                            if (currentUser < agentCount)
+                            {
+                                string homeImage = noimage_url;
+                                if (Model.ElementAt(currentUser).Photos != null)
+                                {
+                                    if( Model.ElementAt(currentUser).Photos.FirstOrDefault() != null)
+                                    {
+                                        homeImage = Model.ElementAt(currentUser).Photos.FirstOrDefault();
+                                    }
+                                }
+                                <li>
+                                    <div class="ntooitive-property_img">
+                                        <img src="@homeImage" alt=""
+                                             onerror="this.onerror=null;this.src='@noimage_url';" />
+                                    </div>
+                                    @{
+                                var property = Model.ElementAt(currentUser);
+
+                                var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Index/PropertieDetailsWizard?mlsNumber=" + property.MlsNumber + "&Command=" + command;
+
+                                    }
+
+                                    <div class="ntooitive-property_details">
+                                        <h3>@property.FullStreetAddress</h3>
+                                        <p>@property.PropertyType</p>
+                                        <a href="@url" class="ntooitive-view_button" target="_blank">View Details</a>
+                                    </div>
+                                    <div class="clear"></div>
+
+
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="not_found"> No data found</div>
+        }
+    </div>
+
+    <a href="#" id="ntooitive-prev"><img id="ntooitive-prev-classified-listing" alt="" /></a>
+    <a href="#" id="ntooitive-next"><img id="ntooitive-next-classified-listing" alt="" /></a>
+</div>
+

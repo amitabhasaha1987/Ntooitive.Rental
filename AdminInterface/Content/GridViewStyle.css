@@ -1,0 +1,137 @@
+﻿.PGrid {
+    width: 100%;
+    background-color: #fff;
+    margin: 20px 0 10px 0;
+    border: solid 1px #5285ba;
+    border-collapse: collapse;
+}
+
+.Header {
+    padding: 6px 8px;
+    color: #fff;
+    background: #5285ba url(images/grd_head.png) repeat-x top;
+    border-left: solid 1px #82b9f1;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+    .Header a {
+        color: white;
+        font-weight: bold;
+    }
+
+.PGrid th {
+    padding: 6px 8px;
+    color: white;
+    background: #5285ba url(images/grd_head.png) repeat-x top;
+    border-left: solid 1px #82b9f1;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.PGrid td {
+    padding: 6px 8px;
+    border: solid 1px #c1c1c1;
+    color: #717171;
+    font-size: 12px;
+    text-align: center !important;
+}
+
+
+.altRow {
+    background-color: #EEEEEE;
+    color: #000;
+}
+
+.pgr {
+    background: #618DBC;
+    border-width: 0;
+    padding: 0 6px;
+    border-left: solid 1px #666;
+    font-weight: bold;
+    color: #fff;
+    line-height: 12px;
+}
+
+    .pgr a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        .pgr a:hover {
+            color: #000;
+            text-decoration: none;
+        }
+
+/*.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}*/
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+
+/*Admin*/
+.PGridAdmin {
+    width: 100%;
+    background-color: #fff;
+    margin: 0 0 1px 0;
+    border: solid 1px #5285ba;
+    border-collapse: collapse;
+}
+
+    .PGridAdmin th {
+        padding: 6px 8px;
+        color: white;
+        background: #5285ba url(images/grd_head.png) repeat-x top;
+        border-left: solid 1px #82b9f1;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .PGridAdmin td {
+        padding: 6px 8px;
+        border: solid 1px #c1c1c1;
+        color: #717171;
+        font-size: 12px;
+        text-align: center;
+    }
+
+.emailSent {
+    background: url(../images/mail_send.png) no-repeat right top;
+    float: none;
+    font-weight: bolder;
+    padding-right: 22px;
+    height:19px;
+    width:19px;
+}
+
+.emailNotSent {
+    background: url(../images/mail_delete.png) no-repeat right top;
+    float: none;
+    font-weight: bolder;
+    padding-right: 22px;
+    height:19px;
+    width:19px;
+}

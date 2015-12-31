@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Repositories.Models.PropertyListing>
+@{
+    ViewBag.Title = "PropertiesListing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/responsive-tabs.css" rel="stylesheet" />
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #googleMap {
+        height: 100%;
+    }
+</style>
+
+<h2>PropertiesListing</h2>
+@using (Html.BeginForm())
+{
+    <div class="page_container">
+        <div id="googleMap" class="map"></div>
+
+        <div class="listing_dtls">
+            <body class="bd1">
+                <div id="demopage">
+
+                    <div class="container1">
+                        <ul class="rtabs">
+                            <li><a href="#view1">Featured</a></li>
+                            <li><a href="#view2">Newest</a></li>
+                            <li><a href="#view3">More</a></li>
+                        </ul>
+                        <div class="panel-container">
+                            <div id="view1" class="listing_nav">
+                                <ul>
+                                    @foreach (var item in Model)
+                                    {
+                                        <li>
+                                            <img style="height:125px;width:150px;" src=@(item.DefaultPhoto == null ? "~/image/listing_thumb.jpg" : item.DefaultPhoto[0]) />
+                                            <p>
+                                                <span style="color:#FF0000;">@Html.ActionLink(@item.FullStreetAddress, "PropertieDetails", "Home", new { mlsNumber = @item.MlsNumber }, null)</span><br />
+                                                <span style="font-weight:bold;  line-height:30px;">@item.PropertyType</span><br />
+                                                <span>$&nbsp;@item.Price</span><br />
+                                                <span style="font-size:14px; line-height:30px;"><img src="~/image/bedroom.jpg" />&nbsp;@item.NoOfBedRooms bds &nbsp; <img src="~/image/bathroom.jpg" />&nbsp;@item.NoOfBathRooms bath • @item.LotSize</span><br />
+                                                <span style="color:#bcbcbc;">@item.ListingParticipantsName</span>
+
+                                            </p>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div id="view2" class="listing_nav">
+                                @*<li>
+                                        <img src="~/responsivetabs/content/listing_thumb.jpg" />
+                                        <p>
+                                            <span style="color:#FF0000;">1935 Plan, Gilmore Bay</span><br/>
+                                            <span style="font-weight:bold;  line-height:30px;">NEW CONSTRUCTION</span><br/>
+                                            <span>$250,000+</span><br/>
+                                            <span style="font-size:18px; line-height:30px;">4 bds • 2.5 ba • 1,935+ sqft</span><br/>
+                                            <span style="color:#bcbcbc;">D.R. Horton</span>
+
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <img src="~/responsivetabs/content/listing_thumb.jpg" />
+                                        <p>
+                                            <span style="color:#FF0000;"></span>
+                                            <span style="font-weight:bold;  line-height:30px;"></span>
+                                            <span></span>
+                                            <span style="font-size:18px; line-height:30px;"></span>
+                                            <span style="color:#bcbcbc;"></span>
+
+                                        </p>
+                                    </li>*@
+                            </div>
+                            <div id="view3" class="listing_nav">
+                                @*<ul>
+                                        <li>
+                                            <img src="~/responsivetabs/content/listing_thumb.jpg" />
+                                            <p>
+                                                <span style="color:#FF0000;">1935 Plan, Gilmore Bay</span><br/>
+                                                <span style="font-weight:bold;  line-height:30px;">NEW CONSTRUCTION</span><br/>
+                                                <span>$250,000+</span><br/>
+                                                <span style="font-size:18px; line-height:30px;"><img src="image/bedroom.jpg" />4 bds <img src="image/bathroom.jpg" />2.5 ba • 1,935+ sqft</span><br/>
+                                                <span style="color:#bcbcbc;">D.R. Horton</span>
+
+                                            </p>
+                                        </li>
+                                    </ul>*@
+                                @*<ul>
+                                        <li>
+                                            <img src="~/responsivetabs/content/listing_thumb.jpg" />
+                                            <p>
+                                                <span style="color:#FF0000;"></span>
+                                                <span style="font-weight:bold;  line-height:30px;"></span>
+                                                <span></span>
+                                                <span style="font-size:18px; line-height:30px;"><img src="image/bedroom.jpg" /><img src="image/bathroom.jpg" /></span>
+                                                <span style="color:#bcbcbc;"></span>
+
+                                            </p>
+                                        </li>
+                                    </ul>*@
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </body>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var gmarkers = [];
+        var map;
+        var x = "Indian Head, MD, 20640";
+
+
+        function initialize() {
+
+            var mapProp = {
+                center: new google.maps.LatLng(20.593684, 78.96288), //India Lat and Lon
+                zoom: 18,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            Call();
+        }
+        function autoCenter() {
+            //  Create a new viewpoint bound
+            var bounds = new google.maps.LatLngBounds();
+            //  Go through each...
+            for (var i = 0; i < gmarkers.length; i++) {
+                bounds.extend(gmarkers[i].position);
+            }
+            //  Fit these bounds to the map
+            map.fitBounds(bounds);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        
+
+            for (i = 0; i < gmarkers.length; i++) {
+                gmarkers[i].setMap(null);
+            }
+            function Call() {
+                $.ajax({
+                    type: "GET",
+                    url: '/Home/GetGeoLocation?name=' + x, //"../Map/Search"
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $.each(data, function (index, value) {
+                            var latlng = new google.maps.LatLng(value.Latitude, value.Longitude);
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                icon: "../pinkball.png",
+                                map: map
+                            });
+
+                            gmarkers.push(marker);
+
+                        });
+                        autoCenter();
+                    }
+                });
+            }
+
+          
+ 
+    });
+</script>

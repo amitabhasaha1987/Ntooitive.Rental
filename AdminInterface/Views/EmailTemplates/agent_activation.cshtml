@@ -1,0 +1,56 @@
+﻿@using System.Configuration
+@model AdminInterface.Models.Mail.SendInvitation
+<div bgcolor="#f4f4f4" link="398bce" marginwidth="0" marginheight="0" style="background:#f4f4f4;margin:0;padding:0">
+    <table cellpadding="0" cellspacing="0" border="0" height="100%" width="100%" bgcolor="#f4f4f4" style="border-spacing:0;background:#f4f4f4">
+        <tbody>
+            <tr>
+                <td style="border-collapse:collapse">
+                    <table border="0" width="600" cellpadding="0" cellspacing="0" align="center" style="border-spacing:0">
+                        <tbody>
+                            <tr><td height="30" style="font-size:0;line-height:0;border-collapse:collapse">&nbsp;</td> </tr>
+                            <tr>
+                                <td valign="middle" style="text-align:left;border-collapse:collapse;padding:20px 0" align="left">
+                                    <a href="@ConfigurationManager.AppSettings["URL"]" target="_blank">
+                                        <img src="https://pbs.twimg.com/profile_images/602110406581047296/tAfHSiVz.jpg" width=" " border="0" class="CToWUd" style="
+    height: 100px;
+    width: 100px;
+">
+                                    </a>
+                                </td>
+                                <td valign="middle" style="text-align:right;font-family:Helvetica,Arial,sans-serif;font-size:12px;border-collapse:collapse;padding:20px 0" align="right"> </td>
+                            </tr>
+                            <tr><td height="10" style="font-size:0;line-height:0;border-collapse:collapse">&nbsp;</td> </tr>
+                        </tbody>
+                    </table><span><font color="#888888"> </font></span><span><font color="#888888"></font></span><table border="0" width="600" cellpadding="0" cellspacing="0" align="center" style="border-spacing:0;background:#ffffff;border:1px solid #e5e5e5" bgcolor="#ffffff">
+                        <tbody>
+                            <tr><td style="border-collapse:collapse"> </td> </tr>
+                            <tr>
+                                <td style="border-bottom-width:1px;border-bottom-color:#e5e5e5;border-bottom-style:solid;border-collapse:collapse">
+                                    <span><font color="#888888"> </font></span><table border="0" width="100%" cellpadding="0" cellspacing="0" align="center" style="border-spacing:0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-family:sans-serif;font-size:16px;line-height:25px;color:#666666;border-collapse:collapse;padding:30px">
+                                                    <div>
+                                                        <h1 style="font-size:20px;color:rgb(40,40,40);text-align: center;">Congratulations!! </h1><div style="
+    text-align: center;
+">You have verified your account successfully.</div>
+                                                    </div>
+                                                    <div>
+
+                                                        <div style="padding: 30px">
+                                                             <a href="@Model.FuzzyLink" style="font-size: 13px; font-weight: 100; font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; text-align: center; letter-spacing: 1px; text-decoration: none; margin: 0 auto; line-height: 62px; background: #398bce; display: block; width: 300px; min-height: 60px; border-radius: 3px; color: #ffffff" target="_blank">CLICK HERE TO LOGIN NOW</a>
+                                                        </div>
+                                                    </div><div>Thanks,</div><div>Team San Diego Union-Tribune</div><span><font color="#888888"> </font></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table><span><font color="#888888"></font></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table><span><font color="#888888"><table border="0" width="100%" cellpadding="0" cellspacing="0" align="center" style="border-spacing:0"><tbody><tr><td style="text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:18px;color:#888888;border-collapse:collapse;padding:20px 0px 5px" align="center">© The San Diego Union-Tribune<br> </td> </tr><tr><td style="text-align:center;font-family:sans-serif;font-size:12px;line-height:18px;color:#888888;border-collapse:collapse;padding:10px 0px 20px" align="center"> <a href="https://twitter.com/sdut" target="_blank"><img src="https://ci4.googleusercontent.com/proxy/KjevbEoX-04hY2kteigFWkwbX2yXjKpTt_SzjzEBEkHXsCAPXR9LfvEBRCMRbH5GvkFj9hp4jbu724uDqURlz5d_z8zltnvfxwbPgg=s0-d-e1-ft#https://assets.digitalocean.com/email/twitter-icon.png" style="border:none" class="CToWUd"></a>&nbsp; &nbsp; <a href="#" target="_blank"><img src="https://ci6.googleusercontent.com/proxy/o74u69sIYz-sPlYPC1tJHG45P7Yss4ECys7vOJdiuZmhKyFs3o2zr9dzzmxGpCoSXioqTJIznA6SRWnFc65Z5tbKQFMOQLJDqPk5Azis12E=s0-d-e1-ft#https://assets.digitalocean.com/email/google-plus-icon.png" style="border:none" class="CToWUd"></a>&nbsp; &nbsp; <a href="https://www.facebook.com/SanDiegoUnionTribune" target="_blank"><img src="https://ci4.googleusercontent.com/proxy/QvPe5A9vUVrect4HGRKmmSxCO0AegM_lSexHwZOg6sGSMk8FP6VshvpFq7YQnNFG6K7X7lEoL3SbcykF9gcq37Zw8g5yBJu7iSV_XBY=s0-d-e1-ft#https://assets.digitalocean.com/email/facebook-icon.png" style="border:none" class="CToWUd"></a> </td> </tr></tbody></table></font></span>
+                </td>
+            </tr>
+        </tbody>
+    </table><div><div role="button" aria-label="Show trimmed content"><img src="" class="CToWUd"></div></div><span><font color="#888888"><img src="https://ci5.googleusercontent.com/proxy/eUc6-JYbWIeeKZXDtyyQToyBItRgKht-hOr2e3LKFspI6Oof2ijTWZ22vNdZ4ruAgy1GANpvdP-djaCHiP4Kacl4BTqclT_PndXcWi_Z8SIQj7IAg45xAiymHv3QTT7rlA9Fsp3CCnDkErTfq7OFpSmKCS8_vOPQfEyMDgcV5twD66iKTShd_EHGl4-EhJMRthUJx4gEBWBGZTTNjOxrux0n9CTS=s0-d-e1-ft#http://email.support.digitalocean.com/e/o/eyJlbWFpbF9pZCI6Ik1UWXpOVE02Rm9DakFtUUFBbk1BRnd6aHVCb0JUcVFqU1VRVkNoaFZxeGxqQVhNNk1UYzJOVE15QUE9PSJ9" class="CToWUd"><img src="https://ci5.googleusercontent.com/proxy/u5R_-Pffg3JrJRpvIpyJXgitaB4qIEgcrztuBcv-XVWnlEPBM5p1AA8g8pOJ1DR9TsG6qx9ufvgJpgVYl76mHgKo3bThQIIO5LsAey-ipw_BE9S1DYyOE90_9kCY2AZKMI1t4ngB0QpwQdFpMB-H=s0-d-e1-ft#http://mda.digitalocean.com/track/open.php?u=30039865&amp;id=7d3ec576a444481f883c89a4a31a81c1" height="1" width="1" class="CToWUd"></font></span>
+</div>

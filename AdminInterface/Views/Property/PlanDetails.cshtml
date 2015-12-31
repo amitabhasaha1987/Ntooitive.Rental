@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Repositories.Models.NewHome.Plan>
+@{
+    Layout = null;
+}
+<table class="table table-bordered table-hover dataTable">
+    <tr>
+        <th>Plan #</th>
+        <th>Plan Name</th>
+        <th>Type</th>
+        <th>Base Price</th>
+        <th>Base SqFt</th>
+        <th>Manage</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        var Base_price = Convert.ToDouble(item.Base_price).ToString("#,##,##0.00");
+        var Base_Sqft = Convert.ToDouble(item.Sqft_low).ToString("#,##,##0.00");
+        <tr>
+            <td>@item.PlanId</td>
+            <td>@item.Name</td>
+            <td>@item.Style</td>
+            <td>@Base_price</td>
+            <td>@Base_Sqft</td>
+            <td><a class="btn btn-block btn-primary" onclick="ManagePlan('@item.PlanId');">Manage Plan</a></td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    function ManagePlan(mlsid) {
+        window.location.href = "/property/newhome/editplan/" + mlsid;
+    }
+</script>

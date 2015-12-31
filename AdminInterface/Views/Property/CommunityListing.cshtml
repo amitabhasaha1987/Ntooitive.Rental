@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "CommunityListing";
+}
+
+@section css{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Community listing
+        <small>Manage your property here</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Community Deleted Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/property/new-community" class="btn btn-info">Add New Community</a>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table id="newhomelisting" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name #</th>
+                                <th>Number</th>
+                                <th>Address </th>
+                                <th>City </th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@section scripts
+{
+    <!-- DataTables -->
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/community-listing.js"></script>
+}
+

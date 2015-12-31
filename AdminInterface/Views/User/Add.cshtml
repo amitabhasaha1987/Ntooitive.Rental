@@ -1,0 +1,703 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+@model Repositories.Models.ListHub.Participant
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Add New Agent Here</h3>
+
+            <div class="form-group pull-right col-lg-1" style="margin-right: 10px;">
+                <input type="button" class="btn btn-primary btn-block " value="Back" onclick="window.history.back();" data-loading-text="Please wait..." />
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent Added Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="sucessupdatealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent Updated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurRoleealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Select Role.</h4>
+                        <span></span>
+                    </div>
+                    <div id="validationalert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i><label id="lblMsg"></label> </h4>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.ParticipantId)
+                        @Html.HiddenFor(m => m.ParticipantKey)
+                        @Html.HiddenFor(m => m.ProfileImage)
+                        @Html.HiddenFor(m => m.OfficeImage)
+                        @Html.Label("First Name")
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Last Name")
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Primary Contact")
+                        @Html.TextBoxFor(m => m.PrimaryContactPhone, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Website Url")
+
+                        @Html.TextBoxFor(m => m.WebsiteURL, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label> Description </label>
+                        @Html.TextBoxFor(m => m.AgentDescription, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Role")
+
+                        @Html.DropDownListFor(model => model.Role, new SelectList(
+                  new List<Object>{
+                      new { value = "-Select-" , text = "-Select-"  },
+                       new { value = Utility.Roles.Admin , text = Utility.Roles.Admin  },
+                       new { value = Utility.Roles.Agent , text = Utility.Roles.Agent},
+                       new { value = Utility.Roles.Builder , text = Utility.Roles.Builder}
+                    },
+                  "value", "text"), new { @class = "form-control select2", @style = "width: 100%;" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div id="offcDiv" class="col-md-6">
+                    <div class="form-group">
+                        <label>Office </label>
+                        @Html.DropDownListFor(m => m.OfficeId, Model.GetOfficeList.Select(x => new SelectListItem { Text = x.CorporateName, Value = x.OfficeId }), new { @class = "adv_search_chosearea form-control" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Logo Image </label>
+                        <form id="fileuploadLogo" action="/Upload/UploadHandler.ashx" method="POST" enctype="multipart/form-data">
+                            <!-- SELECT3 IMAGE UPLOAD -->
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                                        <div class="fileupload-buttonbar">
+                                            <div class="span7">
+                                                <!-- The fileinput-button span is used to style the file input field as button -->
+                                                <span class="btn btn-success fileinput-button">
+                                                    <i class="icon-plus icon-white"></i>
+                                                    <span>Add files...</span>
+                                                    <input type="file" name="files[]" multiple>
+                                                </span>
+                                            </div>
+                                            <div class="span5">
+                                                <!-- The global progress bar -->
+                                                <div class="progress progress-success progress-striped active fade">
+                                                    <div class="bar" style="width:0%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- The loading indicator is shown during image processing -->
+                                        <div class="fileupload-loading"></div>
+                                        <br>
+                                        <!-- The table listing the files available for upload/download -->
+                                        <table class="table table-striped" id="tblLogo"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                                @*<div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group pull-right">
+                                                <input id="btnImageUpload" type="button" data-uniqueid='@Model.CommunityId' data-type='Communities' class="btn btn-primary btn-block " value="Update" />
+                                            </div><!-- /.form-group -->
+                                        </div><!-- /.col -->
+                                    </div>*@
+                            </div><!-- /.box-body -->
+                            <!-- /.box -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group pull-right col-lg-1">
+                        @if (!String.IsNullOrEmpty(Model.ParticipantId == null ? String.Empty : (Model.ParticipantId)))
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Save" onclick="EditAgent(this)" data-loading-text="Please wait..." />
+                        }
+                        else
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Save" onclick="AddAgent(this)" data-loading-text="Please wait..." />
+                        }
+                    </div>
+                    <!-- /.form-group -->
+                </div><!-- /.col -->
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+    <div class="box box-default hide" id="UploadImageBox">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload agent Image</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Image Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label class="pull-left">Upload agent image here </label>
+
+                </div>
+                <div class="col-md-4">
+                    <form id="fileupload" action="/Upload/UploadAgentImageHandler.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="icon-plus icon-white"></i>
+                                    <span>Add file</span>
+                                    <input type="file" name="files[]" value="Add">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.Id' data-type='newhome'>
+                                    <i class="fa fa-cloud-upload"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped" id="tblImage"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+
+
+        </div>
+
+
+
+    </div>
+</section>
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+            debugger;
+            // Initialize the jQuery File Upload widget:
+
+        });
+    </script>
+    <script type="text/javascript">
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                $("#sucessUploadImagealert").show();
+                $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+    </script>
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+            <td class="cancel">
+                {% if (!i) { %}
+                <button class="btn btn-warning">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>{%=locale.fileupload.cancel%}</span>
+                </button>
+                {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+            {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else { %}
+            <td class="preview">
+                {% if (file.thumbnail_url) { %}
+                @*<span>{%=file.name%}</span>*@
+                <img src="{%=file.thumbnail_url%}">
+                {% } %}
+            </td>
+            <td class="name">
+                <span>{%=file.name%}</span>
+            </td>
+            @*<td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>*@
+            <td colspan="2"></td>
+            {% } %}
+            <td class="delete">
+                <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" type="button">
+                    <i class="icon-trash icon-white"></i>
+                    <span>{%=locale.fileupload.destroy%}</span>
+                </button>
+                <input type="checkbox" name="delete" value="1">
+            </td>
+        </tr>
+        {% } %}
+
+    </script>
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    <script>
+
+        function AddAgent(btn) {
+            debugger;
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
+            var PrimaryContactPhone = $("#PrimaryContactPhone").val();
+            var Email = $("#Email").val();
+            var WebsiteURL = $("#WebsiteURL").val();
+            var AgentDescription = $("#AgentDescription").val();
+            var Role = $("#Role option:selected").val();
+            var OfficeId = $("#OfficeId option:selected").val();
+
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+
+            if (FirstName == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("First Name Cannot be null");
+                $("#FirstName").focus();
+            } else if (LastName == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Last Name Cannot be null");
+                $("#LastName").focus();
+            } else if (PrimaryContactPhone == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Primary Contact Phone Cannot be null");
+                $("#PrimaryContactPhone").focus();
+            } else if (!numbers.test(PrimaryContactPhone)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid phone no.");
+                $("#PrimaryContactPhone").focus();
+            } else if (Email == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Email Cannot be null");
+                $("#Email").focus();
+            } else if (!mailformat.test(Email)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid email.");
+                $("#Email").focus();
+            } else if (WebsiteURL == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Website URL Cannot be null");
+                $("#WebsiteURL").focus();
+            } else if (Role == "-Select-") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please select Role.");
+                $("#Role").focus();
+            }
+            else {
+                var imageLst = new Array();
+                $('#tblLogo .name ').each(function () {
+                    var a = $(this).find("span").html();
+                    var photo = {};
+                    photo.MediaURL = a;
+                    imageLst.push(photo);
+                });
+                var formData = {
+
+                    "FirstName": FirstName,
+                    "LastName": LastName,
+                    "PrimaryContactPhone": PrimaryContactPhone,
+                    "Email": Email,
+                    "WebsiteURL": WebsiteURL,
+                    "AgentDescription": AgentDescription,
+                    "Role": Role,
+                    "OfficeId": OfficeId,
+                    "ProfileImage": ''
+                };
+                if (imageLst.length > 0) {
+                    formData.ProfileImage = imageLst[0].MediaURL;
+                }
+                $(btn).button('loading').queue(function () {
+                    $.ajax({
+                        url: "/agent/add-agent",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { agentId: data.ParticipantId, columnName: "LogoImage" },
+                                    done: function (e, data) {
+                                    }
+                                });
+
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }
+        }
+
+        function EditAgent(btn) {
+            debugger;
+            var ParticipantId = $("#ParticipantId").val();
+            var ParticipantKey = $("#ParticipantKey").val();
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
+            var PrimaryContactPhone = $("#PrimaryContactPhone").val();
+            var Email = $("#Email").val();
+            var WebsiteURL = $("#WebsiteURL").val();
+            var AgentDescription = $("#AgentDescription").val();
+            var Role = $("#Role option:selected").val();
+            var OfficeId = $("#OfficeId option:selected").val();
+            var imageLst = new Array();
+            $('#tblLogo .name ').each(function () {
+                var a = $(this).find("span").html();
+                var photo = {};
+                photo.MediaURL = a;
+                imageLst.push(photo);
+            });
+
+            var formData = {
+                "ParticipantId": ParticipantId,
+                "ParticipantKey": ParticipantKey,
+                "FirstName": FirstName,
+                "LastName": LastName,
+                "PrimaryContactPhone": PrimaryContactPhone,
+                "Email": Email,
+                "WebsiteURL": WebsiteURL,
+                "AgentDescription": AgentDescription,
+                "Role": Role,
+                "OfficeId": OfficeId,
+                "ProfileImage": ''
+            };
+            if (imageLst.length > 0) {
+                formData.ProfileImage = imageLst[0].MediaURL;
+            } else {
+                formData.ProfileImage = $("#ProfileImage").val();
+            }
+            if (Role != '-Select-') {
+                $(btn).button('loading').queue(function () {
+                    debugger;
+                    $.ajax({
+                        url: "/agent/add-agent",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $("#sucessupdatealert").show();
+                                $('#sucessupdatealert').delay(5000).fadeOut(400);
+                                $('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { agentId: data.ParticipantId, columnName: "LogoImage" },
+                                    done: function (e, data) {
+                                    }
+
+                                });
+
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }
+
+        }
+
+        function DeleteAgent(btn) {
+            var ParticipantId = $("#ParticipantId").val();
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
+            var PrimaryContactPhone = $("#PrimaryContactPhone").val();
+            var OfficePhone = $("#OfficePhone").val();
+            var Email = $("#Email").val();
+            var WebsiteURL = $("#WebsiteURL").val();
+
+
+            var formData = {
+                "ParticipantId": ParticipantId,
+                "FirstName": FirstName,
+                "LastName": LastName,
+                "PrimaryContactPhone": PrimaryContactPhone,
+                "OfficePhone": OfficePhone,
+                "Email": Email,
+                "WebsiteURL": WebsiteURL
+            };
+
+            $(btn).button('loading').queue(function () {
+                debugger;
+                $.ajax({
+                    url: "/agent/add-agent",
+                    type: "POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify(formData),
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.success) {
+                            $("#sucessupdatealert").show();
+                            $('#sucessupdatealert').delay(5000).fadeOut(400);
+                            $('#UploadImageBox').removeClass('hide');
+                            $('#fileupload').fileupload();
+
+                            $('#fileupload').fileupload('option', {
+                                maxFileSize: 500000000,
+                                resizeMaxWidth: 1920,
+                                resizeMaxHeight: 1200,
+                                formData: { agentId: data.ParticipantId, columnName: "LogoImage" },
+                                done: function (e, data) {
+                                }
+
+                            });
+
+                        } else {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failurealert").show();
+                        $('#failurealert').delay(5000).fadeOut(400);
+                    },
+                    compete: function () {
+                        $(btn).button('reset');
+                        $(btn).dequeue();
+                    }
+                });
+            });
+
+
+        }
+
+
+        $(function () {
+
+            'use strict';
+            if ('@Model.ParticipantId' != null) {
+                $('#UploadImageBox').removeClass('hide');
+            }
+            // Initialize the jQuery File Upload widget:
+            $('#fileuploadLogo').fileupload();
+
+            $('#fileuploadLogo').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { agentId: '@Model.ParticipantId', columnName: "ProfileImage" }
+
+            });
+            $('#fileupload').fileupload();
+
+            $('#fileupload').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { agentId: '@Model.ParticipantId', columnName: "LogoImage" }
+
+            });
+            Disable();
+
+        });
+
+    </script>
+    <script>
+        function Disable() {
+            var id = $('#Role option:selected').val();// Variable id is storing the selected value of the Master Level dropdownlist
+            if (id == "Builder" || id == "Admin") {
+                $('#offcDiv').hide();
+            } else {
+                $('#offcDiv').show();
+            }
+        }
+    </script>
+    <script src="~/Scripts/custom/userrole-action.js"></script>
+}

@@ -1,0 +1,245 @@
+﻿@model Repositories.Models.ViewModel.ResetPassword
+@{
+    ViewBag.Title = "AgentProfile";
+}
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manage Profile</h3>
+
+
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        @using (Html.BeginForm("agent-profile", "agent", FormMethod.Post,null))
+        {
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Updated Successfully.</h4>
+                            <span></span>
+                        </div>
+                        <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.OldPassword)
+                            @Html.TextBoxFor(m => m.OldPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.OldPassword)
+
+
+                        </div>
+                    </div><!-- /.col -->
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NewPassword)
+                            @Html.TextBoxFor(m => m.NewPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NewPassword)
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword)
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group pull-left">
+                            <input type="submit" class="btn btn-primary btn-block " value="ChangePassword" data-loading-text="Please wait..." />
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
+                </div>
+            </div><!-- /.box-body -->
+        }
+
+    </div>
+    <div class="box box-default" id="UploadImageBox">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload agent Image</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="pull-left">Upload agent image here </label>
+                </div>
+                <div class="col-md-4">
+                    <form id="fileupload" action="/Upload/UploadAgentImageHandler.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="submit" class="btn btn-primary start">
+                                    <i class="fa fa-cloud-upload"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+        </div>
+    </div>
+</section>
+
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+
+        .field-validation-error {
+            color: #b94a48;
+            display: inline-block;
+            *display: inline;
+            padding-left: 5px;
+            vertical-align: middle;
+            *zoom: 1;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        .input-validation-error {
+            color: #b94a48;
+            border-color: #b94a48;
+        }
+
+            .input-validation-error:focus {
+                border-color: #953b39;
+                -webkit-box-shadow: 0 0 6px #d59392;
+                -moz-box-shadow: 0 0 6px #d59392;
+                box-shadow: 0 0 6px #d59392;
+            }
+
+        .validation-summary-errors {
+            /*font-weight: bold;*/
+            color: #b94a48;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+            debugger;
+            // Initialize the jQuery File Upload widget:
+            $('#fileupload').fileupload();
+
+            $('#fileupload').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { agentId: '@Html.Raw(User.ParticipantId)' },
+                done: function (e, data) {
+                    debugger;
+                }
+
+            });
+        });
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    <script>
+
+        @{
+            int passwordReset = -1;
+            if(ViewData["success"] != null)
+            {
+                passwordReset = (Convert.ToBoolean(ViewData["success"]) == true) ? 1 : 0;
+            }
+        }
+
+        if ('@Html.Raw(passwordReset)' == 1)
+        {
+            $("#sucessalert").show();
+            $('#sucessalert').delay(5000).fadeOut(400);
+        }
+        else if ('@Html.Raw(passwordReset)' == 0)
+        {
+            $("#failurealert").show();
+            $('#failurealert').delay(5000).fadeOut(400);
+        }
+    </script>
+}

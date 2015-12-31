@@ -1,0 +1,3289 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+li {
+    list-style: none;
+    padding: 0px;
+}
+
+ul {
+    padding: 0px;
+    margin: 0px;
+}
+    input[type=checkbox], input[type=radio] {
+        margin: 3px !important;
+        line-height: normal;
+    }
+a:hover{
+    text-decoration:none;
+}
+
+.short_by-ctgry{
+    background: none;
+    border: medium none;
+    height: 0px;
+    line-height: 40px;
+    margin:0px;
+    padding: 10px;
+    width: 200px;
+    float:right;
+}
+
+.short_by-ctgry_m{
+    background: none;
+    border: medium none;
+    height: 0px;
+    line-height: 40px;
+    margin:0 28px 0 0;
+    padding: 10px;
+    width: 210px;
+    float:right;
+}
+
+
+
+.address{
+        color:#2285a2;
+        font-size:14px;
+        text-decoration:none;
+}
+
+.address a{
+        color:#2285a2;
+        font-size:14px;
+        text-decoration:none;
+}
+
+.cmp_logo{
+     width: 150px;
+    float: right;
+    height: 55px;
+    margin: 3px 0 0 0;
+}
+
+.pro_dtls-list{
+        margin:10px 0;
+        color:#555;
+        font-weight:bold;
+        float:left;
+        padding:0 0 0 0px;
+}
+
+.pro_dtls-list li:hover{
+    display:block;
+    background:#f5f5f5;
+ 
+}
+
+
+.pro_dtls-list ul li{
+        float:left;
+        padding:0px 24px;
+        text-align:center;
+        margin:0px;
+        border-right:1px solid #ddd;
+}
+
+.pro_dtls-list ul li:last-child{
+         border-right:none;
+}
+.prv_nxt{
+
+        text-align:center;
+         color:#555;
+        font-weight:bold;
+        float:left;
+        padding-top:20px;
+        margin-bottom:12px;
+        /*margin-left:192px;*/
+}
+
+.prv_nxt ul li{
+        display:inline;
+        padding:0 3px;
+         /*border-right:1px solid #6b6a6a;*/
+}
+
+
+.prv_nxt ul li:last-child{
+         border-right:none;
+}
+.prv_nxt a:hover{
+    text-decoration:none;
+    background:#eab134;
+    color:#fff;
+}
+.prv_nxt a{
+    font-size:12px;
+    background:#2aa9df;
+    line-height:28px;
+    color:#fff;
+    display:inline-block;
+    padding:0 10px;
+    border-radius: 5px;
+}
+
+.bttn_dsble{
+    font-size:12px;
+    background:#ccc;
+    line-height:28px;
+    color:#555;
+    display:inline-block;
+    padding:0 10px;
+    width:70px;
+    border-radius: 5px;
+}
+
+.back-listing_btt{
+    font-size:12px;
+    background:#555;
+    line-height:28px;
+    color:#fff;
+    display:inline-block;
+    padding:0 10px;
+    float:right;
+    width:152px;
+    margin-left: 30px;
+   border-radius: 5px;
+}
+    .back-listing_btt a {
+        background: none !important;
+    }
+    .back-listing_btt a:hover {
+        background: none !important;
+        color:#ccc;
+    }
+
+.mortgage_box span{
+    display: block;
+    margin: 0px;
+    width: 64px;
+    color: #555;
+    font-weight: bold;
+    line-height: 14px;
+    /* text-transform: uppercase; */
+    font-size: 12px;
+    min-height: 35px;
+}
+
+.new-listing_prov{
+    text-align:left;
+    padding:0 20px;
+    margin:45px 0 0px 0;
+}
+
+.listing_contact_right{
+    margin:0px;
+    float:left;
+}
+
+.listing_contact_right h2{
+    font-size:20px;
+    color:#555;
+    padding-bottom:30px;
+    margin:0px; 
+}
+
+.new_listing_logo{
+    margin:15px 0;
+}
+
+.new-agent_contact h5 {
+    font: 16px/24px Arial, Helvetica, sans-serif;
+    color: #828080;
+}
+
+.new-agent_contact {
+    font: 12px/20px Arial, Helvetica, sans-serif;
+    color: #828080;
+    margin-top:50px;
+    width:280px;
+}
+
+.new-agent_contact1 {
+    font: 12px/20px Arial, Helvetica, sans-serif;
+    color: #828080;
+    margin-top:60px;
+    float:right;
+    margin-right:40px;
+
+}
+
+ .new-agent_contact ul li {
+        padding: 6px;
+        font-weight: bold;
+    }
+
+    .new-agent_contact span {
+        text-align: left;
+        width: 180px;
+        display: block;
+        float: right;
+        padding-left: 25px;
+        font-weight: normal;
+    }
+
+ .new-agent_contact1 ul li {
+        padding: 6px;
+        font-weight: bold;
+    }
+
+    .new-agent_contact1 span {
+        text-align: left;
+        width: 180px;
+        display: block;
+        float: right;
+        padding-left: 25px;
+        font-weight: normal;
+    }
+
+.mortgage_dtls{
+    width: 925px;
+    margin: 20px auto;
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 13px!important;
+    padding: 30px;
+    background: #f3f3f3;
+    color: #555;
+}
+
+.mortgage_option-select{
+    float:left;
+    margin:0px;
+    width:370px;
+}
+
+.mortgage_option-select ul li{
+        float:left;
+        padding:0 15px 0 0;
+}
+.right_logo{
+       float:right;
+       margin:0px;
+       width:350px;
+}
+.input_cityzip{
+     width: 400px!important;
+    height: 40px!important;
+    color: #828080;
+    font-weight: normal;
+    font-size: 12px!important;
+    padding: 0 20px!important;
+}
+}
+.loan_payment{
+    margin:15px 0;
+}
+    .loan_payment ul li {
+        float: left;
+        margin:0 30px 0 0;
+    }
+.fico_list{
+    margin:20px 0;
+}
+
+.fico_list ul li{
+        float:left;
+        padding:0 15px 0 0;
+}
+.input_loan{
+     width: 150px!important;
+    height: 40px!important;
+    color: #828080;
+    border:#ddd;
+    float:right;
+    font-weight: normal;
+    font-size: 12px!important;
+    padding: 0 10px!important;
+}
+.loan_payment span{
+    display:block;
+    padding:0px;
+}
+.compare_type{
+    /*font-size:16px;*/
+    padding:0px;
+}
+.compare_type h2{
+    font-size:16px;
+    padding:0px;
+}
+
+
+.compare_typeLoan{
+    /*font-size:16px;*/
+    padding:0px;
+}
+.compare_typeLoan h2{
+       font-size: 14px;
+ 
+    padding-bottom: 5px;
+}
+
+.price_cnt{
+       background: #dbd9d9;
+    margin: 50px 0 0 -70px;
+    font: 12px!important;
+    padding: 20px;
+    color: #555;
+        width: 855px;
+    font-weight:normal;
+}
+
+.price_cnt li{
+        width:266px;
+}
+.price_cnt ul li{
+        float:left;
+        margin:0px 5px 0 0;
+}
+
+.compare_type span{
+       margin:20px 10px 0 0;
+       float:right;
+}
+
+.find-rates_btt{
+  
+    background: #2d68a4;
+    width: 160px;
+    line-height: 40px;
+    color: #fff;
+    border: none;
+    float: right;
+    margin: 20px 10px 0 0;
+
+}
+.rslt_label{
+    padding:10px 0;
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+
+
+
+
+
+.pro_dtls-list span{
+    display:block;
+    text-align:center;
+    font-size:12px;
+    color:#555;
+    line-height:20px;
+    font-weight:normal;
+}
+
+.social_conn{
+margin-left:20px;
+    padding-bottom: 25px;
+    padding-top: 10px;
+}
+
+.follow_social{
+    float: left;
+    font-size: 15px;
+    color: #555;
+    padding-right: 10px;
+  
+
+}
+
+
+.hover_txt{
+        background: none repeat scroll 0 0 #ddd;
+    display: block;
+    font-size: 12px;
+    line-height: 28px;
+    margin: -28px 0 0 14px;
+    padding: 0 8px;
+    position: absolute;
+    text-align: center;
+    width: 120px;
+    /*z-index: 99999;*/
+    font-weight:bold;
+
+}
+
+
+.day_time {
+    color: #555;
+    font-size: 14px;
+    line-height: 20px !important;
+    margin: 58px 0 0;
+    text-align:center;
+    font-weight:bold;
+    padding-right: 0;
+    padding-top: 0;
+    width: 210px;
+    background:#ff0000;
+    color:#fff;
+}
+.broked{
+        color: #555;
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 0px;
+    padding-right: 0px;
+}
+	
+.property_dtls-list li{
+	background:#f8f6f6;
+	/*padding:10px;*/
+    font-size:13px;
+	margin-right:20px;
+	margin-bottom:20px;
+	width:520px;
+    /*min-height:230px;*/
+    /*padding-right:20px;*/
+	float:left;
+	}
+	
+.property_dtls-list{
+    margin: 20px 0;
+	}
+
+.property_dtls-list li{
+	background:#f8f6f6;
+	/*padding:10px 0 10px 10px;*/
+	margin-right:20px;
+	margin-bottom:20px;
+	width:520px;
+    height:290px;
+	float:left;
+	border:6px solid #dad7d7;
+	box-shadow:2px 2px 4px 0px #686868;
+	}
+
+
+.map-view_prolist{
+	margin:20px 0;
+    width:100%;
+	}
+
+.map-view_prolist li{
+	background:#f8f6f6;
+	padding:5px 0 10px 5px;
+	margin-right:20px;
+	margin-bottom:20px;
+        width:100%;
+	float:left;
+	border-top:3px solid #dad7d7;
+	border-right:3px solid #dad7d7;
+	border-bottom:3px solid #dad7d7;
+	border-left:20px solid #dad7d7;
+	box-shadow:2px 2px 4px 0px #686868;
+	}
+
+
+.map-view-right-pennal {
+    float: right;
+    margin: 0px 10px;
+    width: 280px;
+    line-height: 20px;
+    padding: 0px 7px 0 0;
+}
+
+.map-view-right-pennal span a {
+        float: none;
+        color: #555!important;
+        font-size: 14px;
+        line-height: 20px;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+
+	
+.glow_feature{
+	 color: #555;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 20px;
+    margin: -3px 0 0 -29px;
+    position: absolute;
+    text-shadow: 1px 1px 16px #ccc;
+    text-transform: uppercase;
+}
+
+.mapnav {
+    margin: -21px 0 0 0;
+    position:relative;
+    padding-bottom:38px;
+    width:480px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .mapnav > li {
+        position: relative;
+        display: block;
+    }
+
+        .mapnav > li > a {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+
+            .mapnav > li > a:hover,
+            .mapnav > li > a:focus {
+                text-decoration: none;
+                background-color: #eee !important;
+            }
+
+        .mapnav > li.disabled > a {
+            color: #777;
+        }
+
+            .mapnav > li.disabled > a:hover,
+            .mapnav > li.disabled > a:focus {
+                color: #777;
+                text-decoration: none;
+                cursor: not-allowed;
+                background-color: transparent;
+            }
+
+    .mapnav .open > a,
+    .mapnav .open > a:hover,
+    .mapnav .open > a:focus {
+        background-color: #eee;
+        border-color: #337ab7;
+    }
+
+    .mapnav .nav-divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+    }
+
+
+.mapnav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+    .mapnav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        padding: 8px 20px !important;
+        background: #f3f3f3;
+        color: #686868;
+        font-size:14px!important;
+    }
+
+        .mapnav-tabs > li > a:hover {
+            border-color: #eee #eee #000;
+            background: #555 !important;
+            color: #fff !important;
+        }
+
+    .mapnav-tabs > li.active > a,
+    .mapnav-tabs > li.active > a:hover,
+    .mapnav-tabs > li.active > a:focus {
+        background: #ddd !important;
+        color: #555 !important;
+        border-bottom-color: transparent;
+    }
+
+
+.mapnav-tabs.nav-justified {
+    width: 100%;
+    border-bottom: 0;
+}
+
+    .mapnav-tabs.nav-justified > li {
+        float: none;
+    }
+
+        .mapnav-tabs.nav-justified > li > a {
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+    .mapnav-tabs.nav-justified > .dropdown .dropdown-menu {
+        top: auto;
+        left: auto;
+    }
+
+.mapnav-tabs > li.active > a, .mapnav-tabs > li.active > a:focus, .mapnav-tabs > li.active > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #ddd #ddd transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    color: #555;
+    cursor: default;
+}
+
+.view_format{
+     margin: 2px 0 0 0;
+    position: absolute;
+    z-index: 9;
+    right:60px;
+}
+.view_format ul li{
+        float:left;
+        padding:0px 3px;
+}
+.view_format a{
+     font-size: 12px;
+    background: #2aa9df;
+    line-height: 34px;
+    color: #fff;
+    text-align:center;
+    display: inline-block;
+    padding: 0 10px;
+    width: 80px;
+}
+.view_format a:hover{
+         text-decoration:none;
+    background:#eab134;
+    color:#fff;
+}
+.view_format1{
+    float:right;
+    margin:63px 8px 0 0;
+}
+.view_format1 ul li{
+        float:left;
+        padding:0px 3px;
+}
+.view_format1 a{
+     font-size: 12px;
+    background: #2aa9df;
+    line-height: 34px;
+    color: #fff;
+    display: inline-block;
+    padding: 0 10px;
+    text-align:center;
+    width:90px;
+}
+.view_format1 a:hover{
+         text-decoration:none;
+    background:#eab134;
+    color:#fff;
+}
+
+
+.map_height{
+    height: 440px !important;
+    left: 30px !important;
+    margin: 75px 0 0 !important;
+    right: 30px !important;
+}
+
+
+.bio_image{
+        margin:0 auto;
+        text-align:center;
+}
+
+
+.bio_content {
+    font: 12px/20px Arial, Helvetica, sans-serif;
+    color: #828080;
+    width: 268px;
+    margin: 30px 0 40px 0;
+
+}
+.bio_content h5 {
+    font: 16px/24px Arial, Helvetica, sans-serif;
+    color: #828080;
+}
+.bio_title {
+    font: 20px/24px Arial, Helvetica, sans-serif;
+    color: #828080;
+    text-align:center;
+    text-decoration:underline;
+}
+
+
+ .bio_content ul li {
+        padding: 6px;
+        font-weight: bold;
+    }
+
+    .bio_content span {
+        text-align: left;
+        width: 180px;
+        display: block;
+        float: right;
+        padding-left: 25px;
+        font-weight: normal;
+    }
+
+.price_icon {
+    color: #555;
+    font-weight: normal;
+    float: left;
+    font-size: 17px;
+    background: #ddd;
+    line-height: 38px;
+    border: 1px solid #ccc;
+    width: 39px;
+    text-align: center;
+}
+
+
+
+.save_search{
+	float:right;
+	margin:0px;
+	line-height:50px;
+	}
+.save_search ul li{
+	float:left;
+	margin:0px 10px;
+	}
+.save_search a{
+	color:#fff;
+	font-size:14px;
+	}
+	
+.save_search a:hover{
+	color:#fff;
+	font-size:14px;
+	text-decoration:none;
+	}
+
+.short_by-drop {
+        background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+	line-height:30px;
+    margin: 0px 0 10px 20px;
+    padding: 0.5rem;
+    position: absolute;
+    transition: all 0.15s linear 0s;
+    width: 170px;
+}
+
+.message_txt {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    margin:0 0 10px 0;
+    padding: 0.5rem;
+    transition: all 0.15s linear 0s;
+    width: 200px;
+    height: 60px;
+    float:left;
+}
+
+.adv_search {
+    height: 900px;
+    overflow: auto;
+    padding: 0 10px;
+}
+
+.adv_search-title {
+    margin-top: 40px;
+    color: #626262;
+    font-size: 24px;
+    line-height: 25px;
+    padding-bottom: 10px;
+    font-family: "PT Sans",sans-serif;
+    height:auto;
+    overflow: auto;
+    width: 365px;
+}
+
+.adv_search_chosearea {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    margin: 10px 0;
+    padding: 0.5rem;
+    transition: all 0.15s linear 0s;
+    width: 100%;
+    height: 35px;
+}
+
+.adv_search-title ul li {
+    margin: 0px 0;
+}
+
+
+.adv_search-txt {
+    margin-top: 40px;
+    color: #626262;
+    font-size: 24px;
+    line-height: 24px;
+    padding-bottom: 10px;
+    font-family: "PT Sans",sans-serif;
+}
+
+.location {
+    font-size: 16px;
+    background: #e9e9e9;
+    padding: 5px 20px;
+    width: 340px;
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    text-align: left;
+    margin-top: 10px;
+    line-height: 35px;
+}
+
+
+.price_p {
+    font-size: 16px;
+    background: #e9e9e9;
+    padding: 5px 20px;
+    width: 340px;
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    text-align: left;
+    line-height: 35px;
+}
+.input-price_p{
+	width:80px!important;
+	font-size:14px;
+	border-radius:10px!important;
+	border-right:20px !important;
+	float:left !important;
+	height:30px!important;
+	}
+	
+.dropdown-menu span{
+	color:#000;
+	width:94px;
+	font-size:12px;
+	display:inline-block;
+	font-weight:normal;
+	}
+.input_bed-bath{
+	border: 1px solid #ddd;
+    height: 30px !important;
+    margin-right: 10px !important;
+    width: 200px !important;
+	display:inline!important;
+     font-size: 12px!important;
+	}
+	
+.fltr {  
+   background: #2285a2 none repeat scroll 0 0;
+    border: 2px solid #ccc;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 35px;
+    margin: 20px 10px 0 20px;
+    padding: 0;
+    text-transform: uppercase;
+    width: 120px;
+}
+
+.reset {  
+   background: #003366 none repeat scroll 0 0;
+    border: 2px solid #ccc;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 35px;
+    margin: 20px 0px 0 20px;
+    padding: 0;
+    text-transform: uppercase;
+    width: 120px;
+}
+
+
+.keyword_txt{
+        height:35px!important;
+        color:#555!important;
+}
+
+.keyword_txt{
+        height:50px!important;
+        color:#555!important;
+          font-size:12px!important;
+}
+.input_dov{
+      height:35px!important;
+        color:#555!important;
+        font-size:12px!important;
+}
+
+
+.price_p:hover {
+    background: #2285a2 none repeat scroll 0 0;
+	 border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 35px;
+    padding:0px;
+    text-align: left;
+    width: 340px;
+	display:block;
+	padding: 5px 20px;
+	color:#fff!important;
+
+}
+.price_p.active {
+    background: #2285a2 none repeat scroll 0 0;
+	color:#fff!important;
+     line-height: 35px;
+
+}
+
+
+.price_contaner {
+    padding: 5px 20px;
+    margin: 0px;
+    font-size: 12px;
+    background: #e9e9e9;
+    width: 340px;
+	margin-top:10px;
+	border-radius:5px;
+    overflow:auto;
+    height:500px;
+}
+
+    .price_contaner ul li {
+        padding: 0px 0;
+    }
+
+    .price_contaner h1 {
+        font-size: 17px;
+        line-height: 20px;
+        padding-bottom:0px;
+        color: #838383;
+    }
+
+    .price_contaner h2 {
+        font-size: 16px;
+        line-height: 20px;
+        color: #838383;
+    }
+
+.input-price_contaner {
+    background-color: #efefef;
+    border-color: #cccccc;
+    border-radius: 20px !important;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: 19px;
+    font-size: 14px !important;
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    transition: all 0.15s linear 0s;
+    width: 130px !important;
+    float: left !important;
+    height: 35px !important;
+}
+
+.adv_search-in {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px!important;
+    height: 35px !important;
+    line-height: 35px !important;
+    margin: 10px 0;
+    padding: 0.5rem;
+    transition: all 0.15s linear 0s;
+    width: 317px !important;
+}
+
+.price_chosearea {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 12px;
+    height: 35px;
+    margin: 10px 0;
+    font-weight:normal;
+    padding: 0.5rem;
+    transition: all 0.15s linear 0s;
+    width: 100%;
+}
+
+
+
+.property_type {
+    font-size: 16px;
+    background: #e9e9e9;
+    padding: 5px 20px;
+    text-align: left;
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+    margin-top: 10px;
+	width:340px;
+	line-height:35px;
+}
+
+.property_type2 {
+    font-size: 12px;
+    padding-left:15px;
+   
+}
+
+    .property_type2 a {
+        color: #fff;
+        text-decoration: none;
+    }
+        
+
+
+    .property_type a {
+        font-size: 14px;
+        color: #939393;
+        text-decoration: none;
+        padding-left: 10px;
+    }
+
+        .property_type a:hover {
+            text-decoration: none;
+        }
+
+    .property_type h1 {
+        font-size: 17px;
+        line-height: 20px;
+        padding-bottom: 10px;
+        color: #838383;
+    }
+
+    .property_type p {
+        font-size: 12px;
+        line-height: 20px;
+        padding-bottom: 10px;
+        color: #838383;
+    }
+
+        .property_type p a {
+            color: #FF0000;
+            padding: 0px;
+        }
+
+    .property_type ul {
+        border-bottom: 1px solid #d2d2d2;
+        padding: 0px 0;
+    }
+
+        .property_type ul li {
+            padding: 0px 0;
+        }
+		
+		
+.pro-search_new{
+	background:#003366;
+	height:60px;
+	margin:0px;
+	color:#fff;
+	font-size:14px;
+	}
+.input_product-search{
+	margin:11px 20px 0 !important;
+	width:320px!important;
+	height:35px!important;
+	border:none;
+    font-size:14px!important;
+	}
+
+
+.related_plans{
+    clear:both;
+    margin:20px 0;
+}
+
+.new_home_left{
+    float:left;
+    width:50%;
+    margin:0px;
+}
+
+.new_home_right{
+    float:right;
+    width:50%;
+    margin:0px;
+}
+.new-home_logo{
+    width:250px;
+    height:100px;
+    display:block;
+
+}
+
+
+/* DETAILS LISTING PAGE START
+######################################### */
+
+
+.agent_name_dtls {
+    background:#db9e36;
+    border: 1px solid #efefef;
+    margin: 0;
+    padding: 20px;
+    border-radius:10px;
+    width: 353px!important;
+}
+
+
+
+
+.agent_contact_right h2 {
+    color: #828080;
+    font-family: "PT Sans",sans-serif !important;
+    font-size: 22px;
+    line-height: 30px;
+}
+
+
+.agent_pro_contant h5 {
+    color: #828181;
+    font-family: "PT Sans",sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    padding:0px;
+    text-align: left;
+}
+
+
+.agent_name_dtls h1 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 24px;
+    color: #828080;
+    line-height: 30px;
+    text-align: left;
+}
+
+.agent_contact {
+    font: 12px/20px Arial, Helvetica, sans-serif;
+    color: #828080;
+    margin: 20px 0 0 0px;
+    float: right;
+    width:280px;
+}
+
+    .agent_contact li img {
+        padding-right: 10px;
+    }
+
+    .agent_contact ul li {
+        padding: 8px;
+        font-weight: bold;
+    }
+
+    .agent_contact span {
+        text-align: left;
+        width: 180px;
+        display: block;
+        float: right;
+        padding-left: 25px;
+        font-weight: normal;
+    }
+
+.agent_contact_right {
+    /*float:left;
+    margin: 0 0 0 90px;*/
+    text-align:center;
+}
+
+.social_icons {
+    margin: 0px;
+    padding-bottom:25px;
+}
+.social_icons ul li{
+        float:left;
+        padding:0px 5px;
+}
+
+    .social_icons a {
+        background: none;
+        width: 30px;
+    }
+
+.agent_image {
+
+    height: 100px !important;
+    width: 100px !important;
+    margin: 0 auto;    
+}
+.agent_image img {
+    border-radius: 50%;
+    height: 100px !important;
+    width: 100px !important;
+    padding:0 !important;   
+    margin:0 !important;
+    border: 3px solid #e1e1e1;
+}
+.agent_contact_right ul {
+    margin: 8px 0 0 0px;
+}
+
+    .agent_contact_right ul li {
+        display: inline;
+        padding: 0 5px;
+        text-align: center;
+        margin: 10px 0 0 0;
+    }
+
+.agent_name_dtls h2 {
+    font-family: 'PT Sans', sans-serif !important;
+    font-size: 18px;
+    color: #fff;
+    line-height: 22px;
+    margin:0px !important;
+    text-align:center;
+}
+
+.agent_name_dtls p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #828080;
+    line-height: 20px;
+}
+
+.agent_contact_dtls ul li{
+    margin: 6px 5px;
+    padding: 0px;
+    float: none;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 12px;
+    color: #828080;
+    line-height: 20px;
+
+}
+
+.agent_contact_dtls h3{
+
+    display:inline-block;
+    width:110px;
+    color:#000;
+    font-size:14px;
+
+}
+.home_title{
+
+
+        font-family: 'PT Sans', sans-serif !important;
+    font-size: 22px;
+    color: #828080;
+    line-height: 30px;
+    margin-bottom:20px;
+ 
+}
+.agent_contact_form ul li {
+    margin: 0 5px;
+    padding: 0px;
+    float: left;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    color: #fff;
+    line-height: 30px;
+}
+
+.agent_contact_form input {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dfdfdf;
+    border-radius: 2px;
+    color: #333;
+    /*display: block;*/
+    font-size: 13px;
+    height: 25px;
+    line-height: 16px;
+    padding: 10px 14px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 200px;
+    float:left;
+}
+
+#agent_contact_subject {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dfdfdf;
+    border-radius: 2px;
+    color: #333;
+    display: block;
+    font-size: 13px;
+    height: 25px;
+    line-height: 16px;
+    padding: 10px 14px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 200px;
+    float:left;
+}
+
+.bttn {
+    background:#1f497d url(../image/email.png) no-repeat 10px center !important;
+    color: #fff !important;
+    padding: 10px 14px;
+    padding-left:32px !important;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #0b2c4e;
+    border-radius: 4px;
+    margin-top: 7px;
+    font-size: 14px!important;
+    font-weight: bold;
+    height: 40px!important;
+    width:150px!important;
+}
+
+.call_bttn {
+    background:#1f497d url(../image/phone.png) no-repeat 10px center !important;
+    color: #fff !important;
+    padding: 10px 14px;
+    padding-left:35px !important;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #fff;
+    margin-top: 7px;
+    font-size: 14px!important;
+    font-weight: bold;
+    height: 40px!important;
+    width:132px!important;
+    float:right !important;
+    margin-left:9px !important;
+    line-height:18px;
+    text-decoration:none !important;
+}
+
+
+.show_map-street{
+     position:absolute;
+    z-index: 1;
+    /*float: right;
+    text-align: right;
+    margin:-107px 185px 0 0px;*/
+    bottom:125px;
+    left:50%;
+    margin-left:-110px;
+
+}
+
+.show_map-street ul li{
+        float:left;
+        padding:0px;
+}
+.show_map-street a{
+        background:#686868;
+        line-height:30px;
+        padding:0 20px;
+        color:#fff;
+        border:1px solid #9c9c9c;
+        text-decoration:none;
+        font-size:12px;
+        display:block;
+}
+.show_map-street a:hover{
+        background:#000;
+        line-height:30px;
+        padding:0 20px;
+        color:#fff;
+         border:1px solid #555;
+         text-decoration:none;
+        font-size:12px;
+        display:block;
+}
+
+
+
+
+
+
+
+.features_pro {
+    border: 1px solid #e8e8e8;
+    list-style-type: none;
+    margin: 15px 0 0;
+    padding: 1px 1px;
+    width: 600px;
+    text-align: left;
+}
+
+    .features_pro ul li {
+        float: left;
+        padding: 0 30px;
+    }
+
+
+.agent_pro_contant h3 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 24px;
+    color: #969696;
+    line-height: 30px;
+    text-align: left;
+        border-bottom: 1px solid #969696;
+
+}
+
+.agent_pro_contant h4 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 22px;
+    color: #828181;
+    line-height: 30px;
+    text-align: left;
+}
+
+
+
+.agent_pro_contant p {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 14px;
+    color: #828080;
+    line-height:18px;
+    text-align: left;
+}
+
+.agent_pro_contant h3 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 24px;
+    color: #969696;
+    line-height: 50px;
+    text-align: left;
+    border-bottom: 1px solid #969696;
+}
+
+.agent_pro_contant h4 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px;
+    color: #828181;
+    line-height: 30px;
+    text-align: left;
+    padding: 5px 0;
+}
+
+.agent_pro_contant h4 a {
+    background: #eab134;
+    padding: 5px 5px;
+    display: block;
+    font-size: 14px;
+    color: #fff;
+    width: 90px;
+    font-weight: bold;
+    line-height: 20px;
+    float: left;
+    margin-right: 10px;
+}
+
+/* DETAILS LISTING PAGE END
+######################################### */
+
+
+@media (min-width: 992px) and (max-width: 1359px) {
+
+
+    .nav {
+    list-style: outside none none;
+    margin: 0 60px;
+    padding-left: 0;
+}
+
+    .mortgage_dtls {
+        width: 100%;
+    }
+.price_cnt {
+    background: #dbd9d9 none repeat scroll 0 0;
+    color: #555;
+    font-weight: normal;
+    margin: 50px 0 0;
+    padding: 20px;
+    width: 100%;
+}
+.tab-content > .active {
+    display: block;
+    margin: 0;
+}
+
+  .search_btt-two {
+           background: none repeat scroll 0 0 #2285a2;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 20px;
+    width: 100px;
+    }
+    
+    
+    
+      .adv_search-title {
+        width: 100%;
+        line-height: 40px;
+        margin-top: 20px;
+        padding-bottom: 10px;
+        text-align: left;
+		height:auto;
+    }
+
+    .bttn {
+        margin-top: 30px;
+    }
+
+    .pro_list-beds {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-bath {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-fullbathroom {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-halfbathroom {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-threequaterbathroom {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-onequaterbathroom {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-partialbathroom {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-lotsize {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-price {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-status {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-Applience {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-architectureStyle {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-exteriortype {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-exteriortype2 {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-heatingsystem {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-newconstruction {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-parkingspace {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-rooftypes {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-coolingsystem {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-heatingsystem {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-noOffloor {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-parkingtype {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-livingarea {
+        float: right;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-rooms {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 330px;
+        line-height: 40px !important;
+        margin-right: 20px;
+        padding-left: 20px;
+    }
+
+    .pro_list-bath img {
+        padding: 0 20px 0 0px;
+        margin: 0px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+.dtls_right-pennal_m {
+    margin-top: 40px;
+    font-size: 14px;
+    width: 100%!important;
+}
+
+.map-view-right-pennal {
+    float: right;
+    margin: 0px 10px;
+    width: 75%;
+    line-height: 20px;
+    padding: 0px 7px 0 0;
+}
+
+    .bttn {
+
+    margin-top: 80px!important;
+   
+    }
+
+
+    .pro_list-beds {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 40px;
+        padding-left: 20px;
+    }
+
+    .pro_list-bath {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-fullbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-halfbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-threequaterbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-onequaterbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-partialbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-lotsize {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-price {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-status {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-Applience {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-architectureStyle {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-exteriortype {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-exteriortype2 {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-heatingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-newconstruction {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-parkingspace {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-rooftypes {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-coolingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-heatingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-noOffloor {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-parkingtype {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-rooms {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-livingarea {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+	
+    .adv_search-title {
+        width: 100%;
+        line-height: 40px;
+        margin-top: 20px;
+        padding-bottom: 10px;
+        text-align: left;
+		height:auto;
+    }
+     .search_btt-two {
+           background: none repeat scroll 0 0 #2285a2;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 20px;
+    width: 100px;
+    }
+     .property_dtls-list{
+	margin:20px 0;
+    width:100%;
+	}
+.property_dtls-list li {
+    background: #f8f6f6;
+    /* padding: 10px 0 10px 10px; */
+    /* margin-right: 20px; */
+    /* margin-bottom: 20px; */
+    width: 520px;
+    margin: 20px auto;
+    height: 261px;
+    float: none;
+    border: 6px solid #dad7d7;
+    box-shadow: 2px 2px 4px 0px #686868;
+}
+.mortgage_dtls{
+    width:100%;
+}
+
+.price_cnt {
+    background: #dbd9d9 none repeat scroll 0 0;
+    color: #555;
+    font-weight: normal;
+    margin: 50px 0 0 0px;
+    padding: 20px;
+    width: 100%;
+}
+.tab-content > .active {
+    margin: 0;
+}
+
+.nav {
+    list-style: outside none none;
+    margin: 0 10px;
+    padding-left: 0;
+}
+
+
+.mortgage_option-select {
+    float: left;
+    margin: 0;
+    width:auto;
+}
+
+.right_logo {
+    float: right;
+    margin: 0;
+    width:auto;
+}
+
+}
+
+
+
+@media (max-width: 767px) {
+
+    .pro_dtls-list ul li {
+    border-bottom: 1px solid #ddd;
+    border-right: medium none;
+    float: none;
+    margin: 0;
+    padding: 5px 0;
+    text-align: center;
+}
+    .pro_dtls-list{
+        float:none;
+    }
+
+
+
+    .agent_contact_right {
+        float: none;
+        text-align: center;
+    }
+
+    .agent_contact {
+        color: #828080;
+        float: none;
+        font: 12px/20px Arial,Helvetica,sans-serif;
+        margin: 28px 0 0;
+    }
+
+
+    .pro_list-beds {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 40px;
+        padding-left: 20px;
+    }
+
+    .pro_list-bath {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-fullbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-halfbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-threequaterbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-onequaterbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-partialbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-lotsize {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-price {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-status {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-Applience {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-architectureStyle {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-exteriortype {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-exteriortype2 {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-heatingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-newconstruction {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-parkingspace {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-rooftypes {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-coolingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-heatingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-noOffloor {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-parkingtype {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-rooms {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+    .pro_list-livingarea {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+	
+	.adv_search-title {
+        width: 100%;
+    line-height: 40px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    text-align: left;
+        height: auto;
+}
+
+    .input-price_contaner {
+        width: 45% !important;
+	}
+
+	    .property_type {
+        width: 340px;
+    }
+
+ .search_btt-two {
+           background: none repeat scroll 0 0 #2285a2;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 20px;
+    width: 100px;
+    }
+
+ .feature_pro {
+    width: 40%;
+    margin: 10px 25px 40px 25px;
+        float: left;
+    display: block;
+}
+
+    .property_dtls-list {
+        margin: 20px 0;
+        width: 100%;
+	}
+	
+.property_dtls-list li {
+    background: #f8f6f6 none repeat scroll 0 0;
+            float: none;
+            margin-bottom: 50px;
+    margin-right: 20px;
+    height:auto;
+    padding: 20px;
+    width: 100%;
+            
+}
+
+    .cmp_logo {
+        float: none;
+        height: 60px;
+        margin:-148px 0 0 58%;
+        position: absolute;
+        width: 150px;
+    }
+
+    .list_right-pennal {
+        float: right;
+        line-height: 20px;
+        margin: 0 10px;
+        padding: 25px 0 0 10px;
+        width: 100%;
+    }
+
+.input_product-search {
+    border: medium none;
+    font-size: 14px !important;
+    height: 35px !important;
+    margin: 0 auto !important;
+        width: 96% !important;
+}
+
+    .dropdown-menu span {
+        color: #fff;
+        width: 100px;
+        font-size: 12px;
+        display: inline-block;
+        font-weight: normal;
+	}
+
+    .property_dtls-list {
+        margin: 20px 0;
+        width: 100% !important;
+	}
+
+ .adv_search-in {
+        width: 100%;
+        padding: 0 30px;
+    }
+
+
+ .map-view-right-pennal {
+    float: none;
+    margin: 0px 10px;
+    width: 100%;
+    line-height: 20px;
+    padding: 0px 7px 0 0;
+}
+
+    .list_thumb {
+        float: none;
+        width: 100%;
+ }
+
+ .hover_txt {
+     margin: -28px auto;  
+    position: relative;  
+    width: 120px;  
+}
+
+    .mortgage_box ul li {
+        padding: 0 30px;
+    }
+
+    .agent_pro_contant p {
+    color: #828080;
+    font-family: "PT Sans",sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    padding-right:20px;
+    text-align: center;
+}
+    .mortgage_dtls{
+    width:100%;
+    padding:20px;
+}
+
+.input_cityzip{
+    width:100%!important;
+}
+
+.right_logo {
+    float: none;
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.mortgage_option-select {
+    float: none;
+    margin: 0px;
+    text-align: center;
+    width: 100%;
+}
+.loan_payment ul li {
+    float: none;
+    margin: 0 0 10px 0;
+}
+.price_cnt {   
+    margin: 33px 0 0 -9px;
+    padding: 20px;
+    width: 100%;
+}
+.price_cnt span {
+    float: right;
+    margin: 27px 26% 0 0;
+    text-align: center !important;
+}
+.price_cnt ul li {
+    float: left;
+    margin: 0 5px 10px 0;
+}
+.price_cnt li {
+    width: 48%;
+}
+.mortgage_option-select ul li {
+    float: none;
+    padding: 5px 0;
+}
+.mortgage_option-select {
+    float: none;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+.fico_list ul li {
+    float: none;
+    padding: 5px 0;
+}
+.input_loan{
+float:none;
+}
+}
+
+
+
+
+
+@media (max-width: 460px) {
+
+
+.cmp_logo {
+    float: none;
+    height: 60px;
+    margin: 15px 0 0 20%;
+    position: absolute;
+    width: 150px;
+}
+
+.mortgage_box ul li {
+    border-right: 1px solid #fff;
+    color: #000;
+    float: left;
+    font-size: 13px;
+    padding: 0 9px;
+    text-align: center;
+}
+
+.agent_pro_contant p {
+    color: #828080;
+    font-family: "PT Sans",sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    padding-right: 40px;
+    text-align: center;
+}
+
+
+.pro_dtls-list {
+    color: #555;
+    float: none;
+    font-weight: bold;
+    margin: 10px 0;
+    padding: 0;
+	}
+
+.property_dtls-list li {
+    background: #f8f6f6 none repeat scroll 0 0;
+    float: none;
+    margin-bottom:50px;
+    margin-right: 0;
+    margin-top: 20px;
+    padding: 0;
+    height:500px;
+    width: 90%;
+}
+.pro_dtls-list ul li {
+    border-bottom: 1px solid #ddd;
+    border-right:none;
+    float: none;
+    margin: 0;
+    padding: 5px 0;
+    text-align: center;
+}
+
+
+.short_by-drop {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 30px;
+    margin: 30% 0 27px 30px;
+    padding: 0.5rem;
+    position: absolute;
+    transition: all 0.15s linear 0s;
+    width: 170px;
+}
+
+.short_by-drop {
+   background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 30px;
+    margin: 0 0 10px;
+    padding: 0.5rem;
+    position: relative;
+    transition: all 0.15s linear 0s;
+    width: 170px;
+}
+
+    .agent_contaner {
+        width: 100%;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .content {
+        float: none;
+        margin: 0;
+        width: 100%;
+    }
+
+    .agent_thumb {
+        float: none;
+        width: 100%;
+    }
+
+    .feature_pro {
+        width: 100%;
+        margin: 10px auto;
+        float: none;
+        display: block;
+    }
+
+    .thunb1 {
+        background: url(../image/feature_thumb.jpg) no-repeat;
+        height: 231px;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .learn_more {
+        background: rgba(0, 0, 0, 0) url("../image/learn-more_bttn.png") repeat scroll 0 0;
+        border: 1px solid #f7c101;
+        color: #fff;
+        font-family: "PT Sans",sans-serif;
+        font-size: 20px;
+        line-height: 45px;
+        margin-top: 70px;
+        width: 256px;
+        display: none;
+    }
+
+    .pro_thumb {
+        width: 100%;
+        height: auto;
+        float: none;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .pro_dtls {
+        float: none;
+        width: 100%;
+        margin: 0 auto;
+        font-family: "PT Sans",sans-serif;
+        font-size: 12px;
+        color: #676767;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    /* DETAILS LISTING PAGE END
+######################################### */
+
+    .price_p {
+        width: 100%;
+    }
+
+    .location {
+        width: 100%;
+    }
+
+    .property_type {
+        width: 100%;
+    }
+
+    .adv_search-title {
+        width: 100%;
+        line-height: 40px;
+        margin-top: 20px;
+        padding-bottom: 10px;
+        text-align: center;
+            height: auto;
+    }
+
+        .adv_search-title ul {
+            margin: 20px 0;
+        }
+
+    .adv_search_chosearea {
+        width: 100%;
+    }
+
+    .price_chosearea {
+            width: 100%;
+    }
+
+    .adv_search-in {
+        width: 250px !important;
+    }
+
+        .price_contaner {
+            width: 100%;
+            margin-top: 10px;
+            text-align: left;
+            border-radius: 5px;
+            height: 300px;
+            overflow: auto;
+	}
+
+/* .input-price_contaner {
+        width: 110px;
+    }
+*/
+.pro_list-beds {
+        float: left;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 450px;
+        line-height: 40px !important;
+        margin-right: 40px;
+        padding-left: 20px;
+    }
+
+.pro_list-bath {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-fullbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-halfbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-threequaterbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-onequaterbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-partialbathroom {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-lotsize {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-price {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-status {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-Applience {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-architectureStyle {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-exteriortype {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-exteriortype2 {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-heatingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-newconstruction {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-parkingspace {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-rooftypes {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-coolingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-heatingsystem {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-noOffloor {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-parkingtype {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-rooms {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+.pro_list-livingarea {
+        float: none;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        width: 90%;
+        line-height: 40px !important;
+        margin-right: 0px;
+        padding-left: 20px;
+    }
+
+ .agent_contact_right {
+        float: none;
+        margin: 0;
+        text-align: center;
+    }
+
+.agent_contact {
+        color: #828080;
+        float: none;
+        font: 12px/20px Arial,Helvetica,sans-serif;
+        margin: 28px 0 0;
+    }
+
+ .agent_contact span {
+            display: block;
+            float: right;
+            font-weight: normal;
+            padding-left: 11px;
+            text-align: left;
+            width: 195px;
+        }
+
+    #agent_contact_subject {
+        width: 100%;
+    }
+
+
+ .search_btt-two {
+           background: none repeat scroll 0 0 #2285a2;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 20px;
+    width: 100px;
+    }
+
+        .list_thumb {
+            float: none;
+}
+.list_right-pennal{
+    float:none;
+    text-align:center;
+    padding:20px 0 0 0;
+    margin:0px;
+}
+
+        .vechicles-list_dtls li {
+            height: auto;
+            padding: 0px;
+            margin: 0px;
+}
+
+.input_product-search {
+    border: medium none;
+    font-size: 14px !important;
+    height: 35px !important;
+    margin: 0 auto !important;
+    width: 240px !important;
+}
+
+        .dropdown-menu span {
+            color: #fff;
+            width: 100px;
+            font-size: 12px;
+            display: inline-block;
+            font-weight: normal;
+	}
+
+        .property_dtls-list {
+            margin: 20px 0;
+            width: 100% !important;
+	}
+
+ .adv_search-in {
+            width: 100%;
+            padding: 0 30px;
+    }
+
+ .message_txt {
+            width: 100%;
+}
+
+ .mapnav {
+    margin: 36px 0 0 0;
+            padding-bottom: 38px;
+            width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+        .hover_txt {
+    margin: -28px auto;
+    padding: 0 8px;
+            position: relative;
+ }
+
+ .map-view-right-pennal {
+    float: none;
+            width: 100%;
+}
+
+.district {
+    display: block;
+    font-size: 11px;
+    font-style: italic;
+     font-weight: normal;
+}
+
+.back-listing_btt {
+    background: #555 none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    float: none;
+    font-size: 12px;
+    line-height: 28px;
+    margin-left: 0;
+    margin-top: 20px;
+    padding: 0 10px;
+    width: 150px;
+}
+.mortgage_box ul li {
+    border-right: 1px solid #fff;
+    color: #000;
+    float: left;
+    font-size: 13px;
+    padding: 0 2%;
+    text-align: center;
+}
+.mortgage_box span{
+    width:auto;
+}
+
+.call_bttn{
+    float:none!important;
+}
+
+.agent_contact_form input{
+    float:none;
+}
+.new-agent_contact1 {
+    color: #828080;
+    float: none;
+    font: 12px/20px Arial,Helvetica,sans-serif;
+    margin-right: 0 !important;
+    margin-top: 0;
+}
+.agent_image {
+    float: none;
+    height: 100px !important;
+    margin: 0;
+    width: 100% !important;
+}
+
+.mortgage_dtls{
+    width:100%;
+    padding:20px;
+}
+
+.input_cityzip{
+    width:100%!important;
+}
+
+.right_logo {
+    float: none;
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.mortgage_option-select {
+    float: none;
+    margin: 0px;
+    text-align: center;
+    width: 100%;
+}
+.loan_payment ul li {
+    float: none;
+    margin: 0 0 10px 0;
+}
+.price_cnt {
+   
+    margin: 33px 0 0 0px;
+    padding: 20px;
+    width: 100%;
+}
+.price_cnt span {
+    float: right;
+    margin: 27px 26% 0 0;
+    text-align: center !important;
+}
+.price_cnt ul li {
+    float: none;
+    margin: 0 5px 10px 0;
+}
+.price_cnt li {
+    width: auto;
+}
+.mortgage_option-select ul li {
+    float: none;
+    padding: 5px 0;
+}
+.mortgage_option-select {
+    float: none;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+}
+.fico_list ul li {
+    float: none;
+    padding: 5px 0;
+}
+
+.input_loan{
+float:none;
+}
+    }
+
+
+
+
+
+

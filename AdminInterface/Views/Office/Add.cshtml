@@ -1,0 +1,793 @@
+﻿@model Repositories.Models.Admin.Office.NewOffice
+@{
+    ViewBag.Title = "Add New Office Here";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add New Office Here</h2>
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+
+            <div class="form-group pull-right col-lg-1">
+                <input type="button" class="btn btn-primary btn-block " value="Back" onclick="window.history.back();" data-loading-text="Please wait..." />
+            </div>
+            @*<div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>*@
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Office Added Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="sucessupdatealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Office Updated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div id="validationalert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i><label id="lblMsg"></label> </h4>
+                        <span></span>
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.OfficeId)
+                @Html.HiddenFor(m => m.OfficeCode.OfficeCodeId)
+                @Html.HiddenFor(m => m.OfficeKey)
+                @Html.HiddenFor(m => m.MainOfficeId)
+                @Html.HiddenFor(m => m.OfficeLogo)
+            </div><!-- /.row -->
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CorporateName)
+                        @Html.TextBoxFor(m => m.CorporateName, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Name")
+
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MainOfficeId)
+                        @Html.TextBoxFor(m => m.MainOfficeId, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Broker Id")
+
+                        @Html.TextBoxFor(m => m.BrokerId, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.Label("Phone Number")
+
+                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address.StateOrProvince)
+                        @Html.DropDownListFor(M => M.Address.StateOrProvince, new SelectList(Model.StateList, "StateOrProvince", "StateOrProvince"), "--All State--", new { @class = "form-control" })
+                        <input type="text" id="Other_StateOrProvince" class="form-control" style="display: none" />
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address.City)
+                        @Html.DropDownListFor(M => M.Address.City, new SelectList(Model.CityList, "City", "City"), "--All City--", new { @class = "form-control" })
+                        <input type="text" id="Other_City" class="form-control" style="display: none" />
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address.PostalCode)
+                        @Html.DropDownListFor(M => M.Address.PostalCode, new SelectList(Model.ZipCodeList, "PostalCode", "PostalCode"), "--All PostalCode--", new { @class = "form-control" })
+                        <input type="text" id="Other_PostalCode" class="form-control" style="display: none" />
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address.FullStreetAddress)
+                        @Html.DropDownListFor(M => M.Address.FullStreetAddress, new SelectList(Model.StreetList, "FullStreetAddress", "FullStreetAddress"), "--All StreetAddress--", new { @class = "form-control" })
+                        <input type="text" id="Other_FullStreetAddress" class="form-control" style="display: none" />
+                    </div>
+                </div><!-- /.col -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Website)
+                        @Html.TextBoxFor(m => m.Website, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OfficeEmail)
+                        @Html.TextBoxFor(m => m.OfficeEmail, new { @class = "form-control" })
+
+                    </div>
+                </div><!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.Label("Description")
+                        @Html.TextBoxFor(m => m.OfficeDescription, new { @class = "form-control" })
+                    </div>
+                </div><!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Logo Image </label>
+                        <form id="fileuploadLogo" action="/Upload/UploadHandler.ashx" method="POST" enctype="multipart/form-data">
+                            <!-- SELECT3 IMAGE UPLOAD -->
+
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                                        <div class="fileupload-buttonbar">
+                                            <div class="span7">
+                                                <!-- The fileinput-button span is used to style the file input field as button -->
+                                                <span class="btn btn-success fileinput-button">
+                                                    <i class="icon-plus icon-white"></i>
+                                                    <span>Add files...</span>
+                                                    <input type="file" name="files[]" multiple>
+                                                </span>
+                                            </div>
+                                            <div class="span5">
+                                                <!-- The global progress bar -->
+                                                <div class="progress progress-success progress-striped active fade">
+                                                    <div class="bar" style="width:0%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- The loading indicator is shown during image processing -->
+                                        <div class="fileupload-loading"></div>
+                                        <br>
+                                        <!-- The table listing the files available for upload/download -->
+                                        <table class="table table-striped" id="tblImage"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                                @*<div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group pull-right">
+                                                <input id="btnImageUpload" type="button" data-uniqueid='@Model.CommunityId' data-type='Communities' class="btn btn-primary btn-block " value="Update" />
+                                            </div><!-- /.form-group -->
+                                        </div><!-- /.col -->
+                                    </div>*@
+                            </div><!-- /.box-body -->
+                            <!-- /.box -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group pull-right">
+                        @if (String.IsNullOrEmpty(Model.OfficeId))
+                        {
+                            <input type="button" class="btn btn-primary btn-block " value="Save" onclick="AddOffice(this)" data-loading-text="Please wait..." />
+                        }
+                        else
+                        {
+
+                            <input type="button" class="btn btn-primary btn-block " value="Save" onclick="EditOffice(this)" data-loading-text="Please wait..." />
+                        }
+                    </div><!-- /.form-group -->
+                </div><!-- /.col -->
+            </div>
+        </div><!-- /.box-body -->
+    </div>
+
+    <div class="box box-default hide" id="UploadImageBox">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload office Image</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Image Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label class="pull-left">Upload office image here </label>
+                </div>
+                <div class="col-md-4">
+                    <form id="fileupload" action="/Upload/OfficeImageUpload.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="icon-plus icon-white"></i>
+                                    <span>Add file</span>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.OfficeId' data-type='newhome'>
+                                    <i class="fa fa-cloud-upload"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnactive_" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail();">Upload</a>*@
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+        </div>
+    </div>
+
+</section>
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+
+    <script src="~/Scripts/custom/CityList.js"></script>
+    <script src="~/Scripts/custom/FullAddressList.js"></script>
+    <script src="~/Scripts/custom/ZipCodeList.js"></script>
+    <script src="~/Scripts/custom/Address_click.js"></script>
+    <script src="~/Scripts/custom/PostalCode_Click.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+            debugger;
+
+        });
+    </script>
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+            <td class="cancel">
+                {% if (!i) { %}
+                <button class="btn btn-warning">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>{%=locale.fileupload.cancel%}</span>
+                </button>
+                {% } %}
+            </td>
+        </tr>
+        {% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-download fade">
+            {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else { %}
+            <td class="preview">
+                {% if (file.thumbnail_url) { %}
+                @*<span>{%=file.name%}</span>*@
+                <img src="{%=file.thumbnail_url%}">
+                {% } %}
+            </td>
+            <td class="name">
+                <span>{%=file.name%}</span>
+            </td>
+            @*<td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>*@
+            <td colspan="2"></td>
+            {% } %}
+            <td class="delete">
+                <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}" type="button">
+                    <i class="icon-trash icon-white"></i>
+                    <span>{%=locale.fileupload.destroy%}</span>
+                </button>
+                <input type="checkbox" name="delete" value="1">
+            </td>
+        </tr>
+        {% } %}
+
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    <script>
+
+        function BackListing(btn) {
+            window.location.href = "/office/office-listing?liId=officeList";
+        }
+
+        function AddOffice(btn) {
+            debugger;
+            var Name = $("#Name").val();
+            var CorporateName = $("#CorporateName").val();
+            var BrokerId = $("#BrokerId").val();
+            var MainOfficeId = $("#MainOfficeId").val();
+            var PhoneNumber = $("#PhoneNumber").val();
+            var State = $("#Address_StateOrProvince").val();
+            var City = $("#Address_City").val();
+            var FullStreetAddress = $("#Address_FullStreetAddress").val();
+            var PostalCode = $("#Address_PostalCode").val();
+            var OfficeEmail = $("#OfficeEmail").val();
+            var Website = $("#Website").val();
+            var OfficeDescription = $("#OfficeDescription").val();
+            debugger;
+            var imageLst = new Array();
+            $('#tblImage .name ').each(function () {
+                var a = $(this).find("span").html();
+                var photo = {};
+                photo.MediaURL = a;
+                imageLst.push(photo);
+            });
+
+            if (State == "Other") {
+                State = $("#Other_StateOrProvince").val();
+            }
+            if (City == "Other") {
+                City = $("#Other_City").val();
+            }
+            if (FullStreetAddress == "Other") {
+                FullStreetAddress = $("#Other_FullStreetAddress").val();
+            }
+            if (PostalCode == "Other") {
+                PostalCode = $("#Other_PostalCode").val();
+            }
+
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+
+
+            if (CorporateName == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Corporate Name Cannot be null");
+                $("#CorporateName").focus();
+            } else if (Name == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Name Cannot be null");
+                $("#Name").focus();
+            } else if (PhoneNumber == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Phone Number Cannot be null");
+                $("#PhoneNumber").focus();
+            } else if (!numbers.test(PhoneNumber)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid phone no.");
+                $("#PhoneNumber").focus();
+            } else if (State == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please Select State");
+                $("#Address_StateOrProvince").focus();
+            } else if (City == "" || City == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please Select City");
+                $("#Address_City").focus();
+            } else if (PostalCode == "" || PostalCode == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please Select Postal Code");
+                $("#Address_PostalCode").focus();
+            } else if (FullStreetAddress == "" || FullStreetAddress == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please Select Street Address");
+                $("#Address_FullStreetAddress").focus();
+            } else if (OfficeEmail == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Email Cannot be null");
+                $("#OfficeEmail").focus();
+            } else if (!mailformat.test(OfficeEmail)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid email.");
+                $("#OfficeEmail").focus();
+            } else if (Website == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Website Cannot be null");
+            } else {
+
+                var formData = {
+                    "Name": Name,
+                    "CorporateName": CorporateName,
+                    "BrokerId": BrokerId,
+                    "MainOfficeId": MainOfficeId,
+                    "PhoneNumber": PhoneNumber,
+                    "Address.StateOrProvince": State,
+                    "Address.City": City,
+                    "Address.FullStreetAddress": FullStreetAddress,
+                    "Address.PostalCode": PostalCode,
+                    "OfficeEmail": OfficeEmail,
+                    "Website": Website,
+                    "OfficeDescription": OfficeDescription,
+                    "OfficeLogo": ''
+                };
+                if (imageLst.length > 0) {
+                    formData.OfficeLogo = imageLst[0].MediaURL;
+                }
+                $(btn).button('loading').queue(function () {
+                    $.ajax({
+                        url: "/office/add-office",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $("#sucessalert").show();
+                                $('#sucessalert').delay(5000).fadeOut(400);
+                                //$('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { OfficeId: '@Model.OfficeId' }
+
+                                });
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }
+
+        }
+
+        function EditOffice(btn) {
+            debugger;
+            var OfficeKey = $("#OfficeKey").val();
+            var OfficeId = $("#OfficeId").val();
+            var OfficeCode = $("#OfficeCode_OfficeCodeId").val();
+            var Name = $("#Name").val();
+            var CorporateName = $("#CorporateName").val();
+            var BrokerId = $("#BrokerId").val();
+            var MainOfficeId = $("#MainOfficeId").val();
+            var PhoneNumber = $("#PhoneNumber").val().replace(/\-/g, '');;
+            var State = $("#Address_StateOrProvince").val();
+            var City = $("#Address_City").val();
+            var FullStreetAddress = $("#Address_FullStreetAddress").val();
+            var PostalCode = $("#Address_PostalCode").val();
+            var OfficeEmail = $("#OfficeEmail").val();
+            var Website = $("#Website").val();
+            var OfficeDescription = $("#OfficeDescription").val();
+            var OfficeLogo = $("#OfficeLogo").val();
+            debugger;
+            var imageLst = new Array();
+            $('#tblImage .name ').each(function () {
+                var a = $(this).find("span").html();
+                var photo = {};
+                photo.MediaURL = a;
+                imageLst.push(photo);
+            });
+
+            if (State == "Other") {
+                State = $("#Other_StateOrProvince").val();
+            }
+            if (City == "Other") {
+                City = $("#Other_City").val();
+            }
+            if (FullStreetAddress == "Other") {
+                FullStreetAddress = $("#Other_FullStreetAddress").val();
+            }
+            if (PostalCode == "Other") {
+                PostalCode = $("#Other_PostalCode").val();
+            }
+
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var numbers = /^[0-9]+$/;
+
+
+            //if (OfficeKey == "") {
+            //    $("#validationalert").show();
+            //    $('#validationalert').delay(3000).fadeOut(400);
+            //    $("#lblMsg").html("Office Key Cannot be null");
+            //    $("#OfficeKey").focus();
+            //} else if (OfficeId == "") {
+            //    $("#validationalert").show();
+            //    $('#validationalert').delay(3000).fadeOut(400);
+            //    $("#lblMsg").html("Office Id Cannot be null");
+            //    $("#OfficeId").focus();
+            //} else if (OfficeCode == "") {
+            //    $("#validationalert").show();
+            //    $('#validationalert').delay(3000).fadeOut(400);
+            //    $("#lblMsg").html("Office Code Cannot be null");
+            //    $("#OfficeCode").focus();
+            //} else
+            if (Name == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Name Cannot be null");
+                $("#Name").focus();
+            } else if (CorporateName == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Corporate Name Cannot be null");
+                $("#CorporateName").focus();
+            } else if (PhoneNumber == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Phone Number Cannot be null");
+                $("#PhoneNumber").focus();
+            } else if (!numbers.test(PhoneNumber)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid phone no.");
+                $("#PhoneNumber").focus();
+            } else if (State == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("State Cannot be null");
+            } else if (City == "" || City == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("City Cannot be null");
+            } else if (PostalCode == "" || PostalCode == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Postal Code Cannot be null");
+            } else if (FullStreetAddress == "" || FullStreetAddress == "0") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Street Address Cannot be null");
+            } else if (OfficeEmail == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Email Cannot be null");
+                $("#OfficeEmail").focus();
+            } else if (!mailformat.test(OfficeEmail)) {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Please enter valid email.");
+                $("#OfficeEmail").focus();
+            } else if (Website == "") {
+                $("#validationalert").show();
+                $('#validationalert').delay(3000).fadeOut(400);
+                $("#lblMsg").html("Website Cannot be null");
+            } else {
+
+                var formData = {
+
+                    "OfficeKey": OfficeKey,
+                    "OfficeId": OfficeId,
+                    "OfficeCode.OfficeCodeId": OfficeCode,
+                    "Name": Name,
+                    "CorporateName": CorporateName,
+                    "BrokerId": BrokerId,
+                    "MainOfficeId": MainOfficeId,
+                    "PhoneNumber": PhoneNumber,
+                    "Address.StateOrProvince": State,
+                    "Address.City": City,
+                    "Address.FullStreetAddress": FullStreetAddress,
+                    "Address.PostalCode": PostalCode,
+                    "OfficeEmail": OfficeEmail,
+                    "Website": Website,
+                    "OfficeDescription": OfficeDescription,
+                    "OfficeLogo": ''
+                };
+                if (imageLst.length > 0) {
+                    formData.OfficeLogo = imageLst[0].MediaURL;
+                } else {
+                    formData.OfficeLogo = OfficeLogo;
+                }
+
+                $(btn).button('loading').queue(function () {
+                    $.ajax({
+                        url: "/office/add-office",
+                        type: "POST",
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify(formData),
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.success) {
+                                $("#sucessupdatealert").show();
+                                $('#sucessupdatealert').delay(5000).fadeOut(400);
+                                //$('#UploadImageBox').removeClass('hide');
+                                $('#fileupload').fileupload();
+
+                                $('#fileupload').fileupload('option', {
+                                    maxFileSize: 500000000,
+                                    resizeMaxWidth: 1920,
+                                    resizeMaxHeight: 1200,
+                                    formData: { OfficeId: '@Model.OfficeId' }
+
+                                });
+                            } else {
+                                $("#failurealert").show();
+                                $('#failurealert').delay(5000).fadeOut(400);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $("#failurealert").show();
+                            $('#failurealert').delay(5000).fadeOut(400);
+                        },
+                        compete: function () {
+                            $(btn).button('reset');
+                            $(btn).dequeue();
+                        }
+                    });
+                });
+            }
+
+        }
+
+
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                $("#sucessUploadImagealert").show();
+                $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+
+        $(function () {
+            'use strict';
+
+            if ('@Model.OfficeId' != null) {
+                $('#UploadImageBox').removeClass('hide');
+            }
+            // Initialize the jQuery File Upload widget:
+            $('#fileuploadLogo').fileupload();
+
+            $('#fileuploadLogo').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { OfficeId: '@Model.OfficeId' }
+
+            });
+            $('#fileupload').fileupload();
+
+            $('#fileupload').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { OfficeId: '@Model.OfficeId' }
+
+            });
+        });
+    </script>
+}

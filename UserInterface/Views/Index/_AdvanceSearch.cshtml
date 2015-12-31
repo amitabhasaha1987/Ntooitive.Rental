@@ -1,0 +1,778 @@
+﻿@using PagedList.Mvc
+@model UserInterface.Models.PropertyListingViewModel
+@{
+    ViewBag.Title = "PropertiesListing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/PagedList.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/slider.css" rel="stylesheet" />
+<link href="~/Content/css/custom.css" rel="stylesheet" />
+<style>
+    #googleMap {
+        background: transparent url(/Content/image/ajax-loader.gif) no-repeat center center;
+    }
+</style>
+<script src="~/js/jquery-ui-1.10.4.custom.min.js"></script>
+<link href="~/Content/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<style>
+    .ui-autocomplete {
+        max-height: 150px;
+        position: absolute;
+        overflow-y: auto;
+        z-index: 9999;
+        background-color: #fff;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+    }
+
+
+    li a::after {
+        color: red !important;
+    }
+
+
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+
+    li a:hover {
+        color: black !important;
+        transition: color 0.5s linear; /* vendorless fallback */
+        -o-transition: color 0.5s linear; /* opera */
+        -ms-transition: color 0.5s linear; /* IE 10 */
+        -moz-transition: color 0.5s linear; /* Firefox */
+        -webkit-transition: color 0.5s linear; /*safari and chrome */
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#advSearch_Location").autocomplete({
+            source: '@Model.Command' === "SearchPurchase" ? '@Url.Action("GetAutoCompleteDataForPurchase")' : ('@Model.Command' === "SearchRent" ? '@Url.Action("GetAutoCompleteDataForRent")' : '@Url.Action("GetAutoCompleteDataForHome")')
+        });
+
+        $(".includearea").click(function () {
+
+            $('#divNearByArea >ul> li').each(function () {
+                var chk = $(this).find('input:checkbox:eq(0)');
+                $(chk).prop("disabled", true);
+            });
+            $("#advSearch_NearByDistance").prop("disabled", false);
+            $("#advSearch_Location").prop("disabled", false);
+        });
+
+        $(".nearearea").click(function () {
+
+            $('#divNearByArea >ul> li').each(function () {
+                var chk = $(this).find('input:checkbox:eq(0)');
+                $(chk).prop("disabled", false);
+            });
+            $("#advSearch_NearByDistance").prop("disabled", true);
+            $("#advSearch_Location").prop("disabled", true);
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#advSearch_MinPrice').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_MaxPrice').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_NoOfBeds').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_NoOfBathroom').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_Size').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_LotSize').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_HomeAge').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('.abcd').click(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('.nearByArea').click(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_Location').blur(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_NearByDistance').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_SortBy').change(function () {
+            RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_MinPrice').val('@Model.advSearch.MinPrice');
+        $('#advSearch_MaxPrice').val('@Model.advSearch.MaxPrice');
+        $('#advSearch_NoOfBeds').val('@Model.advSearch.NoOfBeds');
+        $('#advSearch_NoOfBathroom').val('@Model.advSearch.NoOfBathroom');
+        $('#advSearch_Size').val('@Model.advSearch.Size');
+        $('#advSearch_LotSize').val('@Model.advSearch.LotSize');
+        $('#advSearch_HomeAge').val('@Model.advSearch.HomeAge');
+        $('#advSearch_SortBy').val('@Model.advSearch.SortBy');
+
+        var name = GetParameterValues('searchTerm');
+
+        var minprice = GetParameterValues('MinPrice');
+        var maxprice = GetParameterValues('MaxPrice');
+        var noOfBeds = GetParameterValues('NoOfBeds');
+        var noOfBath = GetParameterValues('NoOfBathRooms');
+        var size = GetParameterValues('Size');
+        var lotSize = GetParameterValues('LotSize');
+        var homeAge = GetParameterValues('HomeAge');
+        var propertyType = GetParameterValues('PropertyType');
+
+
+        if (minprice || maxprice || noOfBeds || noOfBath || size || lotSize || homeAge) {
+            $('#demo').attr("aria-expanded", "true");
+            $('#demo').removeClass();
+            $('#demo').addClass('collapse in');
+        }
+
+        if (name) {
+            $('#demo2').attr("aria-expanded", "true");
+            $('#demo2').removeClass();
+            $('#demo2').addClass('collapse in');
+        }
+
+        if (propertyType) {
+            $('#demo1').attr("aria-expanded", "false");
+            $('#demo1').removeClass();
+            $('#demo1').addClass('collapse in');
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    function GetParameterValues(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == param) {
+                return urlparam[1];
+            }
+        }
+    }
+
+    function RedirectUrl() {
+        var minPrice = '';
+        var maxPrice = '';
+        var noOfBeds = '';
+        var noOfBath = '';
+        var size = '';
+        var lotSize = '';
+        var homeAge = '';
+        minPrice = $('#advSearch_MinPrice option:selected').val();
+        maxPrice = $('#advSearch_MaxPrice option:selected').val();
+        noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+        noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+        size = $('#advSearch_Size option:selected').val();
+        lotSize = $('#advSearch_LotSize option:selected').val();
+        homeAge = $('#advSearch_HomeAge option:selected').val();
+        mileage = $('#advSearch_NearByDistance option:selected').val();
+        var sortBy = $('#advSearch_SortBy option:selected').val();
+        radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+
+
+        var searchTerm = "";
+        if (radioByMiles == "true") {
+            searchTerm = $('#advSearch_Location').val();
+            if (searchTerm == "") {
+                alert("Please select the location");
+                return false;
+            }
+
+        } else {
+            $('.nearByArea:checked').each(function () {
+                searchTerm += $(this).attr('data-text') + ",";
+            });
+
+            searchTerm = searchTerm.slice(0, -1);
+        }
+
+
+
+        var property = '';
+        $('.abcd:checked').each(function () {
+            property += $(this).attr('data-text') + ",";
+        });
+
+        property = property.slice(0, -1);
+
+        var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + '@ViewBag.Command' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + property + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy;
+        window.location.href = url;
+    }
+</script>
+
+<div class="container">
+    <div style="background: #E5E3DF">
+        <div id="googleMap" class="map"></div>
+    </div>
+    <div class="clear"></div>
+
+    <div class="col-lg-4">
+        @Html.HiddenFor(model => model.Command)
+        @Html.HiddenFor(model => model.SearchValue)
+
+        <div class="adv_search-title">
+            <ul>
+                <li>
+                    <button type="button" class="price_p" data-toggle="collapse" data-target="#demo">Price</button>
+                    <div id="demo" class="collapse">
+                        <div class="price_contaner">
+                            <h1>Price</h1>
+                            <ul>
+                                <li>
+                                    <select name="advSearch.MinPrice" class="price_chosearea" style="width: 45%; float: left" id="advSearch_MinPrice">
+                                        <option value="">Min Price</option>
+                                        <option value="10000">$10,000</option>
+                                        <option value="20000">$20,000</option>
+                                        <option value="30000">$30,000</option>
+                                        <option value="50000">$50,000</option>
+                                        <option value="75000">$75,000</option>
+                                        <option value="100000">$1,00,000</option>
+                                        <option value="150000">$1,50,000</option>
+                                        <option value="200000">$2,00,000</option>
+                                        <option value="300000">$3,00,000</option>
+                                        <option value="500000">$5,00,000</option>
+                                        <option value="1000000">$10,00,000</option>
+                                        <option value="2000000">$20,00,000</option>
+                                        <option value="3000000">$30,00,000</option>
+                                    </select>
+                                    <select name="advSearch.MaxPrice" class="price_chosearea" style="width: 45%; float: right" id="advSearch_MaxPrice">
+                                        <option value="">Max Price</option>
+                                        <option value="10000">$10,000</option>
+                                        <option value="20000">$20,000</option>
+                                        <option value="30000">$30,000</option>
+                                        <option value="50000">$50,000</option>
+                                        <option value="75000">$75,000</option>
+                                        <option value="100000">$1,00,000</option>
+                                        <option value="150000">$1,50,000</option>
+                                        <option value="200000">$2,00,000</option>
+                                        <option value="300000">$3,00,000</option>
+                                        <option value="500000">$5,00,000</option>
+                                        <option value="1000000">$10,00,000</option>
+                                        <option value="2000000">$20,00,000</option>
+                                        <option value="3000000">$30,00,000</option>
+                                    </select>
+
+                                </li>
+
+                                <li>
+                                    <h2>Beds</h2>
+                                    <select name="advSearch.NoOfBeds" class="price_chosearea" id="advSearch_NoOfBeds">
+                                        <option value="">Select</option>
+                                        <option value="1">1 Bed</option>
+                                        <option value="2">2 Beds</option>
+                                        <option value="3">3 Beds</option>
+                                        <option value="4">4 Beds</option>
+                                        <option value="5">5+ Beds</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <h2>Baths</h2>
+                                    <select name="advSearch.NoOfBathroom" class="price_chosearea" id="advSearch_NoOfBathroom">
+                                        <option value="">Select</option>
+                                        <option value="1">1+ Bath</option>
+                                        <option value="2">2+ Baths</option>
+                                        <option value="2.5">2.5+ Baths</option>
+                                        <option value="3">3+ Baths</option>
+                                        <option value="3.5">3.5+ Baths</option>
+                                        <option value="4">4+ Baths</option>
+                                        <option value="5">5+ Baths</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <h2>Size</h2>
+                                    <select name="advSearch.Size" class="price_chosearea" id="advSearch_Size">
+                                        <option value="">Select</option>
+                                        <option value="600">600+</option>
+                                        <option value="800">800+</option>
+                                        <option value="1000">1000+</option>
+                                        <option value="1200">1200+</option>
+                                        <option value="1400">1400+</option>
+                                        <option value="1600">1600+</option>
+                                        <option value="1800">1800+</option>
+                                        <option value="2000">2000+</option>
+                                        <option value="2250">2250+</option>
+                                        <option value="2500">2500+</option>
+                                        <option value="2750">2750+</option>
+                                        <option value="3000">3000+</option>
+                                        <option value="3500">3500+</option>
+                                        <option value="4000">4000+</option>
+                                        <option value="5000">5000+</option>
+                                        <option value="6000">6000+</option>
+                                        <option value="7000">7000+</option>
+                                        <option value="8000">8000+</option>
+                                        <option value="9000">9000+</option>
+                                        <option value="10000">10000+</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <h2>Lot Size (Acre)</h2>
+                                    <select name="advSearch.LotSize" class="price_chosearea" id="advSearch_LotSize">
+                                        <option value="">Select</option>
+                                        <option value="0.5">1/2 or More Acres</option>
+                                        <option value="1">1 or More Acres</option>
+                                        <option value="2">2 or More Acres</option>
+                                        <option value="5">5 or More Acres</option>
+                                        <option value="10">10 or More Acres</option>
+                                        <option value="20">20 or More Acres</option>
+                                        <option value="100">100 or More Acres</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <h2>Age of Home</h2>
+                                    <select name="advSearch.HomeAge" class="price_chosearea" id="advSearch_HomeAge">
+                                        <option value="">Select</option>
+                                        <option value="2">New Construction</option>
+                                        <option value="0_5">0-5 Years</option>
+                                        <option value="0_10">0-10 Years</option>
+                                        <option value="0_20">0-20 Years</option>
+                                        <option value="0_50">0-50 Years</option>
+                                        <option value="51">51+ Years</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" class="location" data-toggle="collapse" data-target="#demo1">Property </button>
+                    <div id="demo1" class="collapse">
+                        <div class="price_contaner" style="height:250px;">
+                            <h1>Property Type</h1>
+                            <ul>
+                                @for (var j = 0; j < Model.PropertyType.Count; j++)
+                                {
+                                    <li>
+                                        @Html.HiddenFor(x => x.PropertyType[j].PropertyName)
+                                        @Html.CheckBoxFor(x => x.PropertyType[j].IsSelected, new { @class = "abcd", @data_text = Model.PropertyType[j].PropertyName })
+                                        @Html.DisplayFor(x => x.PropertyType[j].PropertyName)
+                                    </li>
+                                }
+                            </ul>
+                            @*<h1>More Features</h1>
+                                <p>Click on <a href="#">Add Features</a> to narrow down specific property features. </p>*@
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" class="location" data-toggle="collapse" data-target="#demo2">Location</button>
+                    <div id="demo2" class="collapse">
+                        <div class="price_contaner">
+                            <input type="radio" name="advSearch.RadioByMiles" id="advSearch_RadioByMiles" value="true" checked="checked" class="includearea"> Include Areas Within
+                            Location
+                            @Html.TextBox("advSearch.Location", (string)Model.SearchValue, new { @class = "adv_search-in", @id = "advSearch_Location" })
+
+                            @{
+                                List<SelectListItem> distances = new List<SelectListItem>();
+                                distances.Add(new SelectListItem
+                                {
+                                    Text = "0 Mile",
+                                    Value = "0",
+                                    Selected = true
+
+                                });
+                                distances.Add(new SelectListItem
+                                {
+                                    Text = "1 Mile",
+                                    Value = "1"
+                                });
+                                distances.Add(new SelectListItem
+                                     {
+                                         Text = "5 Miles",
+                                         Value = "5",
+                                     });
+                                distances.Add(new SelectListItem
+                                     {
+                                         Text = "10 Miles",
+                                         Value = "10"
+                                     });
+                                distances.Add(new SelectListItem
+                                {
+                                    Text = "15 Miles",
+                                    Value = "15"
+                                });
+                                distances.Add(new SelectListItem
+                                {
+                                    Text = "20 Miles",
+                                    Value = "20"
+
+                                });
+                                distances.Add(new SelectListItem
+                                {
+                                    Text = "25 Miles",
+                                    Value = "25"
+                                });
+                            }
+
+                            @Html.DropDownListFor(m => m.advSearch.NearByDistance, distances, new { @class = "adv_search_chosearea", @id = "advSearch_NearByDistance" })
+                            <input type="radio" name="advSearch.RadioByMiles" id="advSearch_RadioByMiles" value="false" class="nearearea"> Closest Nearby Areas
+                            <div class=" property_type2" id="divNearByArea">
+                                <ul>
+                                    @for (var k = 0; k < Model.NearbyAreas.Count; k++)
+                                    {
+                                        <li>
+                                            @Html.HiddenFor(x => (x.NearbyAreas[k]._id))
+                                            @Html.HiddenFor(x => (x.NearbyAreas[k].AvgDistance))
+                                            @Html.CheckBoxFor(x => x.NearbyAreas[k].IsSelected, new { @class = "nearByArea", @disabled = "disabled", @data_text = Model.NearbyAreas[k]._id })
+                                            @Html.DisplayFor(x => (x.NearbyAreas[k]._id)) &nbsp; &nbsp;
+                                            @Html.DisplayFor(x => (x.NearbyAreas[k].AvgDistance)) &nbsp;mi
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="col-lg-8">
+
+        <div class="listing_dtls">
+            <div id="Tabs" role="tabpanel1">
+                <!-- Nav tabs -->
+                <ul class="nav_new nav-tabs1" role="tablist">
+                    <li class="active">
+                        <a href="#Featured" aria-controls="Featured" role="tab" data-toggle="tab">
+                            Featured
+                        </a>
+                    </li>
+                    <li><a href="#Newest" aria-controls="Newest" role="tab" data-toggle="tab">Newest</a></li>
+                    <li><a href="#more" aria-controls="more" role="tab" data-toggle="tab">More</a></li>
+
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content_zz">
+                    <div role="tabpanel" class="tab-pane1 active " id="Featured">
+                        <div class="short_by-ctgry">
+                            <select id="advSearch_SortBy" class="short_by-drop " name="advSearch.SortBy">
+                                <option value="0">Sort By</option>
+                                <option value="Price_Asc">Price: Low to High</option>
+                                <option value="Price_Desc">Price: High to Low</option>
+                                <option value="Bedrooms_Asc">BedRoom: Low to High</option>
+                                <option value="Bedrooms_Desc">BedRoom: High to Low</option>
+                                <option value="Bathrooms_Asc">Bathrooms: Low to High</option>
+                                <option value="Bathrooms_Desc">Bathrooms: High to Low</option>
+                            </select>
+                        </div>
+                        <div class="clear"></div>
+                        @{
+                            int i = Convert.ToInt32(ViewBag.startIndex);
+
+                            var count = @Model.PropertyListings.Count();
+                        }
+                        @if (count > 0)
+                        {
+                            foreach (var item in Model.PropertyListings)
+                            {
+                                <div class="dtls-lsting">
+                                    @if (ViewBag.Command == "SearchPurchase")
+                                    {
+                                        <div class="pr-icon-purchase">@(++i)</div>
+                                    }
+                                    else if (ViewBag.Command == "SearchRent")
+                                    {
+                                        <div class="pr-icon-rent">@(++i)</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="pr-icon-new">@(++i)</div>
+                                    }
+                                    <div class="pro_thumb">
+                                        @*@if (@item.DefaultPhoto.ToList().Count > 0)
+                                            {*@
+                                        <img style="height: 125px; width: 130px;" src=@(item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+
+                                        <div class="hover_txt">
+                                            @{
+                                if (@item.IsNewConstruction == true)
+                                {
+                                    <span style="font-weight:bold;">New Construction</span>
+                                }
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="pro_dtls">
+                                        <span style="color: #FF0000;">
+                                            @*@Html.ActionLink(@item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command }, null)*@
+                                            @{
+                                if (@Model.Command == "SearchHome")
+                                {
+                                    @Html.ActionLink(@item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command }, null);
+                                }
+                                else
+                                {
+                                    @Html.ActionLink(@item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command }, null)
+                                }
+                                            }
+                                        </span><br />
+                                        <span style="font-weight: bold; line-height: 20px;font-size: 10px;">@item.PropertyType</span><br />
+                                        @{
+                                if (@Model.Command == "SearchHome")
+                                {
+                                    <span>$&nbsp;@item.Price.ToString("#,##,##0.00")+</span><br />
+                                }
+                                else
+                                {
+                                    <span>$&nbsp;@item.Price.ToString("#,##,##0.00") </span><br />
+                                }
+                                        }
+                                        <span style="font-size: 12px; line-height: 20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.NoOfBathRooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span><br />
+                                        <span style="color: #bcbcbc;">Brokered By:&nbsp;@item.BrokerageName</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div style="font-size:14px;  text-align:center; display:block; background:#ddd; padding:20px;">No Data Found</div>
+                        }
+                        <div class="clear"></div>
+                        <div style="text-align:center">
+
+                            @Html.PagedListPager(Model.PropertyListings, page => Url.Action("PropertiesListing", new
+               {
+                   page,
+                   searchTerm = Request.QueryString["searchTerm"],
+                   Command = Request.QueryString["Command"],
+                   MinPrice = Request.QueryString["MinPrice"],
+                   MaxPrice = Request.QueryString["MaxPrice"],
+                   NoOfBeds = Request.QueryString["NoOfBeds"],
+                   NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                   Size = Request.QueryString["Size"],
+                   LotSize = Request.QueryString["LotSize"],
+                   HomeAge = Request.QueryString["HomeAge"],
+                   PropertyType = Request.QueryString["PropertyType"],
+                   Distance = Request.QueryString["Distance"],
+                   ByMiles = Request.QueryString["ByMiles"],
+                   IsMls = Request.QueryString["IsMls"]
+
+               }))
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane1" id="Newest">
+
+                        <div style="font-size:14px;  text-align:center; display:block; background:#ddd; padding:20px;">We are putting things together.</div>
+
+                        @*<ul>
+                                <li>
+                                    <div class="pro_thumb"><img src="~/Content/image/listing_thumb.jpg" /></div>
+                                    <div class="pro_dtls">
+                                        <span style="color:#FF0000;">1935 Plan, Gilmore Bay</span><br />
+                                        <span style="font-weight:bold;  line-height:26px;">NEW CONSTRUCTION</span><br />
+                                        <span>$250,000+</span><br />
+                                        <span style="font-size:14px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" />4 bds &nbsp; <img src="~/Content/image/bathroom.jpg" />&nbsp;2.5 ba • 1,935+ sqft</span><br />
+                                        <span style="color:#bcbcbc;font-size:16px;">D.R. Horton</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                            </ul>*@
+                    </div>
+                    <div role="tabpanel" class="tab-pane1" id="more">
+                        <div style="font-size:14px;  text-align:center; display:block; background:#ddd; padding:20px;">We are putting things together.</div>
+
+                        @*<ul>
+                                <li>
+
+                                    <div class="pro_thumb"><img src="~/Content/image/listing_thumb.jpg" /></div>
+                                    <div class="pro_dtls">
+                                        <span style="color:#FF0000;">1935 Plan, Gilmore Bay</span><br />
+                                        <span style="font-weight:bold;  line-height:26px;">NEW CONSTRUCTION</span><br />
+                                        <span>$250,000+</span><br />
+                                        <span style="font-size:14px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" />4 bds &nbsp; <img src="~/Content/image/bathroom.jpg" />&nbsp;2.5 ba • 1,935+ sqft</span><br />
+                                        <span style="color:#bcbcbc;font-size:16px;">D.R. Horton</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                </li>
+                            </ul>*@
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="clear"></div>
+
+<script src="~/Content/js/bootstrap-slider.js"></script>
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script src="https://googlemaps.github.io/js-marker-clusterer//src/markerclusterer.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var minPrice = '';
+        var maxPrice = '';
+        var noOfBeds = '';
+        var noOfBath = '';
+        var size = '';
+        var lotSize = '';
+        var homeAge = '';
+        minPrice = $('#advSearch_MinPrice option:selected').val();
+        maxPrice = $('#advSearch_MaxPrice option:selected').val();
+        noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+        noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+        size = $('#advSearch_Size option:selected').val();
+        lotSize = $('#advSearch_LotSize option:selected').val();
+        homeAge = $('#advSearch_HomeAge option:selected').val();
+        mileage = $('#advSearch_NearByDistance option:selected').val();
+        var sortBy = $('#advSearch_SortBy option:selected').val();
+        radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+
+
+        var searchTerm = "";
+        if (radioByMiles == "true") {
+            searchTerm = $('#advSearch_Location').val();
+            if (searchTerm == "") {
+                alert("Please select the location");
+                return false;
+            }
+
+        } else {
+            $('.nearByArea:checked').each(function () {
+                searchTerm += $(this).attr('data-text') + ",";
+            });
+
+            searchTerm = searchTerm.slice(0, -1);
+        }
+
+
+
+        var property = '';
+        $('.abcd:checked').each(function () {
+            property += $(this).attr('data-text') + ",";
+        });
+
+        property = property.slice(0, -1);
+
+        var url = '@Url.Action("AdvanceGetGeoLocation", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + '@ViewBag.Command' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + property + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy;
+        googleMap(url);
+
+    });
+
+    function googleMap(url) {
+        var gmarkers = [];
+        var map;
+        var x = "";
+        x = encodeURIComponent('@ViewBag.SearchValue');
+
+        function initialize() {
+
+            var mapProp = {
+                center: new google.maps.LatLng(20.593684, 78.96288), //India Lat and Lon
+                zoom: 19,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            Call();
+        }
+        function autoCenter() {
+            //  Create a new viewpoint bound
+            var bounds = new google.maps.LatLngBounds();
+            //  Go through each...
+            for (var i = 0; i < gmarkers.length; i++) {
+                bounds.extend(gmarkers[i].position);
+            }
+            //  Fit these bounds to the map
+            map.fitBounds(bounds);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        for (i = 0; i < gmarkers.length; i++) {
+            gmarkers[i].setMap(null);
+        }
+        @*+('@ViewBag.Command' == "SearchPurchase" ? "|C53636|ffffff" : "|79B6E4|ffffff")*@
+
+        function Call() {
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $.each(data, function (index, value) {
+                        var cnt = (index + 1) + parseInt('@ViewBag.startIndex');
+                        var latlng = new google.maps.LatLng(value.Latitude, value.Longitude);
+                        var marker = new google.maps.Marker({
+                            position: latlng,
+                            icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + cnt + ('@ViewBag.Command' == "SearchPurchase" ? "|C53636|ffffff" : ('@ViewBag.Command' == "SearchRent" ? "|C53636|ffffff" : "|EAB134|ffffff")),
+                            map: map
+                        });
+                        var val1 = '@ViewBag.Command' == "SearchHome" ? "<a style='text-decoration:underline;' href=/Index/NewHomeDetails?mlsNumber=" + value.MlsNumber + "&Command=" + '@ViewBag.Command' + ">Go For Details</a></span> " : "<a style='text-decoration:underline;' href=/Index/PropertieDetails?mlsNumber=" + value.MlsNumber + "&Command=" + '@ViewBag.Command' + ">Go For Details</a></span> "
+                        var popup = new google.maps.InfoWindow({
+                            content: "<span style='font-weight:bold;'>" + value.FullStreet + "<br/>" + value.StateAndZipCode + "<br/>" + val1
+                        });
+                        google.maps.event.addListener(marker, 'click', function (e) {
+                            popup.open(map, this);
+                        });
+                        gmarkers.push(marker);
+                    });
+                    autoCenter();
+                }
+            });
+        }
+    }
+</script>

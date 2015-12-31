@@ -1,0 +1,210 @@
+﻿@model AdminInterface.Models.NewHome.HomePlan
+@{
+    ViewBag.Title = "Edit Plan";
+}
+
+<h2 style="padding-left:1%">Edit Plan</h2>
+
+
+<section class="content">
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+        @using (Html.BeginForm("EditPlan", "Property", FormMethod.Post, Model.PlanNumber))
+        {
+            @Html.AntiForgeryToken()
+            <div class="box-header with-border">
+                <h3 class="box-title">Manage Your Plan Here</h3>
+                <p style="float:right;margin-right:30px;"> Plan Number: @Model.PlanNumber</p>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="sucessalert" class="alert alert-success alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Plan Updated Successfully.</h4>
+                            <span></span>
+                        </div>
+                        <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Plan Name</label>
+                            @Html.HiddenFor(m => m.PlanNumber)
+                            @Html.TextBoxFor(m => m.PlanName, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Excludes Land</label>
+                            @Html.TextBoxFor(m => m.ExcludesLand, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Base Price</label>
+                            @Html.TextBoxFor(m => m.BasePrice, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Base Sqft</label>
+                            @Html.TextBoxFor(m => m.BaseSqft, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Stories</label>
+                            @Html.TextBoxFor(m => m.Stories, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>BathRoom</label>
+                            @Html.TextBoxFor(m => m.Baths, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>HalfBathRoom</label>
+                            @Html.TextBoxFor(m => m.HalfBaths, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>MasterBedLocation</label>
+                            @Html.TextBoxFor(m => m.MasterBedLocation, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>BedRoom</label>
+                            @Html.TextBoxFor(m => m.Bedrooms, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Garage Entry</label>
+                            @Html.TextBoxFor(m => m.Entry, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Garage</label>
+                            @Html.TextBoxFor(m => m.Garage, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Basement</label>
+                            @Html.TextBoxFor(m => m.Basement, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Marketing Headline</label>
+                            @Html.TextBoxFor(m => m.MarketingHeadline, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>VirtualTour</label>
+                            @Html.TextBoxFor(m => m.VirtualTour, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>PlanViewer</label>
+                            @Html.TextBoxFor(m => m.PlanViewer, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Caption</label>
+                            @Html.TextBoxFor(m => m.Caption, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Elevation ImageText</label>
+                            @Html.TextBoxFor(m => m.ElevationImageText, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Title</label>
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @placeholder = "Enter ...", @style = "height: 34px;" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group pull-right">
+                            <input type="submit" class="btn btn-primary btn-block " value="Save" />
+                        </div><!-- /.form-group -->
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+        }
+    </div><!-- /.box -->
+
+</section><!-- /.content -->
+@section css{
+
+    <link href="~/bootstrap/css/Custom.css" rel="stylesheet" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        (function ($) {
+            debugger;
+            if ('@ViewBag.PlanNumber' == 'True') {
+                $("#sucessalert").show();
+                $('#sucessalert').delay(5000).fadeOut(400);
+            } else if ('@ViewBag.PlanNumber' == 'False') {
+                $("#failurealert").show();
+                $('#failurealert').delay(5000).fadeOut(400);
+            }
+        })(jQuery);
+    </script>
+}

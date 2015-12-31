@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@section css{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Agent listing
+        <small>Manage your agent here</small>
+    </h1>
+    @*<ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Tables</a></li>
+            <li class="active">Data tables</li>
+        </ol>*@
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <div id="sucessalertdelete" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent Deleted Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="failurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div class="pull-right">
+                        <a href="/agent/new-agent" class="btn btn-info">Add New Agent</a>
+                    </div>
+                </div>
+                    <div class="box-body">
+                      
+
+                        <table id="userlisting" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>Participant Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email </th>
+                                <th>Phone (Primary)</th>
+                                <th>Phone (Office)</th>
+                                <th>Roles</th>
+                                <th>Action</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@section scripts
+{
+    <!-- DataTables -->
+    <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/custom/user-listing.js"></script>
+}

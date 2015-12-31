@@ -1,0 +1,3215 @@
+﻿@using PagedList.Mvc
+@model UserInterface.Models.PropertyListingViewModel
+@{
+    ViewBag.Title = "PropertiesListing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/PagedList.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css/slider.css" rel="stylesheet" />
+<link href="~/Content/css/custom.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap-responsive-tabs.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="~/Content/js/jquery.bootstrap-responsive-tabs.min.js"></script>
+<style>
+    #googleMap {
+        background: transparent url(/Content/image/ajax-loader.gif) no-repeat center center;
+    }
+</style>
+<style type="text/css">
+    body {
+        margin: 0px;
+    }
+
+        body.home, body.sectionfront, body.galleries, body.staff, body.poll-page {
+            background: #FFF;
+        }
+
+    .drop {
+        display: none !important;
+    }
+
+    .page-content {
+        font-family: Georgia, serif;
+        font-size: 1.063em;
+        line-height: 1.6em;
+    }
+
+    .tab-pane {
+        color: #555 !important;
+        cursor: default;
+        padding-top: 20px;
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .h1, .h2, .h3, h1, h2, h3 {
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        background-color: #fff;
+        border-bottom-color: transparent;
+        color: #555;
+        cursor: default;
+    }
+
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            background-color: #fff;
+            border-color: #ddd #ddd transparent;
+            border-image: none;
+            border-style: solid;
+            border-width: 1px;
+            color: #555;
+            cursor: default;
+        }
+
+            .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+                border-bottom-color: transparent;
+            }
+
+    .nav-tabs > li > a {
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        line-height: 1.42857;
+        margin-right: 2px;
+    }
+
+    .tab-content > .active {
+        display: block;
+        margin: 0 10px !important;
+    }
+
+    .dropdown .dropdown-menu li a {
+        padding: 0;
+        color: #000;
+        line-height: 30px;
+    }
+
+    .map {
+        height: 400px;
+        background: #E5E3DF;
+        position: relative !important;
+    }
+
+    .dropdown .dropdown-menu li {
+        padding: 0;
+        display: block;
+        color: #000;
+        font-weight: normal !important;
+        float: none;
+    }
+
+    h1 span {
+        display: block;
+    }
+</style>
+
+<script src="~/js/jquery-ui-1.10.4.custom.min.js"></script>
+<link href="~/Content/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<style>
+    .ui-autocomplete {
+        max-height: 150px;
+        position: absolute;
+        overflow-y: auto;
+        min-width: 270px;
+        z-index: 9999;
+        background-color: #fff;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+    }
+
+
+    li a::after {
+        color: red !important;
+    }
+
+
+    * html .ui-autocomplete {
+        height: 100px;
+    }
+
+    li a:hover {
+        color: black !important;
+        transition: color 0.5s linear; /* vendorless fallback */
+        -o-transition: color 0.5s linear; /* opera */
+        -ms-transition: color 0.5s linear; /* IE 10 */
+        -moz-transition: color 0.5s linear; /* Firefox */
+        -webkit-transition: color 0.5s linear; /*safari and chrome */
+    }
+
+
+    .tab-pane {
+        padding-top: 0px;
+    }
+
+    /********************/
+
+    .featured {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        color: #fff;
+        font-weight: bold;
+        background-color: #000;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 30px 0 10px;
+        border-radius: 0 0 35px 0;
+    }
+
+    .spotLight {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        color: #fff;
+        font-weight: bold;
+        background-color: #000;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 30px 0 10px;
+        border-radius: 0 0 35px 0;
+    }
+
+    .over_box {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: #000;
+        height: auto;
+        width: 100%;
+        padding: 10px;
+        z-index: 9;
+    }
+
+    .amounts {
+        float: left;
+        color: #fff;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .sml_box {
+        float: left;
+        color: #fff;
+        padding: 0 5px;
+        border-right: 1px solid #ccc;
+    }
+</style>
+
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        for (var i = 0; i < $('.glow_feature').length; i++) {
+            var h1 = $('.glow_feature')[i];
+            h1.innerHTML = '<span>' + h1.innerHTML.split('').join('</span><span>') + '</span>';
+        }
+
+        $("#advSearch_Location").autocomplete({
+            source: '@Model.Command' === "SearchPurchase" ? '@Url.Action("GetAutoCompleteDataForPurchase")' : ('@Model.Command' === "SearchRent" ? '@Url.Action("GetAutoCompleteDataForRent")' : ('@Model.Command' === "SearchHome" ? '@Url.Action("GetAutoCompleteDataForHome")' : '@Url.Action("GetAutoCompleteDataForAll")'))
+        });
+        $("#advSearch_SearchTerm").autocomplete({
+            source: '@Model.Command' === "SearchPurchase" ? '@Url.Action("GetAutoCompleteDataForPurchase")' : ('@Model.Command' === "SearchRent" ? '@Url.Action("GetAutoCompleteDataForRent")' : ('@Model.Command' === "SearchHome" ? '@Url.Action("GetAutoCompleteDataForHome")' : '@Url.Action("GetAutoCompleteDataForAll")'))
+        });
+        $(".includearea").click(function () {
+
+            $('#divNearByArea >ul> li').each(function () {
+                var chk = $(this).find('input:checkbox:eq(0)');
+                $(chk).prop("disabled", true);
+            });
+            $("#advSearch_NearByDistance").prop("disabled", false);
+            $("#advSearch_Location").prop("disabled", false);
+        });
+
+        $(".nearearea").click(function () {
+
+            $('#divNearByArea >ul> li').each(function () {
+                var chk = $(this).find('input:checkbox:eq(0)');
+                $(chk).prop("disabled", false);
+            });
+            $("#advSearch_NearByDistance").prop("disabled", true);
+            $("#advSearch_Location").prop("disabled", true);
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#advSearch_MinPrice').change(function () {
+            var data = $('#advSearch_MinPrice option:selected').val();
+            $("#txtMinPrice").val(data);
+        });
+    });
+
+    $(function () {
+        $('#advSearch_MaxPrice').change(function () {
+            var data = $('#advSearch_MaxPrice option:selected').val();
+            $("#txtMaxPrice").val(data);
+        });
+    });
+
+    $(function () {
+        $('#txtMinPrice').keypress(function (e) {
+            if (e.which == 13) {
+                window.location.href = RedirectUrl();
+            }
+        });
+    });
+
+    $(function () {
+        $('#txtMaxPrice').keypress(function (e) {
+            if (e.which == 13) {
+                window.location.href = RedirectUrl();
+            }
+        });
+    });
+
+    $(function () {
+        $('#advSearch_NoOfBeds').change(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_NoOfBathroom').change(function () {
+            var val = $('#areaCount').text();
+            if ($('#advSearch_NoOfBathroom option:selected').val().length > 0) {
+                var suffix = val.match(/\d+/) == null ? 1 : parseInt(val.match(/\d+/)) + 1;
+
+            } else {
+                var suffix = val.match(/\d+/) == null ? "" : parseInt(val.match(/\d+/)) - 1;
+
+            }
+            window.location.href = RedirectUrl() + '&Suffix=' + suffix;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_Size').change(function () {
+            var val = $('#areaCount').text();
+            if ($('#advSearch_Size option:selected').val().length > 0) {
+                var suffix = val.match(/\d+/) == null ? 1 : parseInt(val.match(/\d+/)) + 1;
+
+            } else {
+                var suffix = val.match(/\d+/) == null ? "" : parseInt(val.match(/\d+/)) - 1;
+
+            }
+            window.location.href = RedirectUrl() + '&Suffix=' + suffix;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_LotSize').change(function () {
+            var val = $('#areaCount').text();
+            if ($('#advSearch_LotSize option:selected').val().length > 0) {
+                var suffix = val.match(/\d+/) == null ? 1 : parseInt(val.match(/\d+/)) + 1;
+
+            } else {
+                var suffix = val.match(/\d+/) == null ? "" : parseInt(val.match(/\d+/)) - 1;
+
+            }
+            window.location.href = RedirectUrl() + '&Suffix=' + suffix;
+        });
+    });
+
+    $(function () {
+        $('#advSearch_HomeAge').change(function () {
+            var val = $('#areaCount').text();
+            if ($('#advSearch_HomeAge option:selected').val().length > 0) {
+                var suffix = val.match(/\d+/) == null ? 1 : parseInt(val.match(/\d+/)) + 1;
+
+            } else {
+                var suffix = val.match(/\d+/) == null ? "" : parseInt(val.match(/\d+/)) - 1;
+
+            }
+            window.location.href = RedirectUrl() + '&Suffix=' + suffix;
+        });
+    });
+
+    $(function () {
+        $('.abcd').click(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('.subprop').click(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('.nearByArea').click(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_Location').blur(function () {
+            window.location.href = RedirectUrl();
+        });
+        $('#advSearch_Location').keypress(function (e) {
+            if (e.which == 13) {
+                window.location.href = RedirectUrl();
+            }
+        });
+    });
+
+    $(function () {
+
+        $('#advSearch_SearchTerm').keypress(function (e) {
+            if (e.which == 13) {
+                var minPrice = '';
+                var maxPrice = '';
+                var noOfBeds = '';
+                var noOfBath = '';
+                var size = '';
+                var lotSize = '';
+                var homeAge = '';
+                var keyWords = '';
+
+                minPrice = $('#txtMinPrice').val();
+                maxPrice = $('#txtMaxPrice').val();
+                noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+                noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+                size = $('#advSearch_Size option:selected').val();
+                lotSize = $('#advSearch_LotSize option:selected').val();
+                homeAge = $('#advSearch_HomeAge option:selected').val();
+                mileage = $('#advSearch_NearByDistance option:selected').val();
+                radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+                keyWords = $('#advSearch_KeyWards').val();
+                var location = $('#advSearch_Location').val();
+                var Command = GetParameterValues("Command");
+                var searchTerm = "";
+                if (radioByMiles == "true") {
+                    searchTerm = $('#advSearch_SearchTerm').val();
+                    //if (searchTerm == "") {
+                    //    alert("Please select the location");
+                    //    return false;
+                    //}
+
+                } else {
+                    $('.nearByArea:checked').each(function () {
+                        searchTerm += $(this).attr('data-text') + ",";
+                    });
+
+                    searchTerm = searchTerm.slice(0, -1);
+                }
+
+                var property = '';
+                $('.abcd:checked').each(function () {
+                    property += $(this).attr('data-text') + ",";
+                });
+
+                property = property.slice(0, -1);
+
+                var subproperty = '';
+                $('.subprop:checked').each(function () {
+                    subproperty += $(this).attr('data-text') + ",";
+                });
+
+                subproperty = encodeURI(subproperty.slice(0, -1));
+
+                var sortBy = '';
+                if ('@ViewBag.Command' == 'All') {
+                    if ('@ViewBag.SubCommand' == 'Purchase') {
+                        sortBy = $('#advSearch_SortBy option:selected').val();
+                    } else if ('@ViewBag.SubCommand' == 'Rent') {
+                        sortBy = $('#advSearch_SortByRent option:selected').val();
+                    } else if ('@ViewBag.SubCommand' == 'NewHome') {
+                        sortBy = $('#advSearch_SortByNew option:selected').val();
+                    }
+                } else {
+                    sortBy = $('#advSearch_SortBy option:selected').val();
+                }
+
+                var name1 = $("#advSearch_SearchTerm").val();
+                var IsMls;
+                if (name1.indexOf("#") > -1) {
+                    searchTerm = name1.substring(1, name1.length);
+                    var IsMls = true;
+                } else {
+                    searchTerm = name1;
+                    var IsMls = false;
+                }
+                var ViewStyle = GetParameterValues("ViewStyle");
+                var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + Command + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + IsMls + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=' + '@ViewBag.SubCommand' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+
+                window.location.href = url;
+            }
+        });
+    });
+
+    $(function () {
+        $('#advSearch_NearByDistance').change(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_SortBy').change(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_SortByNew').change(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#advSearch_SortByRent').change(function () {
+            window.location.href = RedirectUrl();
+        });
+    });
+
+    $(function () {
+        $('#purchaseMaster').on('click', function (e) {
+            //RedirectUrl();
+            var minPrice = '';
+            var maxPrice = '';
+            var noOfBeds = '';
+            var noOfBath = '';
+            var size = '';
+            var lotSize = '';
+            var homeAge = '';
+            minPrice = $('#txtMinPrice').val();
+            maxPrice = $('#txtMaxPrice').val();
+            noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+            noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+            size = $('#advSearch_Size option:selected').val();
+            lotSize = $('#advSearch_LotSize option:selected').val();
+            homeAge = $('#advSearch_HomeAge option:selected').val();
+            mileage = $('#advSearch_NearByDistance option:selected').val();
+            var sortBy = $('#advSearch_SortBy option:selected').val();
+            radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+            var keyWords = $('#advSearch_KeyWards').val();
+            var location = $('#advSearch_Location').val();
+
+            var searchTerm = "";
+            if (radioByMiles == "true") {
+                searchTerm = $('#advSearch_SearchTerm').val();
+                if (searchTerm == "") {
+                    alert("Please select the location");
+                    return false;
+                }
+
+            } else {
+                $('.nearByArea:checked').each(function () {
+                    searchTerm += $(this).attr('data-text') + ",";
+                });
+                searchTerm = searchTerm.slice(0, -1);
+            }
+
+            var property = '';
+            $('.abcd:checked').each(function () {
+                property += $(this).attr('data-text') + ",";
+            });
+
+            property = property.slice(0, -1);
+
+            var subproperty = '';
+            $('.subprop:checked').each(function () {
+                subproperty += $(this).attr('data-text') + ",";
+            });
+
+            subproperty = encodeURI(subproperty.slice(0, -1));
+            var ViewStyle = GetParameterValues("ViewStyle");
+            var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + 'All' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=Purchase&SubTab=' + '@ViewBag.SubTab' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#rentMaster').on('click', function (e) {
+            var minPrice = '';
+            var maxPrice = '';
+            var noOfBeds = '';
+            var noOfBath = '';
+            var size = '';
+            var lotSize = '';
+            var homeAge = '';
+            minPrice = $('#txtMinPrice').val();
+            maxPrice = $('#txtMaxPrice').val();
+            noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+            noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+            size = $('#advSearch_Size option:selected').val();
+            lotSize = $('#advSearch_LotSize option:selected').val();
+            homeAge = $('#advSearch_HomeAge option:selected').val();
+            mileage = $('#advSearch_NearByDistance option:selected').val();
+            var sortBy = $('#advSearch_SortByRent option:selected').val();
+            radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+            var keyWords = $('#advSearch_KeyWards').val();
+            var location = $('#advSearch_Location').val();
+
+            var searchTerm = "";
+            if (radioByMiles == "true") {
+                searchTerm = $('#advSearch_SearchTerm').val();
+                if (searchTerm == "") {
+                    alert("Please select the location");
+                    return false;
+                }
+            } else {
+                $('.nearByArea:checked').each(function () {
+                    searchTerm += $(this).attr('data-text') + ",";
+                });
+                searchTerm = searchTerm.slice(0, -1);
+            }
+
+            var property = '';
+            $('.abcd:checked').each(function () {
+                property += $(this).attr('data-text') + ",";
+            });
+
+            property = property.slice(0, -1);
+
+            var subproperty = '';
+            $('.subprop:checked').each(function () {
+                subproperty += $(this).attr('data-text') + ",";
+            });
+
+            subproperty = encodeURI(subproperty.slice(0, -1));
+            var ViewStyle = GetParameterValues("ViewStyle");
+            var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + 'All' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=Rent&SubTab=' + '@ViewBag.SubTab' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#New_homeMaster').on('click', function (e) {
+            var minPrice = $('#txtMinPrice').val();
+            var maxPrice = $('#txtMaxPrice').val();
+            var noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+            var noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+            var size = $('#advSearch_Size option:selected').val();
+            var lotSize = $('#advSearch_LotSize option:selected').val();
+            var homeAge = $('#advSearch_HomeAge option:selected').val();
+            var mileage = $('#advSearch_NearByDistance option:selected').val();
+            var sortBy = $('#advSearch_SortByNew option:selected').val();
+            var radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+            var keyWords = $('#advSearch_KeyWards').val();
+            var location = $('#advSearch_Location').val();
+            var searchTerm = "";
+            if (radioByMiles == "true") {
+                searchTerm = $('#advSearch_SearchTerm').val();
+                if (searchTerm == "") {
+                    alert("Please select the location");
+                    return false;
+                }
+
+            } else {
+                $('.nearByArea:checked').each(function () {
+                    searchTerm += $(this).attr('data-text') + ",";
+                });
+                searchTerm = searchTerm.slice(0, -1);
+            }
+
+            var property = '';
+            $('.abcd:checked').each(function () {
+                property += $(this).attr('data-text') + ",";
+            });
+
+            property = property.slice(0, -1);
+
+            var subproperty = '';
+            $('.subprop:checked').each(function () {
+                subproperty += $(this).attr('data-text') + ",";
+            });
+
+            subproperty = encodeURI(subproperty.slice(0, -1));
+            var ViewStyle = GetParameterValues("ViewStyle");
+            var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + 'All' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=NewHome&SubTab=' + '@ViewBag.SubTab' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+            window.location.href = url;
+        });
+    });
+
+    $(function () {
+        $('#open_houseMaster').on('click', function (e) {
+            var minPrice = $('#txtMinPrice').val();
+            var maxPrice = $('#txtMaxPrice').val();
+            var noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+            var noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+            var size = $('#advSearch_Size option:selected').val();
+            var lotSize = $('#advSearch_LotSize option:selected').val();
+            var homeAge = $('#advSearch_HomeAge option:selected').val();
+            var mileage = $('#advSearch_NearByDistance option:selected').val();
+            var sortBy = $('#advSearch_SortByOpenHouse option:selected').val();
+            var radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+            var keyWords = $('#advSearch_KeyWards').val();
+            var location = $('#advSearch_Location').val();
+            var searchTerm = "";
+            if (radioByMiles == "true") {
+                searchTerm = $('#advSearch_SearchTerm').val();
+                if (searchTerm == "") {
+                    alert("Please select the location");
+                    return false;
+                }
+
+            } else {
+                $('.nearByArea:checked').each(function () {
+                    searchTerm += $(this).attr('data-text') + ",";
+                });
+                searchTerm = searchTerm.slice(0, -1);
+            }
+
+            var property = '';
+            $('.abcd:checked').each(function () {
+                property += $(this).attr('data-text') + ",";
+            });
+
+            property = property.slice(0, -1);
+
+            var subproperty = '';
+            $('.subprop:checked').each(function () {
+                subproperty += $(this).attr('data-text') + ",";
+            });
+
+            subproperty = encodeURI(subproperty.slice(0, -1));
+            var ViewStyle = GetParameterValues("ViewStyle");
+            var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + 'All' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=OpenHouse&SubTab=' + '@ViewBag.SubTab' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+            window.location.href = url;
+        });
+    });
+    $(function () {
+
+        $('.dropdown-menu').click(function (e) {
+            if ($(this).parent().find('a[aria-expanded]').attr('aria-expanded')) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
+
+        $('#advSearch_MinPrice').val('@Model.advSearch.MinPrice');
+        $('#txtMinPrice').val('@Model.advSearch.MinPrice');
+        $('#advSearch_MaxPrice').val('@Model.advSearch.MaxPrice');
+        $('#txtMaxPrice').val('@Model.advSearch.MaxPrice');
+        $('#advSearch_NoOfBeds').val('@Model.advSearch.NoOfBeds');
+        $('#advSearch_NoOfBathroom').val('@Model.advSearch.NoOfBathroom');
+        $('#advSearch_Size').val('@Model.advSearch.Size');
+        $('#advSearch_LotSize').val('@Model.advSearch.LotSize');
+        $('#advSearch_HomeAge').val('@Model.advSearch.HomeAge');
+        $('#advSearch_KeyWards').val('@Model.advSearch.KeyWards');
+        $('#advSearch_SearchTerm').val('@Model.advSearch.SearchTerm');
+
+        if ($('#advSearch_KeyWards').val().length > 0) {
+            $('#btnApply').show();
+        } else {
+            $('#btnApply').hide();
+        }
+
+
+        if ('@Model.advSearch.Suffix' != "" && '@Model.advSearch.Suffix' > 0) {
+            $('#btnReset').show();
+        } else {
+            $('#btnReset').hide();
+        }
+
+
+
+        if ('@ViewBag.Command' == 'All') {
+            if ('@ViewBag.SubCommand' == 'Purchase') {
+                $('#advSearch_SortBy').val('@Model.advSearch.SortBy');
+            } else if ('@ViewBag.SubCommand' == 'Rent') {
+                $('#advSearch_SortByRent').val('@Model.advSearch.SortBy');
+            } else if ('@ViewBag.SubCommand' == 'NewHome') {
+                $('#advSearch_SortByNew').val('@Model.advSearch.SortBy');
+            }
+        } else {
+            $('#advSearch_SortBy').val('@Model.advSearch.SortBy');
+        }
+        var SubCommand = GetParameterValues('SubCommand');
+
+        if (SubCommand == "Purchase") {
+            $('#purchaseMaster').parent().addClass('active');
+            $('#purchase').addClass('active');
+            $('#rentMaster').parent().removeClass('active');
+            $('#rent').removeClass('active');
+            $('#New_homeMaster').parent().removeClass('active');
+            $('#New_home').removeClass('active');
+            $('#open_houseMaster').parent().removeClass('active');
+            $('#open_house').removeClass('active');
+        }
+
+        if (SubCommand == "Rent") {
+            $('#rentMaster').parent().addClass('active');
+            $('#rent').addClass('active');
+            $('#purchaseMaster').parent().removeClass('active');
+            $('#purchase').removeClass('active');
+            $('#New_homeMaster').parent().removeClass('active');
+            $('#purchase').removeClass('active');
+            $('#open_houseMaster').parent().removeClass('active');
+            $('#open_house').removeClass('active');
+        }
+        if (SubCommand == "NewHome") {
+            $('#rentMaster').parent().removeClass('active');
+            $('#rent').removeClass('active');
+            $('#purchaseMaster').parent().removeClass('active');
+            $('#purchase').removeClass('active');
+            $('#New_homeMaster').parent().addClass('active');
+            $('#New_home').addClass('active');
+            $('#open_houseMaster').parent().removeClass('active');
+            $('#open_house').removeClass('active');
+        }
+        if (SubCommand == "OpenHouse") {
+            $('#rentMaster').parent().removeClass('active');
+            $('#rent').removeClass('active');
+            $('#purchaseMaster').parent().removeClass('active');
+            $('#purchase').removeClass('active');
+            $('#New_homeMaster').parent().removeClass('active');
+            $('#New_home').removeClass('active');
+            $('#open_houseMaster').parent().addClass('active');
+            $('#open_house').addClass('active');
+        }
+        //else if (Command == "AllPurchase") {
+        //    $('#purchaseMaster').addClass('active');
+        //}
+
+        //SubCommand = '@ViewBag.SubCommand';
+        var SubTab = GetParameterValues("SubTab");
+        if ('@ViewBag.Command' == 'All') {
+            if (SubCommand == "Purchase") {
+                if (SubTab == "Featured") {
+                    $('#li1').addClass('active');
+                    $('#Featured').addClass('active');
+                    $('#li2').removeClass('active');
+                    $('#Newest').removeClass('active');
+                } else {
+                    $('#li2').addClass('active');
+                    $('#Newest').addClass('active');
+                    $('#li1').removeClass('active');
+                    $('#Featured').removeClass('active');
+                }
+            }
+            if (SubCommand == "Rent") {
+                if (SubTab == "Featured") {
+                    $('#RFli').addClass('active');
+                    $('#RFeatured').addClass('active');
+                    $('#RNli').removeClass('active');
+                    $('#RNewest').removeClass('active');
+                } else {
+                    $('#RNli').addClass('active');
+                    $('#RNewest').addClass('active');
+                    $('#RFli').removeClass('active');
+                    $('#RFeatured').removeClass('active');
+                }
+            }
+            if (SubCommand == "NewHome") {
+                if (SubTab == "Featured") {
+                    $('#NFli').addClass('active');
+                    $('#NFeatured').addClass('active');
+                    $('#NNli').removeClass('active');
+                    $('#NNewest').removeClass('active');
+                } else {
+                    $('#NNli').addClass('active');
+                    $('#NNewest').addClass('active');
+                    $('#NFli').removeClass('active');
+                    $('#NFeatured').removeClass('active');
+                }
+            }
+            if (SubCommand == "OpenHouse") {
+                if (SubTab == "Featured") {
+                    $('#OFli').addClass('active');
+                    $('#OFeatured').addClass('active');
+                    $('#ONli').removeClass('active');
+                    $('#ONewest').removeClass('active');
+                } else {
+                    $('#ONli').addClass('active');
+                    $('#ONewest').addClass('active');
+                    $('#OFli').removeClass('active');
+                    $('#OFeatured').removeClass('active');
+                }
+            }
+        } else {
+            if (SubTab == "Featured") {
+                $('#li1').addClass('active');
+                $('#Featured').addClass('active');
+                $('#li2').removeClass('active');
+                $('#Newest').removeClass('active');
+            } else {
+                $('#li2').addClass('active');
+                $('#Newest').addClass('active');
+                $('#li1').removeClass('active');
+                $('#Featured').removeClass('active');
+            }
+        }
+        var name = GetParameterValues('searchTerm');
+        var minprice = GetParameterValues('MinPrice');
+        var maxprice = GetParameterValues('MaxPrice');
+        var noOfBeds = GetParameterValues('NoOfBeds');
+        var noOfBath = GetParameterValues('NoOfBathRooms');
+        var size = GetParameterValues('Size');
+        var lotSize = GetParameterValues('LotSize');
+        var homeAge = GetParameterValues('HomeAge');
+        var propertyType = GetParameterValues('PropertyType');
+
+
+        if (minprice || maxprice || noOfBeds || noOfBath || size || lotSize || homeAge) {
+            $('#demo').attr("aria-expanded", "true");
+            $('#demo').removeClass();
+            $('#demo').addClass('collapse in');
+        }
+
+        if (name) {
+            $('#demo2').attr("aria-expanded", "true");
+            $('#demo2').removeClass();
+            $('#demo2').addClass('collapse in');
+        }
+
+        if (propertyType) {
+            $('#demo1').attr("aria-expanded", "false");
+            $('#demo1').removeClass();
+            $('#demo1').addClass('collapse in');
+        }
+    });
+
+    $(function () {
+        $("#txtMinPrice").focus(function () {
+            $("#advSearch_MinPrice").show();
+            $("#advSearch_MaxPrice").hide();
+        });
+
+        $("#txtMaxPrice").focus(function () {
+            $("#advSearch_MinPrice").hide();
+            $("#advSearch_MaxPrice").show();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function GetParameterValues(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == param) {
+                return urlparam[1];
+            }
+        }
+    }
+
+    function RedirectUrl() {
+        var minPrice = '';
+        var maxPrice = '';
+        var noOfBeds = '';
+        var noOfBath = '';
+        var size = '';
+        var lotSize = '';
+        var homeAge = '';
+        var keyWords = '';
+
+        minPrice = $('#txtMinPrice').val();
+        maxPrice = $('#txtMaxPrice').val();
+        noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+        noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+        size = $('#advSearch_Size option:selected').val();
+        lotSize = $('#advSearch_LotSize option:selected').val();
+        homeAge = $('#advSearch_HomeAge option:selected').val();
+        mileage = $('#advSearch_NearByDistance option:selected').val();
+        radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+        keyWords = $('#advSearch_KeyWards').val();
+        var location = $('#advSearch_Location').val();
+        var searchTerm = "";
+        if (radioByMiles == "true") {
+            searchTerm = $('#advSearch_SearchTerm').val();
+            //if (searchTerm == "") {
+            //    alert("Please select the location");
+            //    return false;
+            //}
+
+        } else {
+            $('.nearByArea:checked').each(function () {
+                searchTerm += $(this).attr('data-text') + ",";
+            });
+
+            searchTerm = searchTerm.slice(0, -1);
+        }
+
+        var property = '';
+        $('.abcd:checked').each(function () {
+            property += $(this).attr('data-text') + ",";
+        });
+
+        property = property.slice(0, -1);
+
+        var subproperty = '';
+        $('.subprop:checked').each(function () {
+            subproperty += $(this).attr('data-text') + ",";
+        });
+
+        subproperty = encodeURI(subproperty.slice(0, -1));
+
+        var sortBy = '';
+        if ('@ViewBag.Command' == 'All') {
+            if ('@ViewBag.SubCommand' == 'Purchase') {
+                sortBy = $('#advSearch_SortBy option:selected').val();
+            } else if ('@ViewBag.SubCommand' == 'Rent') {
+                sortBy = $('#advSearch_SortByRent option:selected').val();
+            } else if ('@ViewBag.SubCommand' == 'NewHome') {
+                sortBy = $('#advSearch_SortByNew option:selected').val();
+            }
+        } else {
+            sortBy = $('#advSearch_SortBy option:selected').val();
+        }
+        var ViewStyle = GetParameterValues("ViewStyle");
+        var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + '@ViewBag.Command' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=' + '@ViewBag.SubCommand' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+        return url;
+        //window.location.href = url;
+    }
+
+    function RedirectUrlForGoogleMap() {
+        var minPrice = '';
+        var maxPrice = '';
+        var noOfBeds = '';
+        var noOfBath = '';
+        var size = '';
+        var lotSize = '';
+        var homeAge = '';
+
+        minPrice = $('#txtMinPrice').val();
+        maxPrice = $('#txtMaxPrice').val();
+        noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+        noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+        size = $('#advSearch_Size option:selected').val();
+        lotSize = $('#advSearch_LotSize option:selected').val();
+        homeAge = $('#advSearch_HomeAge option:selected').val();
+        mileage = $('#advSearch_NearByDistance option:selected').val();
+        radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+        var keyWords = $('#advSearch_KeyWards').val();
+        var location = $('#advSearch_Location').val();
+
+        var searchTerm = "";
+        if (radioByMiles == "true") {
+            searchTerm = $('#advSearch_SearchTerm').val();
+            //if (searchTerm == "") {
+            //    alert("Please select the location");
+            //    return false;
+            //}
+
+        } else {
+            $('.nearByArea:checked').each(function () {
+                searchTerm += $(this).attr('data-text') + ",";
+            });
+
+            searchTerm = searchTerm.slice(0, -1);
+        }
+
+        var property = '';
+        $('.abcd:checked').each(function () {
+            property += $(this).attr('data-text') + ",";
+        });
+
+        property = property.slice(0, -1);
+
+        var subproperty = '';
+        $('.subprop:checked').each(function () {
+            subproperty += $(this).attr('data-text') + ",";
+        });
+
+        subproperty = encodeURI(subproperty.slice(0, -1));
+
+        var sortBy = '';
+        if ('@ViewBag.Command' == 'All') {
+            if ('@ViewBag.SubCommand' == 'Purchase') {
+                sortBy = $('#advSearch_SortBy option:selected').val();
+            } else if ('@ViewBag.SubCommand' == 'Rent') {
+                sortBy = $('#advSearch_SortByRent option:selected').val();
+            } else if ('@ViewBag.SubCommand' == 'NewHome') {
+                sortBy = $('#advSearch_SortByNew option:selected').val();
+            }
+        } else {
+            sortBy = $('#advSearch_SortBy option:selected').val();
+        }
+        var ViewStyle = GetParameterValues("ViewStyle");
+        var url = '@Url.Action("AdvanceGetGeoLocation", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + '@ViewBag.Command' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=' + '@ViewBag.SubCommand' + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+        return url;
+    }
+
+    function FeaturedOnClick() {
+        bingMap(RedirectUrlForGoogleMap() + '&SubTab=Featured&page=1');
+    }
+
+    function NewestOnClick() {
+        bingMap(RedirectUrlForGoogleMap() + '&SubTab=Newest&page=1');
+    }
+</script>
+
+<script>
+    $(function () {
+        $('#btnReset').click(function (e) {
+
+            $('#advSearch_NoOfBathroom').val("");
+            $('#advSearch_Size').val("");
+            $('#advSearch_LotSize').val("");
+            $('#advSearch_HomeAge').val("");
+            $('#advSearch_KeyWards').val("");
+            window.location.href = RedirectUrl();
+        });
+
+        $('#btnApply').click(function (e) {
+            var val = $('#areaCount').text();
+            if ($('#advSearch_KeyWards').val().length > 0) {
+                var suffix = val.match(/\d+/) == null ? 1 : parseInt(val.match(/\d+/)) + 1;
+                $('#areaCount').text('MORE ' + suffix);
+            } else {
+                var suffix = val.match(/\d+/) == null ? "" : parseInt(val.match(/\d+/)) - 1;
+                $('#areaCount').text('MORE ' + suffix);
+            }
+            window.location.href = RedirectUrl() + '&Suffix=' + suffix;
+        });
+
+        $('#txtSearchPurchase').keypress(function (e) {
+            if (e.which == 13) {
+                $('#purchaseClick').click();
+                return false;    //<---- Add this line
+            }
+        });
+
+        $('#advSearch_KeyWards').keypress(function (e) {
+
+            if ($('#advSearch_KeyWards').val().length > 0) {
+                $('#btnApply').show();
+            } else {
+                $('#btnApply').hide();
+            }
+        });
+    });
+    function RedirectUrlListOrMap() {
+        var minPrice = '';
+        var maxPrice = '';
+        var noOfBeds = '';
+        var noOfBath = '';
+        var size = '';
+        var lotSize = '';
+        var homeAge = '';
+        var keyWords = '';
+
+        minPrice = $('#txtMinPrice').val();
+        maxPrice = $('#txtMaxPrice').val();
+        noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+        noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+        size = $('#advSearch_Size option:selected').val();
+        lotSize = $('#advSearch_LotSize option:selected').val();
+        homeAge = $('#advSearch_HomeAge option:selected').val();
+        mileage = $('#advSearch_NearByDistance option:selected').val();
+        radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+        keyWords = $('#advSearch_KeyWards').val();
+        var location = $('#advSearch_Location').val();
+        var searchTerm = "";
+        if (radioByMiles == "true") {
+            searchTerm = $('#advSearch_SearchTerm').val();
+            //if (searchTerm == "") {
+            //    alert("Please select the location");
+            //    return false;
+            //}
+
+        } else {
+            $('.nearByArea:checked').each(function () {
+                searchTerm += $(this).attr('data-text') + ",";
+            });
+
+            searchTerm = searchTerm.slice(0, -1);
+        }
+
+        var property = '';
+        $('.abcd:checked').each(function () {
+            property += $(this).attr('data-text') + ",";
+        });
+
+        property = property.slice(0, -1);
+        debugger;
+        var subproperty = '';
+        $('.subprop:checked').each(function () {
+            subproperty += $(this).attr('data-text') + ",";
+        });
+
+        subproperty = encodeURI(subproperty.slice(0, -1));
+
+        var sortBy = '';
+        if ('@ViewBag.Command' == 'All') {
+            if ('@ViewBag.SubCommand' == 'Purchase') {
+                sortBy = $('#advSearch_SortBy option:selected').val();
+            } else if ('@ViewBag.SubCommand' == 'Rent') {
+                sortBy = $('#advSearch_SortByRent option:selected').val();
+            } else if ('@ViewBag.SubCommand' == 'NewHome') {
+                sortBy = $('#advSearch_SortByNew option:selected').val();
+            }
+        } else {
+            sortBy = $('#advSearch_SortBy option:selected').val();
+        }
+        var url = '@Url.Action("PropertiesListing", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + '@ViewBag.Command' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + encodeURIComponent(property) + '&SubProperty=' + encodeURIComponent(subproperty) + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=' + '@ViewBag.SubCommand' + '&KeyWords=' + keyWords + '&Location=' + location;
+        return url;
+        //window.location.href = url;
+    }
+    function RedirectMapView() {
+        window.location.href = RedirectUrlListOrMap() + "&ViewStyle=NewPropertyListing";
+    }
+    function RedirectListView() {
+        window.location.href = RedirectUrlListOrMap() + "&ViewStyle=PropertiesListing";
+    }
+</script>
+
+
+
+<nav class="navbar-default" style=" margin-top: -22px;">
+    <div class="container">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+
+                <ul class=" navbar-nav">
+                    <li style="margin-right:40px;">
+                        @Html.TextBox("advSearch.SearchTerm", (string)Model.SearchValue, new { @class = "input_product-search", @id = "advSearch_SearchTerm", @placeholder = "Search by Address, City, Zip, Neighborhood or MLS." })
+                        <span class="search_img">
+                            <img src="~/Content/image/search_icon.png" />
+                        </span>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">LOCATION <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <input type="radio" name="advSearch.RadioByMiles" id="advSearch_RadioByMiles" value="true" checked="checked" class="includearea"> Include Areas Within
+                                Location
+                                @Html.TextBox("advSearch.Location", (string)Model.advSearch.Location, new { @class = "adv_search-in", @id = "advSearch_Location" })
+
+                                @{
+                                    List<SelectListItem>
+                                        distances = new List<SelectListItem>
+                                            ();
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "0 Mile",
+                                        Value = "0",
+                                        Selected = true
+
+                                    });
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "1 Mile",
+                                        Value = "1"
+                                    });
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "5 Miles",
+                                        Value = "5",
+                                    });
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "10 Miles",
+                                        Value = "10"
+                                    });
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "15 Miles",
+                                        Value = "15"
+                                    });
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "20 Miles",
+                                        Value = "20"
+
+                                    });
+                                    distances.Add(new SelectListItem
+                                    {
+                                        Text = "25 Miles",
+                                        Value = "25"
+                                    });
+                                }
+
+                                @Html.DropDownListFor(m => m.advSearch.NearByDistance, distances, new { @class = "adv_search_chosearea", @id = "advSearch_NearByDistance" })
+                                <input type="radio" name="advSearch.RadioByMiles" id="advSearch_RadioByMiles" value="false" class="nearearea"> Closest Nearby Areas
+                                <div class=" property_type2" id="divNearByArea">
+                                    <ul>
+                                        @for (var k = 0; k < Model.NearbyAreas.Count; k++)
+                                        {
+                                            <li>
+                                                @Html.HiddenFor(x => (x.NearbyAreas[k]._id))
+                                                @Html.HiddenFor(x => (x.NearbyAreas[k].AvgDistance))
+                                                @Html.CheckBoxFor(x => x.NearbyAreas[k].IsSelected, new { @class = "nearByArea", @disabled = "disabled", @data_text = Model.NearbyAreas[k]._id })
+                                                @Html.DisplayFor(x => (x.NearbyAreas[k]._id)) &nbsp; &nbsp;
+                                                @Html.DisplayFor(x => x.NearbyAreas[k].AvgDistance) &nbsp;mi
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            @(string.IsNullOrEmpty(Model.advSearch.MinPrice) && string.IsNullOrEmpty(Model.advSearch.MaxPrice) ? "ANY PRICE" : (string.IsNullOrEmpty(Model.advSearch.MinPrice) ? "$" + Convert.ToInt32(Model.advSearch.MaxPrice).ToString("#,##,##0") : (string.IsNullOrEmpty(Model.advSearch.MaxPrice) ? "$" + Convert.ToInt32(Model.advSearch.MinPrice).ToString("#,##,##0") : "$" + Convert.ToInt32(Model.advSearch.MinPrice).ToString("#,##,##0") + " - $" + Convert.ToInt32(Model.advSearch.MaxPrice).ToString("#,##,##0"))))
+                            <span class="caret"></span>
+                        </a>
+
+
+                        <ul class="price_in dropdown-menu" style="color:#000;">
+                            <h1 style="font-size:14px;">Price</h1>
+                            <li>
+                                <input type="text" id="txtMinPrice" value="" placeholder="Min Price" style="width: 45%; float: left; line-height:20px;" />
+                                <input type="text" id="txtMaxPrice" value="" placeholder="Max Price" style="width: 45%; float: right; line-height: 20px;" />
+                            </li>
+                            <li>
+                                <select name="advSearch.MinPrice" class="price_chosearea" style="width: 45%; float: left;display:none;" id="advSearch_MinPrice">
+                                    <option value="">Min Price</option>
+                                    <option value="50000">$50,000</option>
+                                    <option value="75000">$75,000</option>
+                                    <option value="100000">$1,00,000</option>
+                                    <option value="150000">$1,50,000</option>
+                                    <option value="200000">$2,00,000</option>
+                                    <option value="250000">$2,50,000</option>
+                                    <option value="300000">$3,00,000</option>
+                                    <option value="400000">$4,00,000</option>
+                                    <option value="500000">$5,00,000</option>
+                                </select>
+                                <select name="advSearch.MaxPrice" class="price_chosearea" style="width: 45%; float: right; display: none;" id="advSearch_MaxPrice">
+                                    <option value="">Max Price</option>
+                                    <option value="100000">$1,00,000</option>
+                                    <option value="125000">$1,25,000</option>
+                                    <option value="150000">$1,50,000</option>
+                                    <option value="175000">$1,75,000</option>
+                                    <option value="200000">$2,00,000</option>
+                                    <option value="225000">$2,25,000</option>
+                                    <option value="250000">$2,50,000</option>
+                                    <option value="275000">$2,75,000</option>
+                                    <option value="300000">$3,00,000</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@(string.IsNullOrEmpty(Model.advSearch.NoOfBeds) ? "0" : Model.advSearch.NoOfBeds)+ BEDS <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <h2 style="color:#000; font-size:14px;">Beds</h2>
+                                <select name="advSearch.NoOfBeds" class="price_chosearea" id="advSearch_NoOfBeds">
+                                    <option value="">Select</option>
+                                    <option value="1">1 Bed</option>
+                                    <option value="2">2 Beds</option>
+                                    <option value="3">3 Beds</option>
+                                    <option value="4">4 Beds</option>
+                                    <option value="5">5+ Beds</option>
+                                </select>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PROPERTY TYPE @("(" + ViewBag.PropertyCount.ToString() + ")")  <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @for (var j = 0; j < Model.PropertyType.Count; j++)
+                            {
+                                <li>
+                                    @Html.HiddenFor(x => x.PropertyType[j].PropertyName)
+                                    @Html.CheckBoxFor(x => x.PropertyType[j].IsSelected, new { @class = "abcd", @data_text = Model.PropertyType[j].PropertyName })
+                                    @Html.DisplayFor(x => x.PropertyType[j].PropertyName)
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">HOME TYPE @("(" + ViewBag.SubPropertyCount.ToString() + ")")  <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @for (var j = 0; j < Model.SubPropertyType.Count; j++)
+                            {
+                                <li>
+                                    @Html.HiddenFor(x => x.SubPropertyType[j].SubPropertyName)
+                                    @Html.CheckBoxFor(x => x.SubPropertyType[j].IsSelected, new { @class = "subprop", @data_text = Model.SubPropertyType[j].SubPropertyName })
+                                    @Html.DisplayFor(x => x.SubPropertyType[j].SubPropertyName)
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="areaCount" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MORE @(Model.advSearch.Suffix != null && Model.advSearch.Suffix != "0" ? "(" + (Model.advSearch.Suffix) + ")" : null) <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <span>Baths</span> <select name="advSearch.NoOfBathroom" class="input_bed-bath" id="advSearch_NoOfBathroom">
+                                    <option value="">Select</option>
+                                    <option value="1">1+ Bath</option>
+                                    <option value="2">2+ Baths</option>
+                                    <option value="2.5">2.5+ Baths</option>
+                                    <option value="3">3+ Baths</option>
+                                    <option value="3.5">3.5+ Baths</option>
+                                    <option value="4">4+ Baths</option>
+                                    <option value="5">5+ Baths</option>
+                                </select>
+                            </li>
+                            <li>
+                                <span>Size</span><select name="advSearch.Size" class="input_bed-bath" id="advSearch_Size">
+                                    <option value="">Select</option>
+                                    <option value="600">600+</option>
+                                    <option value="800">800+</option>
+                                    <option value="1000">1000+</option>
+                                    <option value="1200">1200+</option>
+                                    <option value="1400">1400+</option>
+                                    <option value="1600">1600+</option>
+                                    <option value="1800">1800+</option>
+                                    <option value="2000">2000+</option>
+                                    <option value="2250">2250+</option>
+                                    <option value="2500">2500+</option>
+                                    <option value="2750">2750+</option>
+                                    <option value="3000">3000+</option>
+                                    <option value="3500">3500+</option>
+                                    <option value="4000">4000+</option>
+                                    <option value="5000">5000+</option>
+                                    <option value="6000">6000+</option>
+                                    <option value="7000">7000+</option>
+                                    <option value="8000">8000+</option>
+                                    <option value="9000">9000+</option>
+                                    <option value="10000">10000+</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <span>Lot Size (sqft)</span><select name="advSearch.LotSize" class="input_bed-bath" id="advSearch_LotSize">
+                                    <option value="">Select</option>
+                                    <option value="0.5">1/2 or More Acres</option>
+                                    <option value="1">1 or More Acres</option>
+                                    <option value="2">2 or More Acres</option>
+                                    <option value="5">5 or More Acres</option>
+                                    <option value="10">10 or More Acres</option>
+                                    <option value="20">20 or More Acres</option>
+                                    <option value="100">100 or More Acres</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <span>Age Of Home</span><select name="advSearch.HomeAge" class="input_bed-bath" id="advSearch_HomeAge">
+                                    <option value="">Select</option>
+                                    <option value="2">New Construction</option>
+                                    <option value="0_5">0-5 Years</option>
+                                    <option value="0_10">0-10 Years</option>
+                                    <option value="0_20">0-20 Years</option>
+                                    <option value="0_50">0-50 Years</option>
+                                    <option value="51">51+ Years</option>
+                                </select>
+                            </li>
+                            @*<li> <span>Days on Vertical</span><input name="" type="text" class="input_dov" /> </li>*@
+                            <li>
+                                <span> Keywords</span>
+                                @*<textarea name="" class="keyword_txt"></textarea>*@
+                                @Html.TextArea("advSearch.KeyWards", (string)Model.advSearch.KeyWards, new { @class = "keyword_txt", @id = "advSearch_KeyWards" })
+                            </li>
+                            <li>
+                                <input name="" type="button" value="Apply" class="fltr" id="btnApply" />
+                                <input name="" type="button" value="Reset" class="reset" id="btnReset" />
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</nav>
+@*<div class="container">*@
+<div class="col-lg-6 map1" id="bingMap"></div>
+
+<div class="col-lg-6">
+
+    <div class="dtls_right-pennal_m">
+        <div class="view_format">
+            <ul>
+                <li><a href="#" onclick="RedirectListView()">List View</a></li>
+                <li><a href="#" onclick="RedirectMapView()">Map View</a></li>
+            </ul>
+        </div>
+        <ul class="searchnav searchnav-tabs responsive-tabs">
+            @if (ViewBag.Command == "All")
+            {
+                <li class="active"><a id="purchaseMaster" href="#purchase" data-toggle="tab">Purchase</a></li>
+                <li><a id="rentMaster" href="#rent" data-toggle="tab">Rent</a></li>
+                <li><a id="New_homeMaster" href="#New_home" data-toggle="tab">New Home</a></li>
+                <li><a id="open_houseMaster" href="#open_house" data-toggle="tab">Open House</a></li>
+            }
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="purchase">
+                <ul class="mapnav mapnav-tabs responsive-tabs">
+                    <li class="active" id="li2" name="li2"><a href="#Newest" onclick="NewestOnClick();" style="font-size:17px;">All Listing</a></li>
+                    <li id="li1" name="li1"><a href="#Featured" onclick="FeaturedOnClick();" style="font-size:17px;">Featured Listing</a></li>
+                </ul>
+                <div class="tab-content">
+
+                    <div class="short_by-ctgry_m">
+
+                        <select id="advSearch_SortBy" class="short_by-drop " name="advSearch.SortBy">
+                            <option value="0">Sort By</option>
+                            <option value="Featured">Featured</option>
+                            <option value="Price_Asc">Price: Low to High</option>
+                            <option value="Price_Desc">Price: High to Low</option>
+                            <option value="Newest_Asc">Newest to Oldest</option>
+                            <option value="Newest_Desc">Oldest to Newest</option>
+                            <option value="OpenHouseDate">Open House Dates</option>
+                            <option value="Classified">Classified from the Print Edition</option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="tab-pane" id="Newest">
+                        <p style="font-weight:bold; font-size:13px; margin-left:-29px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.Count</p>
+                        <div class="property_dtls-list" style="height: 560px; margin: 20px 0; overflow-y: auto; width: 95%;">
+
+                            <ul>
+                                @{
+                                    var i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    var count = @Model.PropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.PropertyListings)
+                                    {
+                                        var iCount = ++i;
+                                        <li>
+
+
+                                            <div class="list_thumb view-first">
+                                                @if (@item.IsFeatured)
+                                                {
+                                                    <div class="featured">Featured</div>
+                                                }
+                                                else if (@item.IsSpotlight)
+                                                {
+                                                    <div class="featured">Spotlighted</div>
+                                                }
+
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(iCount)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(iCount)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(iCount)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(iCount)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(iCount)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(iCount)</div>
+                                                    }
+                                                }
+
+                                                <div>
+                                                    @{
+                                                var text = string.Empty;
+                                                var url = string.Empty;
+                                                var currPageUrl = Request.Url.OriginalString;
+
+                                                if (@Model.Command == "SearchHome")
+                                                {
+                                                    text = "Read More";
+                                                    url = "/Index/NewHomeDetails?mlsNumber=" + @item.MlsNumber + "&communityName=" + @item.CommunityName[0] + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand;
+
+                                                }
+                                                else
+                                                {
+                                                    text = string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress;
+                                                    url = "/Index/PropertieDetails?mlsNumber=" + @item.MlsNumber + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand + "&RecordIndex=" + (iCount - 1) + "&TotalCount=" + @ViewBag.Count + "&ListPageUrl=" + HttpUtility.UrlEncode(currPageUrl);
+                                                }
+                                                    }
+                                                    <input id="pageUrl" type="hidden" value="@currPageUrl" name="name">
+                                                    <a href="@url">
+                                                        <img style="height: 226px; width: 100%; padding:0; margin:0;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                    </a>
+                                                </div>
+
+                                                <div class="over_box">
+
+                                                    @if (Model.Command == "SearchHome")
+                                                    {
+                                                        string basePrc = "";
+                                                        var lowprice = item.Communityprice_low;
+                                                        var highprice = item.Communityprice_high;
+                                                        if (lowprice == 0.0 && highprice == 0.0)
+                                                        {
+                                                            basePrc = "$0";
+                                                        }
+                                                        else if (lowprice == 0.0 && highprice > 0)
+                                                        {
+                                                            basePrc = "From the $" + highprice.ToString("#,##,##0");
+                                                        }
+                                                        else if (lowprice > 0 && highprice == 0.0)
+                                                        {
+                                                            basePrc = "From the $" + lowprice.ToString("#,##,##0");
+                                                        }
+                                                        else if (lowprice > 0 && highprice > 0)
+                                                        {
+                                                            basePrc = "$" + lowprice.ToString("#,##,##0") + "-" + "$" + highprice.ToString("#,##,##0");
+                                                        }
+                                                        <div class="amounts" style="text-align:center!important; float:none!important;">@basePrc<br />@item.ImageCount Photos</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="amounts">$@item.Price.ToString("#,##,##0") <br />@item.ImageCount Photos</div>
+                                                        <div style="float:right;">
+                                                            <div class="sml_box">@item.NoOfBedRooms<br />Beds</div>
+                                                            <div class="sml_box">@item.NoOfBathRooms<br />Baths</div>
+                                                            <div class="sml_box" style="border-right:0px;">@item.LivingArea<br />Sq. Ft.</div>
+                                                        </div>
+
+                                                    }
+
+                                                    
+                                                </div>
+
+                                            </div>
+
+                                            <div class="list_right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, communityName = @item.CommunityName[0], Command = @Model.Command, SubCommand = @ViewBag.SubCommand, @style = "float:left;" }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        currPageUrl = Request.Url.OriginalString;
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand, RecordIndex = iCount - 1, TotalCount = @ViewBag.Count, ListPageUrl = HttpUtility.UrlEncode(currPageUrl), @style = "float:left;" }, null)
+                                                        @*@Html.ActionLink(item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand, RecordIndex = iCount - 1, TotalCount = @ViewBag.Count, @style = "float:left;" }, null)*@
+                                                    }
+
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            @*<div class="top_price">$@item.Price.ToString("#,##,##0")+</div>*@
+                                        }
+                                        else
+                                        {
+                                            @*<div class="top_price">$@item.Price.ToString("#,##,##0")</div>*@
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    @if (Model.Command == "SearchHome")
+                                                    {
+
+                                                        var sqrt_low = item.Communitysqft_low;
+                                                        var sqrt_high = item.Communitysqft_high;
+                                                        string sqrt_Count = "";
+                                                        if (sqrt_low == 0 && sqrt_high == 0)
+                                                        {
+                                                            sqrt_Count = "0";
+                                                        }
+                                                        else if (sqrt_low == 0 && sqrt_high > 0)
+                                                        {
+                                                            sqrt_Count = sqrt_high.ToString();
+                                                        }
+                                                        else if (sqrt_low > 0 && sqrt_high == 0)
+                                                        {
+                                                            sqrt_Count = sqrt_low.ToString();
+                                                        }
+                                                        else if (sqrt_low > 0 && sqrt_high > 0)
+                                                        {
+                                                            sqrt_Count = sqrt_low.ToString("#,##,##0") + "-" + sqrt_high.ToString("#,##,##0");
+                                                        }
+
+                                                        <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms_low Bd - @item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />Full @item.NoOfBathRooms_low -@item.NoOfBathRooms ,Half Ba @item.NoOfHalfBathRooms_low -@item.NoOfHalfBathRooms  &nbsp;| @sqrt_Count Sq Ft</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    }
+                                                    
+                                                    @if (!String.IsNullOrEmpty(@item.AgentName))
+                                                    {<span>Agent: &nbsp;@item.AgentName</span>
+                                                    }
+                                                    @if (!String.IsNullOrEmpty(@item.BrokerageName))
+                                                    {
+                                                        <span class="broked">Brokered By: &nbsp;@item.BrokerageName</span>
+                                                    }
+                                                    @if (@item.IsAgentFeauterd)
+                                                    {
+                                                        if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                        {
+                                                            <div class="cmp_logo"><img style="height: 40px; width: 110px;" src=@item.BrokerageLogoUrl /></div>
+                                                        }
+                                                    }
+                                                    @if (@item.DateTimeRanges != null && @item.DateTimeRanges.Count() > 0)
+                                                    {
+                                                        foreach (var dateranges in item.DateTimeRanges)
+                                                        {
+
+                                                            var startdate = DateTime.ParseExact(dateranges.OpenHouseStartDateTimestr, "MM/dd/yyyy h:mm tt", new System.Globalization.CultureInfo("en-US"), System.Globalization.DateTimeStyles.None);
+                                                            var enddate = DateTime.ParseExact(dateranges.OpenHouseEndDateTimestr, "MM/dd/yyyy h:mm tt", new System.Globalization.CultureInfo("en-US"), System.Globalization.DateTimeStyles.None);
+                                                            if (startdate != null && enddate != null)
+                                                            {
+                                                                var day = startdate.DayOfWeek;
+                                                                var startTime = Utility.DateTimeExtension.GetTime(startdate.TimeOfDay);
+                                                                var endtime = Utility.DateTimeExtension.GetTime(enddate.TimeOfDay);
+
+                                                                <span class="day_time">Open @day @startTime - @endtime </span>
+
+                                                            }
+                                                        }
+                                                    }
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.PropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Newest",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane active" id="Featured">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.FeaturedCount</p>
+                        <div class="property_dtls-list">
+
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.FeaturedPropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.FeaturedPropertyListings)
+                                    {
+                                        var iCount = ++i;
+                                        <li>
+
+
+                                            <div class="list_thumb view-first">
+                                                @if (@item.IsFeatured)
+                                                {
+                                                    <div class="featured">Featured</div>
+                                                }
+                                                else if (@item.IsSpotlight)
+                                                {
+                                                    <div class="featured">Spotlighted</div>
+                                                }
+
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(iCount)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(iCount)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(iCount)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(iCount)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(iCount)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(iCount)</div>
+                                                    }
+                                                }
+                                                <div>
+                                                    @{
+                                                var text = string.Empty;
+                                                var url = string.Empty;
+                                                var currPageUrl = Request.Url.OriginalString;
+                                                <input id="pageUrl" type="hidden" value="@currPageUrl" name="name">
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            text = "Read More";
+                                            url = "/Index/NewHomeDetails?mlsNumber=" + @item.MlsNumber + "&communityName=" + @item.CommunityName[0] + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand;
+
+                                        }
+                                        else
+                                        {
+                                            text = string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress;
+                                            url = "/Index/PropertieDetails?mlsNumber=" + @item.MlsNumber + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand + "&RecordIndex=" + (iCount - 1) + "&TotalCount=" + @ViewBag.Count + "&ListPageUrl=" + HttpUtility.UrlEncode(currPageUrl);
+                                        }
+                                                    }
+                                                    <a href="@url">
+                                                        <img style="height: 226px; width: 100%; padding:0; margin:0;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                    </a>
+                                                </div>
+
+                                                <div class="over_box">
+
+                                                    @if (Model.Command == "SearchHome")
+                                                    {
+                                                        string basePrc = "";
+                                                        var lowprice = item.Communityprice_low;
+                                                        var highprice = item.Communityprice_high;
+                                                        if (lowprice == 0.0 && highprice == 0.0)
+                                                        {
+                                                            basePrc = "$0";
+                                                        }
+                                                        else if (lowprice == 0.0 && highprice > 0)
+                                                        {
+                                                            basePrc = "From the $" + highprice.ToString("#,##,##0");
+                                                        }
+                                                        else if (lowprice > 0 && highprice == 0.0)
+                                                        {
+                                                            basePrc = "From the $" + lowprice.ToString("#,##,##0");
+                                                        }
+                                                        else if (lowprice > 0 && highprice > 0)
+                                                        {
+                                                            basePrc = "$" + lowprice.ToString("#,##,##0") + "-" + "$" + highprice.ToString("#,##,##0");
+                                                        }
+                                                        <div class="amounts">$@item.Price.ToString("#,##,##0")+<br />@item.ImageCount Photos</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="amounts">$@item.Price.ToString("#,##,##0") <br />@item.ImageCount Photos</div>
+                                                        <div style="float:right;">
+                                                        <div class="sml_box">@item.NoOfBedRooms<br />Beds</div>
+                                                        <div class="sml_box">@item.NoOfBathRooms<br />Baths</div>
+                                                        <div class="sml_box" style="border-right:0px;">@item.LivingArea<br />Sq. Ft.</div>
+                                                    </div>
+
+                                                    }
+
+                                                    
+                                                </div>
+
+                                            </div>
+
+                                            <div class="list_right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, communityName = @item.CommunityName[0], Command = @Model.Command, SubCommand = @ViewBag.SubCommand, @style = "float:left;" }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        currPageUrl = Request.Url.OriginalString;
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand, RecordIndex = iCount - 1, TotalCount = @ViewBag.Count, ListPageUrl = HttpUtility.UrlEncode(currPageUrl), @style = "float:left;" }, null)
+                                                        @*@Html.ActionLink(item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand, RecordIndex = iCount - 1, TotalCount = @ViewBag.Count, @style = "float:left;" }, null)*@
+                                                    }
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            @*<div class="top_price">$@item.Price.ToString("#,##,##0")+</div>*@
+                                        }
+                                        else
+                                        {
+                                            @*<div class="top_price">$@item.Price.ToString("#,##,##0")</div>*@
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    @if (Model.Command == "SearchHome")
+                                                    {
+
+                                                        var sqrt_low = item.Communitysqft_low;
+                                                        var sqrt_high = item.Communitysqft_high;
+                                                        string sqrt_Count = "";
+                                                        if (sqrt_low == 0 && sqrt_high == 0)
+                                                        {
+                                                            sqrt_Count = "0";
+                                                        }
+                                                        else if (sqrt_low == 0 && sqrt_high > 0)
+                                                        {
+                                                            sqrt_Count = sqrt_high.ToString();
+                                                        }
+                                                        else if (sqrt_low > 0 && sqrt_high == 0)
+                                                        {
+                                                            sqrt_Count = sqrt_low.ToString();
+                                                        }
+                                                        else if (sqrt_low > 0 && sqrt_high > 0)
+                                                        {
+                                                            sqrt_Count = sqrt_low.ToString("#,##,##0") + "-" + sqrt_high.ToString("#,##,##0");
+                                                        }
+
+                                                        <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms_low Bd - @item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />Full @item.NoOfBathRooms_low -@item.NoOfBathRooms ,Half Ba @item.NoOfHalfBathRooms_low -@item.NoOfHalfBathRooms  &nbsp;| @sqrt_Count Sq Ft</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    }
+                                                    @*<span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>*@
+                                                    @if (!String.IsNullOrEmpty(@item.AgentName))
+                                                    {<span>Agent: &nbsp;@item.AgentName</span>
+                                                    }
+                                                    @if (!String.IsNullOrEmpty(@item.BrokerageName))
+                                                    {
+                                                        <span class="broked">Brokered By: &nbsp;@item.BrokerageName</span>
+                                                    }
+
+                                                    @if (!@item.IsFeatured)
+                                                    {
+                                                        if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                        {
+                                                            <div class="cmp_logo"><img style="height: 50px; width: 120px;" src=@item.BrokerageLogoUrl /></div>
+                                                        }
+                                                    }
+                                                    
+                                                    @if (@item.DateTimeRanges != null && @item.DateTimeRanges.Count() > 0)
+                                                    {
+                                                        foreach (var dateranges in item.DateTimeRanges)
+                                                        {
+                                                            var startdate = DateTime.ParseExact(dateranges.OpenHouseStartDateTimestr, "MM/dd/yyyy h:mm tt", new System.Globalization.CultureInfo("en-US"), System.Globalization.DateTimeStyles.None);
+                                                            var enddate = DateTime.ParseExact(dateranges.OpenHouseEndDateTimestr, "MM/dd/yyyy h:mm tt", new System.Globalization.CultureInfo("en-US"), System.Globalization.DateTimeStyles.None);
+                                                            if (startdate != null && enddate != null)
+                                                            {
+                                                                var day = startdate.DayOfWeek;
+                                                                var startTime = Utility.DateTimeExtension.GetTime(startdate.TimeOfDay);
+                                                                var endtime = Utility.DateTimeExtension.GetTime(enddate.TimeOfDay);
+
+                                                                <span class="day_time">Open @day @startTime - @endtime </span>
+
+                                                            }
+                                                        }
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.FeaturedPropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Newest",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="rent">
+                <ul class="mapnav mapnav-tabs responsive-tabs">
+                    <li class="active" id="RNli"><a href="#RNewest" onclick="NewestOnClick();">Newest</a></li>
+                    <li id="RFli"><a href="#RFeatured" onclick="FeaturedOnClick();">Featured</a></li>
+                    @*<li><a href="#Rmore">More</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="short_by-ctgry">
+                        <select id="advSearch_SortByRent" class="short_by-drop " name="advSearch.SortByRent">
+                            <option value="0">Sort By</option>
+                            <option value="Price_Asc">Price: Low to High</option>
+                            <option value="Price_Desc">Price: High to Low</option>
+                            <option value="Bedrooms_Asc">BedRoom: Low to High</option>
+                            <option value="Bedrooms_Desc">BedRoom: High to Low</option>
+                            <option value="Bathrooms_Asc">Bathrooms: Low to High</option>
+                            <option value="Bathrooms_Desc">Bathrooms: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="tab-pane" id="RNewest">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.Count</p>
+                        <div class="map-view_prolist">
+
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.PropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.PropertyListings)
+                                    {
+                                        var iCount = ++i;
+                                        <li>
+                                            <div class="list_thumb view-first">
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(++i)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(++i)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(++i)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(++i)</div>
+                                                    }
+                                                }
+
+                                                <div>
+                                                    @{
+                                                var text = string.Empty;
+                                                var url = string.Empty;
+                                                var currPageUrl = Request.Url.OriginalString;
+                                                <input id="pageUrl" type="hidden" value="@currPageUrl" name="name">
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            text = "Read More";
+                                            url = "/Index/NewHomeDetails?mlsNumber=" + @item.MlsNumber + "&communityName=" + @item.CommunityName[0] + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand;
+
+                                        }
+                                        else
+                                        {
+                                            text = string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress;
+                                            url = "/Index/PropertieDetails?mlsNumber=" + @item.MlsNumber + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand + "&RecordIndex=" + (iCount - 1) + "&TotalCount=" + @ViewBag.Count + "&ListPageUrl=" + HttpUtility.UrlEncode(currPageUrl);
+                                        }
+                                                    }
+                                                    <a href="@url">
+                                                        <img style="height: 226px; width: 100%; padding:0; margin:0;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                    </a>
+                                                </div>
+
+                                                <div class="hover_txt" style="display:block;">
+                                                    <span style="font-weight:bold;">@item.ImageCount photos</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="map-view-right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                    }
+
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")+</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")</div>
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    <span style="color: #555; font-size: 14px; line-height: 20px; padding-top: 10px;">Brokered By:&nbsp;@item.BrokerageName</span>
+
+                                                    @if (!string.IsNullOrEmpty(@item.VirtualTour))
+                                                    {
+                                                        <p style="margin-top:13px; float:left;">
+                                                            <img src="~/Content/image/vdo_img.png" />  <a href="@item.VirtualTour" target="_blank"> Virtual Tour </a>
+                                                        </p>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                    {
+                                                        <div class="cmp_logo"><img style="height: 40px; width: 110px;" src=@item.BrokerageLogoUrl /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.PropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Newest",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="RFeatured">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.FeaturedCount</p>
+                        <div class="map-view_prolist">
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.FeaturedPropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.FeaturedPropertyListings)
+                                    {
+                                        var iCount = ++i;
+                                        <li>
+
+                                            <div class="list_thumb view-first">
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(++i)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(++i)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(++i)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(++i)</div>
+                                                    }
+                                                }
+                                                <div>
+                                                    @{
+                                                var text = string.Empty;
+                                                var url = string.Empty;
+                                                var currPageUrl = Request.Url.OriginalString;
+                                                <input id="pageUrl" type="hidden" value="@currPageUrl" name="name">
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            text = "Read More";
+                                            url = "/Index/NewHomeDetails?mlsNumber=" + @item.MlsNumber + "&communityName=" + @item.CommunityName[0] + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand;
+
+                                        }
+                                        else
+                                        {
+                                            text = string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress;
+                                            url = "/Index/PropertieDetails?mlsNumber=" + @item.MlsNumber + "&Command=" + @Model.Command + "&SubCommand=" + @ViewBag.SubCommand + "&RecordIndex=" + (iCount - 1) + "&TotalCount=" + @ViewBag.Count + "&ListPageUrl=" + HttpUtility.UrlEncode(currPageUrl);
+                                        }
+                                                    }
+                                                    <a href="@url">
+                                                        <img style="height: 226px; width: 100%; padding:0; margin:0;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                    </a>
+                                                </div>
+
+                                                <div class="hover_txt" style="display:none;">
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;">New Construction</span>
+                                        }
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="map-view-right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                    }
+
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")+</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")</div>
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    <span class="broked">Brokered By:&nbsp;@item.BrokerageName</span>
+
+                                                    @if (!string.IsNullOrEmpty(@item.VirtualTour))
+                                                    {
+                                                        <p style="margin-top:13px; float:left;">
+                                                            <img src="~/Content/image/vdo_img.png" />  <a href="@item.VirtualTour" target="_blank"> Virtual Tour </a>
+                                                        </p>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                    {
+                                                        <div class="cmp_logo"><img style="height: 40px; width: 110px;" src=@item.BrokerageLogoUrl /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.FeaturedPropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Featured",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="New_home">
+                <ul class="mapnav mapnav-tabs responsive-tabs">
+                    <li class="active" id="NNli"><a href="#NNewest" onclick="NewestOnClick();">Newest</a></li>
+                    <li id="NFli"><a href="#NFeatured" onclick="FeaturedOnClick();">Featured</a></li>
+                    @*<li><a href="#Nmore">More</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="short_by-ctgry">
+                        <select id="advSearch_SortByNew" class="short_by-drop " name="advSearch.SortByNew">
+                            <option value="0">Sort By</option>
+                            <option value="Price_Asc">Price: Low to High</option>
+                            <option value="Price_Desc">Price: High to Low</option>
+                            <option value="Bedrooms_Asc">BedRoom: Low to High</option>
+                            <option value="Bedrooms_Desc">BedRoom: High to Low</option>
+                            <option value="Bathrooms_Asc">Bathrooms: Low to High</option>
+                            <option value="Bathrooms_Desc">Bathrooms: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="tab-pane" id="NNewest">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.Count</p>
+                        <div class="map-view_prolist">
+
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.PropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.PropertyListings)
+                                    {
+                                        <li>
+
+                                            <div class="list_thumb view-first">
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(++i)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(++i)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(++i)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(++i)</div>
+                                                    }
+                                                }
+                                                <img style="height: 175px; width: 150px;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                <div class="mask-layer">
+                                                    <h2>
+                                                        @if (@Model.Command == "SearchHome")
+                                                        {
+                                                            @Html.ActionLink("Read More", "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink("Read More", "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                        }
+                                                    </h2>
+                                                </div>
+                                                <div class="hover_txt" style="display:block;">
+                                                    <span style="font-weight:bold;">@item.ImageCount photos</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="map-view-right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                    }
+
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")+</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")</div>
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    <span class="broked">Brokered By:&nbsp;@item.BrokerageName</span>
+
+                                                    @if (!string.IsNullOrEmpty(@item.VirtualTour))
+                                                    {
+                                                        <p style="margin-top:13px; float:left;">
+                                                            <img src="~/Content/image/vdo_img.png" />  <a href="@item.VirtualTour" target="_blank"> Virtual Tour </a>
+                                                        </p>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                    {
+                                                        <div class="cmp_logo"><img style="height: 50px; width: 120px;" src=@item.BrokerageLogoUrl /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.PropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Newest",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="NFeatured">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.FeaturedCount</p>
+                        <div class="map-view_prolist">
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.FeaturedPropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.FeaturedPropertyListings)
+                                    {
+                                        <li>
+
+                                            <div class="list_thumb view-first">
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(++i)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(++i)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(++i)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(++i)</div>
+                                                    }
+                                                }
+                                                <img style="height: 153px; width: 150px;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                <div class="mask-layer">
+                                                    <h2>
+                                                        @if (@Model.Command == "SearchHome")
+                                                        {
+                                                            @Html.ActionLink("Read More", "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink("Read More", "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                        }
+                                                    </h2>
+                                                </div>
+                                                <div class="hover_txt" style="display:none;">
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;">New Construction</span>
+                                        }
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="map-view-right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+                                                        @Html.ActionLink(item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                    }
+
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")+</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")</div>
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    <span class="broked">Brokered By:&nbsp;@item.BrokerageName</span>
+
+                                                    @if (!string.IsNullOrEmpty(@item.VirtualTour))
+                                                    {
+                                                        <p style="margin-top:13px; float:left;">
+                                                            <img src="~/Content/image/vdo_img.png" />  <a href="@item.VirtualTour" target="_blank"> Virtual Tour </a>
+                                                        </p>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                    {
+                                                        <div class="cmp_logo"><img style="height: 50px; width: 120px;" src=@item.BrokerageLogoUrl /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.FeaturedPropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Featured",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="open_house">
+                <ul class="mapnav mapnav-tabs responsive-tabs">
+                    <li class="active" id="ONli"><a href="#ONewest" onclick="NewestOnClick();">Newest</a></li>
+                    <li id="OFli"><a href="#OFeatured" onclick="FeaturedOnClick();">Featured</a></li>
+                    @*<li><a href="#Omore">More</a></li>*@
+                </ul>
+                <div class="tab-content">
+                    <div class="short_by-ctgry">
+                        <select id="advSearch_SortByOpenHouse" class="short_by-drop " name="advSearch.SortBy">
+                            <option value="0">Sort By</option>
+                            <option value="Price_Asc">Price: Low to High</option>
+                            <option value="Price_Desc">Price: High to Low</option>
+                            <option value="Bedrooms_Asc">BedRoom: Low to High</option>
+                            <option value="Bedrooms_Desc">BedRoom: High to Low</option>
+                            <option value="Bathrooms_Asc">Bathrooms: Low to High</option>
+                            <option value="Bathrooms_Desc">Bathrooms: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="tab-pane" id="ONewest">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.Count</p>
+                        <div class="map-view_prolist">
+
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.PropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.PropertyListings)
+                                    {
+                                        <li>
+
+
+
+                                            <div class="list_thumb view-first">
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(++i)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(++i)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(++i)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(++i)</div>
+                                                    }
+                                                }
+                                                <img style="height: 153px; width: 150px;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                <div class="mask-layer">
+                                                    <h2>
+                                                        @if (@Model.Command == "SearchHome")
+                                                        {
+                                                            @Html.ActionLink("Read More", "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink("Read More", "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                        }
+                                                    </h2>
+                                                </div>
+                                                <div class="hover_txt" style="display:block;">
+                                                    <span style="font-weight:bold;">@item.ImageCount photos</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="map-view-right-pennal">
+                                                <span class="address">
+                                                    @if (@Model.Command == "SearchHome")
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(string.IsNullOrEmpty(item.FullStreetAddress) ? "NA" : item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                    }
+
+                                                </span>
+
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")+</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")</div>
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    <span class="broked">Brokered By:&nbsp;@item.BrokerageName</span>
+
+                                                    @if (!string.IsNullOrEmpty(@item.VirtualTour))
+                                                    {
+                                                        <p style="margin-top:13px; float:left;">
+                                                            <img src="~/Content/image/vdo_img.png" />  <a href="@item.VirtualTour" target="_blank"> Virtual Tour </a>
+                                                        </p>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                    {
+                                                        <div class="cmp_logo"><img style="height: 50px; width: 120px;" src=@item.BrokerageLogoUrl /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.PropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Newest",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="OFeatured">
+                        <p style="font-weight:bold; font-size:13px;"> <i class="fa fa-list"></i> Total Records Found : @ViewBag.FeaturedCount</p>
+                        <div class="map-view_prolist">
+                            <ul>
+                                @{
+                                    i = Convert.ToInt32(ViewBag.startIndex);
+
+                                    count = @Model.FeaturedPropertyListings.Count();
+                                }
+                                @if (count > 0)
+                                {
+                                    foreach (var item in Model.FeaturedPropertyListings)
+                                    {
+                                        <li>
+
+                                            <div class="list_thumb view-first">
+                                                @if (ViewBag.Command == "SearchPurchase")
+                                                {
+                                                    <div class="pr-icon-purchase">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchRent")
+                                                {
+                                                    <div class="pr-icon-rent">@(++i)</div>
+                                                }
+                                                else if (ViewBag.Command == "SearchHome")
+                                                {
+                                                    <div class="pr-icon-new">@(++i)</div>
+                                                }
+                                                else
+                                                {
+                                                    if (ViewBag.SubCommand == "Purchase")
+                                                    {
+                                                        <div class="pr-icon-purchase">@(++i)</div>
+                                                    }
+                                                    else if (ViewBag.SubCommand == "Rent")
+                                                    {
+                                                        <div class="pr-icon-rent">@(++i)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="pr-icon-new">@(++i)</div>
+                                                    }
+                                                }
+                                                <img style="height: 153px; width: 150px;" src=@(item.DefaultPhoto == null ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto.ToList().Count == 0 ? "/Content/image/listing_thumb.jpg" : item.DefaultPhoto[0]) alt="@item.PropertyType" />
+                                                <div class="mask-layer">
+                                                    <h2>
+                                                        @if (@Model.Command == "SearchHome")
+                                                        {
+                                                            @Html.ActionLink("Read More", "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink("Read More", "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                        }
+                                                    </h2>
+                                                </div>
+                                                <div class="hover_txt" style="display:none;">
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;">New Construction</span>
+                                        }
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="map-view-right-pennal">
+                                                <h3>
+                                                    <span>
+                                                        @if (@Model.Command == "SearchHome")
+                                                        {
+                                                            @Html.ActionLink(item.FullStreetAddress, "NewHomeDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null);
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink(item.FullStreetAddress, "PropertieDetails", "Index", new { mlsNumber = @item.MlsNumber, Command = @Model.Command, SubCommand = @ViewBag.SubCommand }, null)
+                                                        }
+
+                                                    </span>
+                                                </h3>
+                                                @{
+                                        if (@Model.Command == "SearchHome")
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")+</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="top_price">$@item.Price.ToString("#,##,##0")</div>
+
+                                        }
+                                                }
+                                                <div class="pro_dtls2">
+
+                                                    @{
+                                        if (@item.IsNewConstruction == true)
+                                        {
+                                            <span style="font-weight:bold;  line-height:16px;">New Construction</span>
+                                        }
+                                                    }
+                                                    <span>@item.PropertyType &nbsp;&nbsp;@(item.PropertySubType != null ? item.PropertySubType.Text : "")</span>
+                                                    <span>@item.FullAddress</span>
+                                                    <span>@(item.CommunityName.Count() > 0 ? "Neighborhood - Community: " + item.CommunityName[0] : "Neighborhood - Community: NA")</span>
+                                                    <span style="font-size:12px; line-height:20px;"><img src="~/Content/image/bedroom.jpg" alt="bedroom" />@item.NoOfBedRooms Bd | <img src="~/Content/image/bathroom.jpg" alt="bathroom" />@item.FullBathrooms Full,@item.NoOfHalfBathRooms Half Ba &nbsp;| @item.LivingArea Sq Ft</span>
+                                                    <span class="broked">Brokered By:&nbsp;@item.BrokerageName</span>
+
+                                                    @if (!string.IsNullOrEmpty(@item.VirtualTour))
+                                                    {
+                                                        <p style="margin-top:13px; float:left;">
+                                                            <img src="~/Content/image/vdo_img.png" />  <a href="@item.VirtualTour" target="_blank"> Virtual Tour </a>
+                                                        </p>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(@item.BrokerageLogoUrl))
+                                                    {
+                                                        <div class="cmp_logo"><img style="height: 50px; width: 120px;" src=@item.BrokerageLogoUrl /></div>
+                                                    }
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="no-data_found">No Data Found</div>
+                                }
+                            </ul>
+                            <div class="clear"></div>
+                            <div style="text-align:center">
+                                @Html.PagedListPager(Model.FeaturedPropertyListings, page => Url.Action("PropertiesListing", new
+                                           {
+                                               page,
+                                               searchTerm = Request.QueryString["searchTerm"],
+                                               Command = Request.QueryString["Command"],
+                                               MinPrice = Request.QueryString["MinPrice"],
+                                               MaxPrice = Request.QueryString["MaxPrice"],
+                                               NoOfBeds = Request.QueryString["NoOfBeds"],
+                                               NoOfBathRooms = Request.QueryString["NoOfBathRooms"],
+                                               Size = Request.QueryString["Size"],
+                                               LotSize = Request.QueryString["LotSize"],
+                                               HomeAge = Request.QueryString["HomeAge"],
+                                               PropertyType = Request.QueryString["PropertyType"],
+                                               Distance = Request.QueryString["Distance"],
+                                               ByMiles = Request.QueryString["ByMiles"],
+                                               IsMls = Request.QueryString["IsMls"],
+                                               SubTab = "Featured",
+                                               SubCommand = @ViewBag.SubCommand,
+                                               KeyWords = Request.QueryString["KeyWords"],
+                                               Location = Request.QueryString["Location"],
+                                               ViewStyle = "NewPropertyListing"
+                                           }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="clear"></div>
+@*</div>*@
+
+
+<script type="text/javascript">
+    $('.responsive-tabs').responsiveTabs({
+        accordionOn: ['xs', 'sm']
+    });
+</script>
+
+<script src="~/Content/js/bootstrap-slider.js"></script>
+
+@*<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+    <script src="https://googlemaps.github.io/js-marker-clusterer//src/markerclusterer.js"></script>*@
+<script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+
+
+
+
+<script>
+    var map = null;
+    var pinInfoBox;  //the pop up info box
+    var infoboxLayer = new Microsoft.Maps.EntityCollection();
+    var pinLayer = new Microsoft.Maps.EntityCollection();
+
+    // Forcibly set the zoom to our min/max whenever the view starts to change beyond them
+    function restrictZoom() {
+        if (map.getZoom() <= map.getZoomRange().min) {
+            map.setView({
+                'zoom': map.getZoomRange().min
+
+            });
+        }
+        else if (map.getZoom() >= map.getZoomRange().max) {
+            map.setView({
+                'zoom': map.getZoomRange().max
+            });
+        }
+    };
+    function GetMap() {
+        // Initialize the map
+        map = new Microsoft.Maps.Map(document.getElementById("bingMap"), {
+            credentials: "Aj1jij2hUsqUbBkgNY5kkOlHc8uXc5ZlI332uFT9rUZ5eKg8oH4ePSSoa6u1gVAv",
+            mapTypeId: Microsoft.Maps.MapTypeId.road,
+            //height: 450,
+            //width:1280,
+            enableSearchLogo: false,
+        });
+        pinInfobox = new Microsoft.Maps.Infobox(new Microsoft.Maps.Location(0, 0), { visible: false });
+        infoboxLayer.push(pinInfobox);
+
+        map.getZoomRange = function () {
+            return {
+                max: 14,
+                min: 1
+            };
+        };
+
+        // Attach a handler to the event that gets fired whenever the map's view is about to change
+        // Microsoft.Maps.Events.addHandler(map, 'viewchangestart', restrictZoom);
+
+        Microsoft.Maps.Events.addHandler(map, 'mousemove', function (event) {
+            if (event.targetType === 'pushpin') {
+                map.getRootElement().style.cursor = 'pointer';
+            } else {
+                map.getRootElement().style.cursor = 'url("' + Microsoft.Maps.Globals.cursorPath + 'grab.cur"), move';
+            }
+        });
+    }
+    function bingMap(url) {
+        GetMap();
+        Call(url);
+    }
+
+</script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var minPrice = '';
+        var maxPrice = '';
+        var noOfBeds = '';
+        var noOfBath = '';
+        var size = '';
+        var lotSize = '';
+        var homeAge = '';
+        minPrice = $('#txtMinPrice').val();
+        maxPrice = $('#txtMaxPrice').val();
+        noOfBeds = $('#advSearch_NoOfBeds option:selected').val();
+        noOfBath = $('#advSearch_NoOfBathroom option:selected').val();
+        size = $('#advSearch_Size option:selected').val();
+        lotSize = $('#advSearch_LotSize option:selected').val();
+        homeAge = $('#advSearch_HomeAge option:selected').val();
+        mileage = $('#advSearch_NearByDistance option:selected').val();
+        var sortBy = $('#advSearch_SortBy option:selected').val();
+        radioByMiles = $('input[id=advSearch_RadioByMiles]:checked').val();
+        var keyWords = $('#advSearch_KeyWards').val();
+        var location = $('#advSearch_Location').val();
+
+        var searchTerm = "";
+        if (radioByMiles == "true") {
+            searchTerm = $('#advSearch_Location').val();
+            //if (searchTerm == "") {
+            //    alert("Please select the location");
+            //    return false;
+            //}
+
+        } else {
+            $('.nearByArea:checked').each(function () {
+                searchTerm += $(this).attr('data-text') + ",";
+            });
+
+            searchTerm = searchTerm.slice(0, -1);
+        }
+
+
+        var property = '';
+        $('.abcd:checked').each(function () {
+            property += $(this).attr('data-text') + ",";
+        });
+
+        property = property.slice(0, -1);
+
+        var subproperty = '';
+        $('.subprop:checked').each(function () {
+            subproperty += $(this).attr('data-text') + ",";
+        });
+
+        subproperty = encodeURI(subproperty.slice(0, -1));
+        var ViewStyle = GetParameterValues("ViewStyle");
+        var url = '@Url.Action("AdvanceGetGeoLocation", "Index")' + '?searchTerm=' + searchTerm + '&Command=' + '@ViewBag.Command' + '&MinPrice=' + minPrice + '&MaxPrice=' + maxPrice + '&NoOfBeds=' + noOfBeds + '&NoOfBathRooms=' + noOfBath + '&Size=' + size + '&LotSize=' + lotSize + '&HomeAge=' + homeAge + '&PropertyType=' + property + '&SubProperty=' + subproperty + '&Distance=' + mileage + '&IsMls=' + '@ViewBag.IsMls' + '&ByMiles=' + radioByMiles + '&SortBy=' + sortBy + '&SubCommand=' + '@ViewBag.SubCommand' + '&SubTab=' + '@ViewBag.SubTab' + '&page=' + GetParameterValues("page") + '&KeyWords=' + keyWords + '&Location=' + location + '&ViewStyle=' + ViewStyle;
+        bingMap(url);
+
+    });
+    function displayInfobox(e) {
+        pinInfobox.setOptions({
+            width: 170,
+            height: 80, title: e.target.Title, description: e.target.Description, visible: true, offset: new Microsoft.Maps.Point(0, 25)
+        });
+        pinInfobox.setLocation(e.target.getLocation());
+    }
+
+    function hideInfobox(e) {
+        pinInfobox.setOptions({ visible: false });
+    }
+
+    function Call(url) {
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                var locations = [];
+                $.each(data, function (index, value) {
+                    var cnt = (index + 1) + parseInt('@ViewBag.startIndex');
+                    var colorCode = null;
+
+                    if ('@ViewBag.Command' == "SearchPurchase") {
+                        colorCode = "|C53636|ffffff";
+                    }
+                    else if ('@ViewBag.Command' == "SearchRent") {
+                        colorCode = "|79B6E4|ffffff";
+                    }
+                    else if ('@ViewBag.Command' == "SearchHome") {
+                        colorCode = "|EAB134|ffffff";
+                    } else {
+                        if ('@ViewBag.SubCommand' == "Rent") {
+                            colorCode = "|79B6E4|ffffff";
+                        } else if ('@ViewBag.SubCommand' == "NewHome") {
+                            colorCode = "|EAB134|ffffff";
+                        } else {
+                            colorCode = "|C53636|ffffff";
+                        }
+                    }
+                    var location = new Microsoft.Maps.Location(value.Latitude, value.Longitude);
+                    var pushpin = new Microsoft.Maps.Pushpin(location, {
+                        icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=" + cnt + colorCode,
+
+                    });
+                    var cntIndex = parseInt(cnt) - 1;
+                    var currPageUrl = $("#pageUrl").val();
+                    var val1 = '@ViewBag.Command' == "SearchHome" ? "<a style='text-decoration:underline;' href=/Index/NewHomeDetails?mlsNumber=" + value.MlsNumber + "&communityName=" + encodeURIComponent(value.CommunityName) + "&Command=" + '@ViewBag.Command' + "&RecordIndex=" + cntIndex + "&TotalCount=" + '@ViewBag.Count' + ">Go For Details</a></span> " : "<a style='text-decoration:underline;' href=/Index/PropertieDetails?mlsNumber=" + value.MlsNumber + "&Command=" + '@ViewBag.Command' + "&RecordIndex=" + cntIndex + "&TotalCount=" + '@ViewBag.Count' + "&ListPageUrl=" + currPageUrl + ">Go For Details</a></span> "
+
+                    pushpin.Title = name;//usually title of the infobox
+                    pushpin.Description = "<span style='font-weight:bold;'>" + value.FullStreet + "<br/>" + val1; //information you want to display in the infobox
+                    pinLayer.push(pushpin); //add pushpin to pinLayer
+                    Microsoft.Maps.Events.addHandler(pushpin, 'click', displayInfobox);
+
+                    map.entities.push(pinLayer);
+                    map.entities.push(infoboxLayer);
+
+                    locations.push(location);
+
+                    map.setView({ bounds: locations });
+                    map.setView({ bounds: Microsoft.Maps.LocationRect.fromLocations(locations) });
+                });
+            }
+        });
+    };
+</script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+
+
+
+

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F959792-4858-466E-B28F-3B98A846F667}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Repositories</RootNamespace>
+    <AssemblyName>Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elasticsearch.Net.1.7.1\lib\net45\Elasticsearch.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\MongoDB.Bson.2.0.1\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.0.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NEST.1.7.1\lib\net45\Nest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\Admin\NewHome\INewHomes.cs" />
+    <Compile Include="Interfaces\Admin\Office\IOffice.cs" />
+    <Compile Include="Interfaces\Admin\Users\IAgent.cs" />
+    <Compile Include="Interfaces\Admin\ListHub\IProperties.cs" />
+    <Compile Include="Interfaces\Community\ICommunityProvider.cs" />
+    <Compile Include="Interfaces\DataTable\IDataTable.cs" />
+    <Compile Include="Interfaces\Downloader\IDownloader.cs" />
+    <Compile Include="Interfaces\Downloader\IFetcher.cs" />
+    <Compile Include="Interfaces\Downloader\INewHomeDownloader.cs" />
+    <Compile Include="Interfaces\Downloader\IProcesser.cs" />
+    <Compile Include="Interfaces\ElasticSearch\IElasticSearchIndices.cs" />
+    <Compile Include="Interfaces\ElasticSearch\IElasticSearchSettings.cs" />
+    <Compile Include="Interfaces\Map\IFetchLatLong.cs" />
+    <Compile Include="Interfaces\Mail\IMailBase.cs" />
+    <Compile Include="Interfaces\ListHub\IListHub.cs" />
+    <Compile Include="Interfaces\Base\IRepository.cs" />
+    <Compile Include="Interfaces\NewHome\INewHome.cs" />
+    <Compile Include="Interfaces\UserContact\IUserContactDetails.cs" />
+    <Compile Include="Models\Admin\Community\CommunityDataTable.cs" />
+    <Compile Include="Models\Admin\ListHub\AddProperty.cs" />
+    <Compile Include="Models\Admin\NewHome\NewHomesPropertyDataTable.cs" />
+    <Compile Include="Models\Admin\Office\Cities.cs" />
+    <Compile Include="Models\Admin\Office\NewOffice.cs" />
+    <Compile Include="Models\Admin\Office\OfficeDataTable.cs" />
+    <Compile Include="Models\Admin\Office\State.cs" />
+    <Compile Include="Models\Admin\Office\StreetAddress.cs" />
+    <Compile Include="Models\Admin\Office\ZipCode.cs" />
+    <Compile Include="Models\Admin\User\UserDataTable.cs" />
+    <Compile Include="Models\Admin\User\User.cs" />
+    <Compile Include="Models\Admin\ListHub\ListHubPropertyDataTable.cs" />
+    <Compile Include="Models\Classified\ClassifiedFeed.cs" />
+    <Compile Include="Models\Common\AdvanceSearch.cs" />
+    <Compile Include="Models\Common\AutoCompleteDetails.cs" />
+    <Compile Include="Models\Base\BaseEntity.cs" />
+    <Compile Include="Models\Common\Abbreviation.cs" />
+    <Compile Include="Models\Common\SubPropertyTypeCheckBox.cs" />
+    <Compile Include="Models\Community\Communities.cs" />
+    <Compile Include="Models\DataTable\JQueryDataTableParamModel.cs" />
+    <Compile Include="Models\Downloader\SaveLink.cs" />
+    <Compile Include="Models\ListHub\NewHome.cs" />
+    <Compile Include="Models\ListHub\Purchase.cs" />
+    <Compile Include="Models\ListHub\Rental.cs" />
+    <Compile Include="Models\Map\BingLocation.cs" />
+    <Compile Include="Models\Map\Coordinates.cs" />
+    <Compile Include="Models\Map\GoogleLocation.cs" />
+    <Compile Include="Models\Common\NearbyArea.cs" />
+    <Compile Include="Models\Common\PropertyDetails.cs" />
+    <Compile Include="Models\Common\PropertyListing.cs" />
+    <Compile Include="Models\Common\PropertyTypeCheckBox.cs" />
+    <Compile Include="Models\ListHub\ListHubListing.cs" />
+    <Compile Include="Models\Map\NearByLocation.cs" />
+    <Compile Include="Models\NewHome\NewHomeBDXFeed.cs" />
+    <Compile Include="Models\NewHome\_NewHomeListing.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UserContact\UserContactAndFindDetails.cs" />
+    <Compile Include="Models\ViewModel\ManageNewHomePropertyViewModel.cs" />
+    <Compile Include="Models\ViewModel\ManagePropertyViewModel.cs" />
+    <Compile Include="Models\ViewModel\RegistartionViewModel.cs" />
+    <Compile Include="Models\ViewModel\ResetPassword.cs" />
+    <Compile Include="Models\ViewModel\UserViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BsonSerializer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{ac23395b-a41c-4cc0-8d62-13a4efca04d0}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,663 @@
+﻿@model Repositories.Models.Admin.User.User
+
+<section class="content">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manage agent here</h3>
+            <div class="form-group col-lg-1" style="margin-right: 10px;">
+                <input type="button" class="btn btn-success btn-block " value="Edit" onclick="EditUser(this)" data-loading-text="Please wait..." />
+            </div>
+            <div class="form-group pull-right col-lg-1" style="margin-right: 10px;">
+
+                <input type="button" class="btn btn-primary btn-block " value="Back" onclick="window.history.back();" data-loading-text="Please wait..." />
+            </div>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="deletealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent De-Activated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="activealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent Activated Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="mailActivealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Mail Send Successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="deletefailurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredActivealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent updated as featured.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredDeActivealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent is not featured.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredCertifiedalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent Certified successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredDeCertifiedalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent is not certified.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredLogoalert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Agent Logo added successfully.</h4>
+                        <span></span>
+                    </div>
+                    <div id="featuredfailurealert" class="alert alert-danger alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Something went wrong! Please try again later</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <label class="pull-left">Send Activation Mail </label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsEmailSend)
+                    {
+                        <input id="btnmail" data-uniqueid='@Model.ParticipantId' type="button" class="btn btn-block btn-primary pull-right" value="Re-Send" />
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to re-send activation mail." id="btnmail" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail('@Model.ParticipantId',this);">ReSend</a>*@
+                    }
+                    else
+                    {
+                        <input id="btnmail" data-uniqueid='@Model.ParticipantId' type="button" class="btn btn-block btn-primary pull-right" value="Send" />
+                        @*<a data-toggle="tooltip" data-placement="top" title="Click here to send activation mail." id="btnmail" class="btn btn-block btn-primary pull-right" href="javascript:SendActivationMail('@Model.ParticipantId',this);">Send</a>*@
+                    }
+                </div>
+
+            </div><!-- /.col -->
+
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <label class="pull-left">Change Agent Status</label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsActive)
+                    {
+                        <input id="btnactive_" data-uniqueid='@Model.ParticipantId' type="button" class="btn btn-block btn-primary pull-right" value="Active" />
+                    }
+                    else
+                    {
+                        <input id="btnactive_" data-uniqueid='@Model.ParticipantId' type="button" class="btn btn-block btn-primary pull-right" value="De-Active" />
+                    }
+                </div>
+
+            </div><!-- /.col -->
+
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <label class="pull-left">Featured Agent</label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsFeatured)
+                    {
+                        <input id="chkIsFeatured" data-uniqueid="@Model.ParticipantId" type="checkbox" checked="checked" value="Active" />
+                    }
+                    else
+                    {
+                        <input id="chkIsFeatured" data-uniqueid="@Model.ParticipantId" type="checkbox" value="De-Active" />
+                    }
+                </div>
+
+            </div><!-- /.col -->
+            <div class="row top-buffer">
+                <div class="col-md-10">
+                    <label class="pull-left">Certified Agent</label>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.IsCertified)
+                    {
+                        <input id="chkIsCertified" data-uniqueid="@Model.ParticipantId" type="checkbox" checked="checked" value="Active" />
+                    }
+                    else
+                    {
+                        <input id="chkIsCertified" data-uniqueid="@Model.ParticipantId" type="checkbox" value="De-Active" />
+                    }
+                </div>
+
+            </div><!-- /.col -->
+        </div>
+
+
+
+    </div><!-- /.box-body -->
+
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Upload agent Image</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="sucessUploadImagealert" class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Image Uploaded Successfully.</h4>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label class="pull-left">Upload agent image here </label>
+                </div>
+                <div class="col-md-4">
+                    @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                    {
+                        <div class="col-md-4">
+                            <img id="dealer-profile-image" style="height: 30px;" src="@Model.ProfileImage" alt="profile image" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-4">
+                            <img id="dealer-profile-image" style="height: 30px;" src="~/Content/images/No-image-found.jpg" alt="profile image" />
+                        </div>
+                    }
+                    <form id="fileupload" action="/Upload/UploadAgentImageHandler.ashx" method="POST" enctype="multipart/form-data">
+                        <div class="fileupload-buttonbar">
+                            <div class="span7">
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-plus-circle">Add file</i>
+                                    <input type="file" name="files[]">
+                                </span>
+                                <button type="button" id="btnImageUpload" class="btn btn-primary start" data-uniqueid='@Model.Id' data-type='newhome'>
+                                    @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                                    {
+                                        <i class="fa fa-cloud-upload"> Update Image</i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-cloud-upload">Upload Image</i>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                        <table class="table table-striped" id="tblImage"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                    </form>
+
+                </div>
+
+            </div><!-- /.col -->
+
+
+        </div>
+
+
+
+    </div>
+    @if (!Model.IsUpdatedByAgent || ViewBag.UpdateType=="Agent")
+    {
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Upload agent Logo</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="sucessUploadLogoalert" class="alert alert-success alert-dismissible" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Logo Uploaded Successfully.</h4>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="pull-left">Upload agent logo here </label>
+
+                    </div>
+                    <div class="col-md-4">
+                        @if (!string.IsNullOrEmpty(Model.LogoImage))
+                        {
+                            <div class="col-md-4">
+                                <img id="dealer-logo-image" style="height: 30px;" src="@Model.LogoImage" alt="profile image" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-4">
+                                <img id="dealer-logo-image" style="height: 30px;" src="~/Content/images/No-image-found.jpg" alt="logo image" />
+                            </div>
+                        }
+                        <form id="fileuploadLogo" action="/Upload/UploadAgentImageHandler.ashx" method="POST" enctype="multipart/form-data">
+                            <div class="fileupload-buttonbar">
+                                <div class="span7">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="fa fa-plus-circle">Add file</i>
+                                        <input type="file" name="files[]">
+                                    </span>
+                                    <button type="button" id="btnLogoUpload" class="btn btn-primary start" data-uniqueid='@Model.Id' data-type='newhome'>
+                                        @if (!string.IsNullOrEmpty(Model.LogoImage))
+                                        {
+                                            <i class="fa fa-cloud-upload"> Update Logo</i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-cloud-upload">Upload Logo</i>
+                                        }
+                                    </button>
+                                </div>
+                            </div>
+                            <table class="table table-striped" id="tblLogo"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                        </form>
+
+                    </div>
+
+                </div><!-- /.col -->
+
+
+            </div>
+
+
+
+        </div>
+    }
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manage property here</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <label class="pull-left">Manage all purchase listing as featured. </label>
+
+                </div>
+                <div class="col-md-4">
+                    @if (Model.IsAllPurchasePropertyFeatured)
+                    {
+                        <input id="btnallpurchasefeatured" data-fieldbyupdate="ListingParticipants_Participant_ParticipantId" data-uniqueid="@Model.ParticipantId" data-propertytype="purchase" data-propertyvalue="false" type="button" class="btn btn-block btn-primary pull-right" value="Remove">
+
+                    }
+                    else
+                    {
+                        <input id="btnallpurchasefeatured" data-fieldbyupdate="ListingParticipants_Participant_ParticipantId" data-uniqueid="@Model.ParticipantId" data-propertytype="purchase" data-propertyvalue="true" type="button" class="btn btn-block btn-primary pull-right" value="Update">
+
+                    }
+                </div>
+
+
+            </div><!-- /.col -->
+            <div class="clear" />
+            <div class="row">
+
+                <div class="col-md-8">
+                    <label class="pull-left">Manage all rent listing as featured. </label>
+
+                </div>
+                <div class="col-md-4">
+                    @if (Model.IsAllRentPropertyFeatured)
+                    {
+                        <input id="btnallrentfeatured" data-fieldbyupdate="ListingParticipants_Participant_ParticipantId" data-uniqueid="@Model.ParticipantId" data-propertytype="rent" data-propertyvalue="false" type="button" class="btn btn-block btn-primary pull-right" value="Remove">
+
+                    }
+                    else
+                    {
+                        <input id="btnallrentfeatured" data-fieldbyupdate="ListingParticipants_Participant_ParticipantId" data-uniqueid="@Model.ParticipantId" data-propertytype="rent" data-propertyvalue="true" type="button" class="btn btn-block btn-primary pull-right" value="Update">
+
+                    }
+                </div>
+
+
+            </div><!-- /.col -->
+
+        </div>
+
+
+
+    </div>
+    <!-- /.box -->
+</section>
+
+@section css
+{
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link href="~/Content/FileUploaderCss/bootstrap-image-gallery.min.css" rel="stylesheet" />
+    <link href="~/Content/FileUploaderCss/jquery.fileupload-ui.css" rel="stylesheet" />
+
+}
+
+
+
+@section scripts
+{
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js?cdv=1"></script>
+
+    <script src="~/Content/FileuploaderJs/tmpl.min.js"></script>
+    <script src="~/Content/FileuploaderJs/canvas-to-blob.min.js"></script>
+    <script src="~/Content/FileuploaderJs/load-image.min.js"></script>
+    <script src="~/Content/FileuploaderJs/bootstrap-image-gallery.min.js"></script>
+
+
+
+    <script src="~/Content/FileuploaderJs/jquery.iframe-transport.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ip.js"></script>
+    <script src="~/Content/FileuploaderJs/jquery.fileupload-ui.js"></script>
+
+    <script src="~/Content/FileuploaderJs/locale.js"></script>
+    @*<script src="~/Content/FileuploaderJs/main.js"></script>*@
+
+    <script type="text/javascript">
+        (function ($) {
+            $('#btnImageUpload').on('click', function () {
+                $("#sucessUploadImagealert").show();
+                $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+        (function ($) {
+            $('#btnLogoUpload').on('click', function () {
+                $("#featuredLogoalert").show();
+                $('#featuredLogoalert').delay(5000).fadeOut(400);
+            });
+        })(jQuery);
+    </script>
+
+
+
+    <script>
+        $(function () {
+            'use strict';
+
+            // Initialize the jQuery File Upload widget:
+            $('#fileupload').fileupload();
+            var url = "http://" + $(location).attr('host') + "/SDRE/@Model.ParticipantId";
+            $('#fileupload').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { agentId: '@Model.ParticipantId', columnName: "ProfileImage" }
+
+            })
+                .bind('fileuploaddone', function (e, data) {
+                    $("#sucessUploadImagealert").show();
+                    $('#sucessUploadImagealert').delay(5000).fadeOut(400);
+                    // console.log(url);
+                    $('#dealer-profile-image').attr('src', url + "/" + data.files[0].name).load(function () {
+                        this.height;   // Note: $(this).width() will not work for in memory images
+
+                    });
+                });
+        });
+        $(function () {
+            'use strict';
+
+            // Initialize the jQuery File Upload widget:
+            $('#fileuploadLogo').fileupload();
+            var url = "http://" + $(location).attr('host') + "/SDRE/@Model.ParticipantId";
+            $('#fileuploadLogo').fileupload('option', {
+                maxFileSize: 500000000,
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                formData: { agentId: '@Model.ParticipantId', columnName: "LogoImage",UpdateType:'@ViewBag.UpdateType' }
+
+            })
+                .bind('fileuploaddone', function (e, data) {
+                    $("#sucessUploadLogoalert").show();
+                    $('#sucessUploadLogoalert').delay(5000).fadeOut(400);
+                    // console.log(url);
+                    $('#dealer-logo-image').attr('src', url + "/" + data.files[0].name).load(function () {
+                        this.height;   // Note: $(this).width() will not work for in memory images
+
+                    });
+                });
+        });
+    </script>
+
+    <script id="template-upload" type="text/x-tmpl">
+        {% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr class="template-upload fade">
+            <td class="preview"><span class="fade"></span></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+            {% } else if (o.files.valid && !i) { %}
+
+            <td class="start">
+                {% if (!o.options.autoUpload) { %}
+                <button style="display:none" class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+                {% } %}
+            </td>
+            {% } else { %}
+            <td colspan="2"></td>
+            {% } %}
+
+        </tr>
+        {% } %}
+    </script>
+    <script id="template-download" type="text/x-tmpl">
+        Uploaded successfully!
+    </script>
+    @*<script src="~/Scripts/custom/user-listing.js"></script>*@
+    <script type="text/javascript">
+        (function ($) {
+
+            if ('@Model.IsEmailSend') {
+                $("#btnmail").val("ReSend");
+            } else {
+                $("#btnmail").val("Send");
+            }
+        })(jQuery);
+
+        (function ($) {
+            $('#btnactive_').on('click', function () {
+                var uniquid = $('#btnactive_').data("uniqueid");
+                var text = $('#btnactive_').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/agent/agent-deactivation/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#deletealert").show();
+                                $('#deletealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#activealert").show();
+                                $('#activealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#btnactive_').attr("value", "Active");
+                        } else {
+                            $('#btnactive_').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#btnmail').on('click', function () {
+
+                var uniquid = $('#btnmail').data("uniqueid");
+                $.ajax({
+                    url: "/agent/agent-activation/" + uniquid,
+                    type: "POST",
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            $('#btnmail').attr("value", "Re-Send");
+                            $("#mailActivealert").show();
+                            $('#mailActivealert').delay(5000).fadeOut(400);
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#chkIsFeatured').change(function () {
+                debugger;
+                var uniquid = $('#chkIsFeatured').data("uniqueid");
+                var text = $('#chkIsFeatured').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/agent/agent-featured/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#featuredActivealert").show();
+                                $('#featuredActivealert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#featuredDeActivealert").show();
+                                $('#featuredDeActivealert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#chkIsFeatured').attr("checked", "checked");
+                            $('#chkIsFeatured').attr("value", "Active");
+                        } else {
+                            $('#chkIsFeatured').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        (function ($) {
+            $('#chkIsCertified').change(function () {
+                debugger;
+                var uniquid = $('#chkIsCertified').data("uniqueid");
+                var text = $('#chkIsCertified').attr("value");
+                var IsActivated = true;
+                if (text == "Active") {
+                    IsActivated = false;
+                }
+                $.ajax({
+                    url: "/agent/agent-certified/" + uniquid,
+                    type: "POST",
+                    data: { isActivated: IsActivated },
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (IsActivated) {
+                                $("#featuredCertifiedalert").show();
+                                $('#featuredCertifiedalert').delay(5000).fadeOut(400);
+                            } else {
+                                $("#featuredDeCertifiedalert").show();
+                                $('#featuredDeCertifiedalert').delay(5000).fadeOut(400);
+                            }
+                        } else {
+                            $("#deletefailurealert").show();
+                            $('#deletefailurealert').delay(5000).fadeOut(400);
+                        }
+                        if (IsActivated) {
+                            $('#chkIsCertified').attr("checked", "checked");
+                            $('#chkIsCertified').attr("value", "Active");
+                        } else {
+                            $('#chkIsFeatured').attr("value", "De-Active");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#deletefailurealert").show();
+                        $('#deletefailurealert').delay(5000).fadeOut(400);
+                    }
+                });
+            });
+        })(jQuery);
+
+        function EditUser() {
+            window.location.href = "/agent/new-agent?agentId=" + $('#btnactive_').data("uniqueid");
+        }
+
+        (function ($) {
+            $('#btnallpurchasefeatured').click(function () {
+                debugger;
+                var uniquid = $('#btnallpurchasefeatured').data("uniqueid");
+                var fieldbyupdate = $('#btnallpurchasefeatured').data("fieldbyupdate");
+                var type = $('#btnallpurchasefeatured').data("propertytype");
+                var value = $('#btnallpurchasefeatured').data("propertyvalue");
+
+                $.ajax({
+                    url: "/agent/make-featured/?fieldbyupdate=" + fieldbyupdate + "&uniquid=" + uniquid + "&type=" + type + "&value=" + value,
+                    type: "POST",
+
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            if (data == true) {
+                                alert("You have updated all purchase property as featured");
+                            }
+                        } else {
+                            alert("Something went wrong. Please try again later.");
+
+                        }
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Something went wrong. Please try again later.");
+
+                    }
+                });
+            });
+        })(jQuery);
+    </script>
+}

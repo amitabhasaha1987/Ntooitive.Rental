@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "PropertieDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/demo1.css" rel="stylesheet" />
+<link href="~/css/flexslider.css" rel="stylesheet" />
+<link href="~/css/main.css" rel="stylesheet" />
+
+<script src="~/js/jquery.flexslider-min.js"></script>
+<script src="~/js/jquery.flexslider.js"></script>
+<div class="page_container">
+    <div class="details_thumb_gallery">
+
+        <div id="container" class="cf">
+
+
+            <div id="main" role="main">
+                <section class="slider">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li data-thumb="~/image/dtls_thumb.jpg">
+                                <img src="~/image/dtls_thumb.jpg" />
+                            </li>
+                            <li data-thumb="~/image/dtls_thumb1.jpg">
+                                <img src="~/image/dtls_thumb1.jpg" />
+                            </li>
+                            <li data-thumb="~/image/dtls_thumb2.jpg">
+                                <img src="~/image/dtls_thumb2.jpg" />
+                            </li>
+                            <li data-thumb="~/image/dtls_thumb1.jpg">
+                                <img src="~/image/dtls_thumb1.jpg" />
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="agent_name_dtls">
+        <h1>Rust Cohle</h1>
+
+        <div class="agent_contact">
+            <ul>
+                <li><img src="~/image/icon_phone.jpg" /> <strong>Phone</strong>     <span>  (123) 456-7890</span></li>
+                <li><img src="~/image/icon_phone.jpg" /> <strong>Mobile</strong>     <span>(123) 456-7890</span></li>
+                <li><img src="~/image/icon_mail_b.jpg" /><strong> Email</strong>      <span>   n3sty.marius@gmail.com</span></li>
+                <li><img src="~/image/icon_skype.jpg" /> <strong>Skype </strong>      <span> n3sty.marius</span></li>
+            </ul>
+        </div>
+        <div class="agent_contact_right">
+            <div class="agent_image"><img src="~/image/agent_img.jpg" />   </div>
+            <ul>
+                <li> <a href="#"><img src="~/image/fb.jpg" /></a></li>
+                <li> <a href="#"><img src="~/image/tweeter.jpg" /></a></li>
+                <li> <a href="#"><img src="~/image/g+.jpg" /></a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <h2>
+            Specialities<br />
+            Apartment rentals
+        </h2>
+
+        <h2>About</h2>
+        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English.</p>
+
+        <div class="agent_contact_form ">
+            <ul>
+                <li>Name <span style="color:#FF0000;">*</span> <input name="" type="text" /></li>
+                <li>Email<span style="color:#FF0000;">*</span> <input name="" type="text" /></li>
+                <li>Phone<span style="color:#FF0000;">*</span> <input name="" type="text" /></li>
+                <li>Subject<span style="color:#FF0000;">*</span> <input name="" type="text" id="agent_contact_subject" /></li>
+                <li>Message<span style="color:#FF0000;">*</span> <input name="" type="text" id="agent_contact_subject" /></li>
+                <li> <input name="" type="button" class="bttn" value="Send Message" /></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    <div class="clear"></div>
+
+    <div class="dtls_list_agent">
+        <ul class="rtabs">
+            <li><a href="#view1">Featured</a></li>
+            <li><a href="#view2">Newest</a></li>
+            <li><a href="#view3">Location</a></li>
+            <li><a href="#view3">More</a></li>
+        </ul>
+        <div class="panel-container_agent">
+            <div id="view1" class="agent_pro_contant">
+                <h3>Modern Residence</h3>
+                <p>
+                    547 35th Ave, Richmond District, San Francisco,<br />
+                    CA, 94121, United States
+                </p>
+
+                <h4>$1,495,000 <a href="#">FOR SALE</a> </h4>
+                <h4>Description</h4>
+
+                <p>
+                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English.
+
+                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                </p>
+            </div>
+
+
+            <div id="view2" class="listing_nav">
+
+                rgwergrgrwg
+
+            </div>
+            <div id="view3" class="listing_nav">
+                ergrwegrwg
+            </div>
+        </div>
+    </div>
+</div>

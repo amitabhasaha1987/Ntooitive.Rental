@@ -1,0 +1,132 @@
+﻿@{
+    Layout = null;
+
+}
+
+
+@model List<Repositories.Models.Admin.User.User>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link href='/Content/Widget/style.css' rel='stylesheet' />
+<script src='/Content/Widget/jquery.carouFredSel-6.2.1-packed.js'></script>
+<script type="text/javascript">
+    var url_Start = '@String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority)';
+    function loadScript(url, callback) {
+
+        var script = document.createElement("script")
+        script.type = "text/javascript";
+
+        if (script.readyState) {  //IE
+            script.onreadystatechange = function () {
+                if (script.readyState == "loaded" ||
+                        script.readyState == "complete") {
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+        } else {  //Others
+            script.onload = function () {
+                callback();
+            };
+        }
+
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
+    }
+
+    function loadCaraserolagent() {
+        debugger;
+        $('#ntooitive-slider-agent').carouFredSel({
+            auto: false,
+            height: 'auto',
+            prev: '#ntooitive-prev-agent',
+            next: '#ntooitive-next-agent',
+            mousewheel: true,
+            responsive: true
+        });
+    }
+    $(function () {
+        //css
+        //$('head').append("<link href='" + url_Start + "/Content/Widget/style.css' rel='stylesheet' />");
+        debugger;
+        //var caraserolscript = url_Start + '/Content/Widget/jquery.carouFredSel-6.2.1-packed.js';
+        //loadScript(caraserolscript, loadCaraserolagent);
+        loadCaraserolagent();
+
+        //images
+        $('#ntooitive-prev-agent').attr('src', url_Start + '/Content/Widget/images/prev.png');
+        $('#ntooitive-next-agent').attr('src', url_Start + '/Content/Widget/images/next.png');
+    });
+</script>
+
+
+<div class="ntooitive-main_area">
+    <h2>CERTIFIED AGENTS</h2>
+    <div class="ntooitive-main_content" id="ntooitive-slider-agent">
+        @{
+            double agentCount = Model.Count;
+            int agentperpage = 2;
+            var totalPage = Math.Ceiling(agentCount / agentperpage);
+            Console.WriteLine(totalPage);
+            var noimage_url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Content/image/No-image-found.jpg";
+        }
+        @if (agentCount > 0)
+        {
+            for (int i = 0; i < totalPage; i++)
+            {
+                <div class="ntooitive-slide">
+                    <ul>
+                        @for (int k = 0; k < agentperpage; k++)
+                        {
+                            var currentUser = i * agentperpage + k;
+                            Console.WriteLine(currentUser);
+                            if (currentUser < agentCount)
+                            {
+                                <li>
+                                    <div class="ntooitive-property_img">
+                                        <img src="@(Model.ElementAt(currentUser).ProfileImage != null ? Model.ElementAt(currentUser).ProfileImage : noimage_url )" alt=""
+                                             onerror="this.onerror=null;this.src='@noimage_url';" />
+                                    </div>
+                                    @{
+                                var agent = Model.ElementAt(currentUser);
+                                string agentName;
+                                if (!string.IsNullOrEmpty(agent.LastName))
+                                {
+                                    agentName = agent.FirstName + " " + agent.LastName;
+                                }
+                                else
+                                {
+                                    agentName = agent.FirstName;
+                                }
+
+                                var url = String.Format("{0}://{1}", Request.Url.Scheme, Request.Url.Authority) + "/Index/PropertiesListing?searchTerm=" + agentName + "&Command=SearchByAgent&IsMls=false&SubTab=Newest";
+
+                                    }
+
+                                    <div class="ntooitive-property_details">
+                                        <h3>@agent.FirstName &nbsp; @agent.LastName</h3>
+                                        <p>@agent.OfficePhone</p>
+                                        <p>@agent.Email</p>
+                                        <a href="@url" class="ntooitive-view_button" target="_blank">View Details</a>
+                                    </div>
+                                    <div class="clear"></div>
+
+
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="not_found"> No data found</div>
+        }
+    </div>
+
+    <a href="#" id="ntooitive-prev"><img id="ntooitive-prev-agent" alt="" /></a>
+    <a href="#" id="ntooitive-next"><img id="ntooitive-next-agent" alt="" /></a>
+</div>
+
